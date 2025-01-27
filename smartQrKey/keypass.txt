@@ -1,0 +1,2 @@
+key alias: smartqr
+pass:Mydia@123

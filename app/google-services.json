@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "846450672755",
+    "project_id": "foodcus-order-management",
+    "storage_bucket": "foodcus-order-management.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:846450672755:android:10091ea3f9f723ca319606",
+        "android_client_info": {
+          "package_name": "com.foodcus.order.management"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCV4AVmWtNhXWyKkqSIC7wwCdNYmreKY-0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

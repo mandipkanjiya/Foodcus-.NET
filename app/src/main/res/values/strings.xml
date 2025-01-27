@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Foodcus Order Management</string>
+    <string name="channelid">foodcusordemanagement1</string>
+    <string name="error_internet_connection">error_internet_connection</string>
+    <string name="don_t_have_an_account_sign_up">Need help?</string>
+    <string name="contact_us">Contact us</string>
+    <string name="add_display"><u>Add Display</u></string>
+    <string name="uploadmedia"><u>Upload Media</u></string>
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancel</string>
+
+    <string name="login_desc">Use the details provided to you by your Account administrator</string>
+    <string name="login_uname">Email</string>
+    <string name="login_edit_u_name">Enter your Email</string>
+    <string name="login_pass">Password</string>
+    <string name="login_edit_pass">Enter your password</string>
+
+    <string name="facebook_app_id">1176614589814285</string>
+
+    <string name="default_notification_channel_id" translatable="false">com.foodcus.order.management</string>
+
+
+    <string name="facebook_client_token">38eadb8de4948c0c3d1e787ce1ae4a43</string>
+    <string name="str_deleteaccount_desc">Dear user,\n\nDeleting your account will:\n\n\t\t\t1) Delete your identity info and \n\t\t\tprofile\n\t\t\t2) Delete your display information\n\t\t\t3) Delete your uploads.\n\nNote : You will not be able to recover your account.\n\nSincerely</string>
+</resources>

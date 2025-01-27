@@ -1,0 +1,611 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="vm"
+            type="com.mydia.restaurantsmartqr.viewModel.VMLiveOrder" />
+    </data>
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/backgroundColor"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_5sdp">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imgMenu"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:padding="@dimen/_3sdp"
+                        app:tint="@color/tintcolor"
+                        android:visibility="gone"
+                        android:src="@drawable/ic_menu" />
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:fontFamily="@font/poppins_bold"
+                        android:layout_marginStart="@dimen/_20sdp"
+                        android:text="Live Orders"
+                        android:textColor="@color/textColor"
+                        android:textSize="@dimen/_10sdp" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:visibility="visible"
+                        android:layout_alignParentEnd="true"
+                        android:layout_height="wrap_content">
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/ivLogo"
+                            android:layout_width="@dimen/_50sdp"
+                            android:layout_height="match_parent"
+                            android:padding="@dimen/_5sdp"
+                            android:visibility="gone"
+                            android:src="@drawable/ic_mydia" />
+                    <LinearLayout
+                        android:id="@+id/linSentMessage"
+                        android:layout_width="wrap_content"
+                        android:orientation="horizontal"
+                        android:visibility="visible"
+                        android:layout_height="wrap_content">
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/ivOrderHistory"
+                            android:layout_width="@dimen/_30sdp"
+                            android:layout_height="match_parent"
+                            android:padding="@dimen/_6sdp"
+                            android:visibility="visible"
+                            android:src="@drawable/ic_order_hi" />
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/ivAlerts"
+                            android:layout_width="@dimen/_30sdp"
+                            android:layout_height="match_parent"
+                            android:padding="@dimen/_6sdp"
+                            android:visibility="visible"
+                            android:src="@drawable/ic_noti" />
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/ivOrderLink"
+                            android:layout_width="@dimen/_30sdp"
+                            android:layout_height="match_parent"
+                            android:padding="@dimen/_6sdp"
+                            android:visibility="visible"
+                            android:src="@drawable/ic_shopping" />
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/ivReview"
+                            android:layout_width="@dimen/_30sdp"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:padding="@dimen/_6sdp"
+                            android:visibility="visible"
+                            android:src="@drawable/ic_review" />
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/ivSentPoint"
+                            android:layout_width="@dimen/_30sdp"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:padding="@dimen/_5sdp"
+                            android:visibility="gone"
+                            android:src="@drawable/ic_addpoint_link" />
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/ivRedeemPoint"
+                            android:layout_width="@dimen/_30sdp"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:padding="@dimen/_6sdp"
+                            android:visibility="gone"
+                            android:src="@drawable/ic_redeempoint_link" />
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/ivLogout"
+                            android:layout_width="@dimen/_30sdp"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:padding="@dimen/_5sdp"
+                            android:visibility="visible"
+                            android:src="@drawable/ic_logout" />
+                    </LinearLayout>
+                    </LinearLayout>
+
+
+                </RelativeLayout>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:layout_marginBottom="@dimen/_10sdp">
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:orientation="vertical"
+                        android:background="@drawable/rounded_liveorder">
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_10sdp"
+                            android:orientation="horizontal"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:layout_marginTop="@dimen/_5sdp">
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvIncoming"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppins_bold"
+                                android:textSize="@dimen/_7sdp"
+                                android:text="Incoming Orders"
+                                android:textColor="@color/textColor"
+                                />
+
+                            <RelativeLayout
+                                android:layout_width="@dimen/_10sdp"
+                                android:layout_height="@dimen/_10sdp"
+                                android:layout_centerVertical="true"
+                                android:gravity="center"
+                                android:layout_marginStart="@dimen/_5sdp"
+                                android:layout_toEndOf="@id/tvIncoming"
+                                android:background="@drawable/rounded_small">
+
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/tvCount"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:fontFamily="@font/poppins_bold"
+                                    android:gravity="center"
+                                    android:text="@{vm.totalIncomingOrder}"
+                                    android:textColor="@color/textColor"
+                                    android:textSize="@dimen/_5sdp" />
+                            </RelativeLayout>
+
+                        </RelativeLayout>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvIncomingOrder"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+
+                            tools:listitem="@layout/item_incoming_order"
+                            android:visibility="@{vm.isNoDataIncoming() == true ?View.GONE :View.VISIBLE}"
+                            />
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:fontFamily="@font/poppins_bold"
+                            android:gravity="center"
+                            android:text="No Orders Found"
+                            android:textColor="@color/textColor"
+                            android:visibility="@{vm.isNoDataIncoming() == true ?View.VISIBLE :View.GONE}"
+                            android:textSize="@dimen/_5sdp" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:orientation="vertical">
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:layout_marginBottom="@dimen/_5sdp"
+                            android:orientation="vertical"
+                            android:background="@drawable/rounded_liveorder">
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_10sdp"
+                                android:orientation="horizontal"
+                                android:layout_marginStart="@dimen/_10sdp"
+                                android:layout_marginTop="@dimen/_5sdp">
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/tvAccept"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/poppins_bold"
+                                    android:textSize="@dimen/_7sdp"
+                                    android:text="Accepted Orders"
+                                    android:textColor="@color/textColor"
+                                    />
+
+                                <RelativeLayout
+                                    android:layout_width="@dimen/_10sdp"
+                                    android:layout_height="@dimen/_10sdp"
+                                    android:layout_centerVertical="true"
+                                    android:gravity="center"
+                                    android:layout_marginStart="@dimen/_5sdp"
+                                    android:layout_toEndOf="@id/tvAccept"
+                                    android:background="@drawable/rounded_small">
+
+                                    <androidx.appcompat.widget.AppCompatTextView
+                                        android:id="@+id/tvAcceptCount"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerInParent="true"
+                                        android:fontFamily="@font/poppins_bold"
+                                        android:gravity="center"
+                                        android:text="@{vm.totalAcceptedOrder}"
+                                        android:textColor="@color/textColor"
+                                        android:textSize="@dimen/_5sdp" />
+                                </RelativeLayout>
+
+                            </RelativeLayout>
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/rvAcceptedOrder"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                                tools:listitem="@layout/item_accepted_order"
+                                android:visibility="@{vm.isNoDataAccept() == true ?View.GONE :View.VISIBLE}"
+                                />
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:fontFamily="@font/poppins_bold"
+                                android:gravity="center"
+                                android:text="No Orders Found"
+                                android:textColor="@color/textColor"
+                                android:visibility="@{vm.isNoDataAccept() == true ?View.VISIBLE :View.GONE}"
+                                android:textSize="@dimen/_5sdp" />
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+                        <androidx.appcompat.widget.LinearLayoutCompat
+                          android:id="@+id/llReady"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:orientation="vertical"
+                            android:visibility="gone"
+                            android:background="@drawable/rounded_liveorder">
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_10sdp"
+                                android:orientation="horizontal"
+                                android:layout_marginStart="@dimen/_10sdp"
+                                android:layout_marginTop="@dimen/_5sdp">
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:id="@+id/tvReady"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/poppins_bold"
+                                    android:textSize="@dimen/_7sdp"
+                                    android:text="Ready"
+                                    android:textColor="@color/textColor"
+                                    />
+
+                                <RelativeLayout
+                                    android:layout_width="@dimen/_10sdp"
+                                    android:layout_height="@dimen/_10sdp"
+                                    android:layout_centerVertical="true"
+                                    android:gravity="center"
+                                    android:layout_marginStart="@dimen/_5sdp"
+                                    android:layout_toEndOf="@id/tvReady"
+                                    android:background="@drawable/rounded_small">
+
+                                    <androidx.appcompat.widget.AppCompatTextView
+                                        android:id="@+id/tvReadyCount"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerInParent="true"
+                                        android:fontFamily="@font/poppins_bold"
+                                        android:gravity="center"
+                                        android:text="@{vm.totalReadyOrder}"
+                                        android:textColor="@color/textColor"
+                                        android:textSize="@dimen/_5sdp" />
+                                </RelativeLayout>
+
+                            </RelativeLayout>
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/rvReadyOrder"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                                tools:listitem="@layout/item_ready_order"
+                                android:visibility="@{vm.isNoDataReady() == true ?View.GONE :View.VISIBLE}"
+                                />
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:fontFamily="@font/poppins_bold"
+                                android:gravity="center"
+                                android:text="No Orders Found"
+                                android:textColor="@color/textColor"
+                                android:visibility="@{vm.isNoDataReady() == true ?View.VISIBLE :View.GONE}"
+                                android:textSize="@dimen/_5sdp" />
+                        </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="@dimen/_240sdp"
+            android:layout_height="match_parent"
+            android:layout_gravity="left|start"
+            android:fitsSystemWindows="true"
+            tools:ignore="RtlHardcoded">
+
+            <include
+                android:id="@+id/d_layout"
+                app:user="@{vm}"
+                layout="@layout/drawerlayout" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+  <!--  <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/backgroundColor"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginBottom="@dimen/_5sdp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imgBack"
+                android:layout_width="@dimen/_15sdp"
+                android:layout_height="@dimen/_15sdp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/_15sdp"
+                app:tint="@color/textColor"
+                android:src="@drawable/ic_back_arrow" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:fontFamily="@font/poppins_medium"
+                android:text="Live Orders"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/_10sdp" />
+
+
+        </RelativeLayout>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:layout_marginBottom="@dimen/_10sdp">
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:orientation="vertical"
+                android:background="@drawable/rounded_liveorder">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_10sdp"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_5sdp">
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvIncoming"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_bold"
+                        android:textSize="@dimen/_7sdp"
+                        android:text="Incoming"
+                        android:textColor="@color/textColor"
+                        />
+
+                    <RelativeLayout
+                        android:layout_width="@dimen/_10sdp"
+                        android:layout_height="@dimen/_10sdp"
+                        android:layout_centerVertical="true"
+                        android:gravity="center"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_toEndOf="@id/tvIncoming"
+                        android:background="@drawable/rounded_small">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:fontFamily="@font/poppins_bold"
+                            android:gravity="center"
+                            android:text="@{vm.totalIncomingOrder}"
+                            android:textColor="@color/textColor"
+                            android:textSize="@dimen/_5sdp" />
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvIncomingOrder"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_incoming_order"
+                    android:visibility="@{vm.isNoData() == true ?View.GONE :View.VISIBLE}"
+                    />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/poppins_bold"
+                    android:gravity="center"
+                     android:text="No Order found"
+                    android:textColor="@color/textColor"
+                    android:visibility="@{vm.isNoData() == true ?View.VISIBLE :View.GONE}"
+                    android:textSize="@dimen/_5sdp" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:orientation="vertical">
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:orientation="vertical"
+                    android:background="@drawable/rounded_liveorder">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_10sdp"
+                        android:orientation="horizontal"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_5sdp">
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvAccept"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_bold"
+                            android:textSize="@dimen/_7sdp"
+                            android:text="Accepted"
+                            android:textColor="@color/textColor"
+                            />
+
+                        <RelativeLayout
+                            android:layout_width="@dimen/_10sdp"
+                            android:layout_height="@dimen/_10sdp"
+                            android:layout_centerVertical="true"
+                            android:gravity="center"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:layout_toEndOf="@id/tvAccept"
+                            android:background="@drawable/rounded_small">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvAcceptCount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:fontFamily="@font/poppins_bold"
+                                android:gravity="center"
+                                android:text="@{vm.totalAcceptedOrder}"
+                                android:textColor="@color/textColor"
+                                android:textSize="@dimen/_5sdp" />
+                        </RelativeLayout>
+
+                    </RelativeLayout>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvAcceptedOrder"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:listitem="@layout/item_accepted_order"
+                        android:visibility="@{vm.isNoData() == true ?View.GONE :View.VISIBLE}"
+                        />
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/poppins_bold"
+                        android:gravity="center"
+                        android:text="No Order found"
+                        android:textColor="@color/textColor"
+                        android:visibility="@{vm.isNoData() == true ?View.VISIBLE :View.GONE}"
+                        android:textSize="@dimen/_5sdp" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:orientation="vertical"
+                    android:background="@drawable/rounded_liveorder">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_10sdp"
+                        android:orientation="horizontal"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_5sdp">
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvReady"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_bold"
+                            android:textSize="@dimen/_7sdp"
+                            android:text="Ready"
+                            android:textColor="@color/textColor"
+                            />
+
+                        <RelativeLayout
+                            android:layout_width="@dimen/_10sdp"
+                            android:layout_height="@dimen/_10sdp"
+                            android:layout_centerVertical="true"
+                            android:gravity="center"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:layout_toEndOf="@id/tvReady"
+                            android:background="@drawable/rounded_small">
+
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:id="@+id/tvReadyCount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:fontFamily="@font/poppins_bold"
+                                android:gravity="center"
+                                android:text="@{vm.totalReadyOrder}"
+                                android:textColor="@color/textColor"
+                                android:textSize="@dimen/_5sdp" />
+                        </RelativeLayout>
+
+                    </RelativeLayout>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvReadyOrder"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:listitem="@layout/item_ready_order"
+                        android:visibility="@{vm.isNoData() == true ?View.GONE :View.VISIBLE}"
+                        />
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/poppins_bold"
+                        android:gravity="center"
+                        android:text="No Order found"
+                        android:textColor="@color/textColor"
+                        android:visibility="@{vm.isNoData() == true ?View.VISIBLE :View.GONE}"
+                        android:textSize="@dimen/_5sdp" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>-->
+</layout>

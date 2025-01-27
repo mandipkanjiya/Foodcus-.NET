@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="vm"
+            type="com.mydia.restaurantsmartqr.viewModel.VMTableList" />
+    </data>
+
+    <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/backgroundColor"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/relAction"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    >
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imgMenu"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:padding="@dimen/_3sdp"
+                        app:tint="@color/tintcolor"
+                        android:visibility="gone"
+                        android:src="@drawable/ic_menu" />
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:fontFamily="@font/poppins_bold"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:text="Table Selection"
+                        android:textColor="@color/textColor"
+                        android:textSize="@dimen/_10sdp" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:visibility="visible"
+                        android:layout_alignParentEnd="true"
+                        android:layout_height="wrap_content">
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/ivLogo"
+                            android:layout_width="@dimen/_50sdp"
+                            android:layout_height="match_parent"
+                            android:padding="@dimen/_5sdp"
+                            android:visibility="gone"
+                            android:src="@drawable/ic_mydia" />
+
+                    </LinearLayout>
+
+
+                </RelativeLayout>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/relAction"
+                    android:orientation="vertical"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:layout_marginBottom="@dimen/_10sdp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_5sdp"
+                        android:orientation="vertical"
+                        android:padding="@dimen/_5sdp"
+                        android:background="@drawable/rounded_liveorder"
+                        android:backgroundTint="@color/white">
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvSectionList"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            android:orientation="horizontal"
+                            android:visibility="@{vm.isNoDataSection() == true ?View.GONE :View.VISIBLE}"
+                            tools:listitem="@layout/item_section_list"
+                            />
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_bold"
+                            android:gravity="center"
+                            android:text="No Section Found"
+                            android:visibility="@{vm.isNoDataSection() == true ?View.VISIBLE :View.GONE}"
+                            android:textColor="@color/textColor"
+                            android:layout_centerInParent="true"
+                            android:textSize="@dimen/_10sdp" />
+                    </RelativeLayout>
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="@dimen/_5sdp"
+                        android:layout_marginHorizontal="@dimen/_5sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:background="@drawable/rounded_liveorder"
+                        android:backgroundTint="@color/white"
+                        android:orientation="vertical">
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginBottom="@dimen/_5sdp">
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/rvTableList"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                app:spanCount="5"
+                                tools:itemCount="50"
+                                android:visibility="@{vm.isNoDataTable() == true ?View.GONE :View.VISIBLE}"
+                                tools:listitem="@layout/item_table_list"
+                                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                                />
+                            <androidx.appcompat.widget.AppCompatTextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/poppins_bold"
+                                android:gravity="center"
+                                android:layout_centerInParent="true"
+                                android:text="No Table Found"
+                                android:visibility="@{vm.isNoDataTable() == true ?View.VISIBLE :View.GONE}"
+                                android:textColor="@color/textColor"
+                                android:textSize="@dimen/_10sdp" />
+                        </RelativeLayout>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:indeterminateTint="@color/main_blue"
+            android:indeterminateTintMode="src_atop"
+            android:progressTint="@color/main_blue"
+            android:visibility="@{vm.isLoading() == true ? View.VISIBLE : View.GONE}"
+            />
+    </RelativeLayout>
+</layout>

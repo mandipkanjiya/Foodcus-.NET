@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="vm"
+            type="com.mydia.restaurantsmartqr.viewModel.VMScanQrDetail" />
+    </data>
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginBottom="@dimen/_5sdp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imgBack"
+                android:layout_width="@dimen/_15sdp"
+                android:layout_height="@dimen/_15sdp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/_15sdp"
+                app:tint="@color/textColor"
+                android:backgroundTint="@color/white"
+                android:src="@drawable/ic_back_arrow" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvOrder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/imgBack"
+                android:fontFamily="@font/poppins_bold"
+                android:text="Rewards"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_centerVertical="true"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/_7sdp" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvSection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/imgBack"
+                android:fontFamily="@font/poppins_regular"
+                android:visibility="gone"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_below="@id/tvOrder"
+                tools:text="dvcdfvgfdvbgb"
+                android:textColor="@color/gray"
+                android:textSize="@dimen/_6sdp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/llRedeemcoin"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_50sdp"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginHorizontal="@dimen/_50sdp"
+                android:background="@drawable/bg_dinein_order">
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvRedeem"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_bold"
+                    android:text="Points to redeem"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_10sdp" />
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_3sdp"
+                    android:layout_gravity="center"
+
+                    android:gravity="center">
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivCoin"
+                        android:layout_width="@dimen/_10sdp"
+                        android:layout_height="@dimen/_10sdp"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_coin"/>
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvRedeemPoint"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="740"
+                        android:textColor="@color/gray"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_toRightOf="@id/ivCoin"
+                        android:textSize="@dimen/_10sdp" />
+
+                </RelativeLayout>
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/llRedeemcoin"
+                android:layout_margin="@dimen/_10sdp">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:listitem="@layout/item_redeem_point"
+                    tools:itemCount="5"
+                    app:spanCount="3"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    android:orientation="vertical">
+
+                </androidx.recyclerview.widget.RecyclerView>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+</layout>

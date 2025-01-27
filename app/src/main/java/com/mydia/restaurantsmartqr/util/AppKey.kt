@@ -1,0 +1,37 @@
+package com.mydia.restaurantsmartqr.util
+
+object AppKey {
+
+
+    const val SCHEDULE_STATUS = "SCHEDULE_STATUS"
+    const val SCHEDULE_TYPE = "SCHEDULE_TYPE"
+    const val SCHEDULE_UUID = "SCHEDULE_UUID"
+    const val SCHEDULE_DATA = "SCHEDULE_DATA"
+    const val SCHEDULE_PLAYLIST_IDS = "SCHEDULE_PLAYLIST_IDS"
+
+    const val SCHEDULE_END_TIME = "SCHEDULE_END_TIME"
+    const val SCHEDULE_START_TIME = "SCHEDULE_START_TIME"
+    const val SCHEDULE_END_DATE = "SCHEDULE_END_DATE"
+    const val SCHEDULE_START_DATE = "SCHEDULE_START_DATE"
+    const val SCHEDULE_PLAY_TYPE = "SCHEDULE_PLAY_TYPE"
+
+    const val NEW_SCHEDULE_PLAY_STATUS = "NEW_SCHEDULE_PLAY_STATUS"
+    const val NEW_SCHEDULE_PLAYLIST_DATA = "NEW_SCHEDULE_PLAYLIST_DATA"
+    const val NEW_SCHEDULE_REPEATING = "NEW_SCHEDULE_REPEATING"
+
+
+    fun priority(priority: PRIORITY) : Int = when(priority){
+            PRIORITY.PRAYER -> 8
+            PRIORITY.OP_MESSAGE -> 7
+            PRIORITY.PLAN_MESSAGE -> 6
+            PRIORITY.BRANDING -> 5
+            PRIORITY.ADS -> 4
+            PRIORITY.ON_DEMAND -> 3
+            PRIORITY.SCHEDULED_MUSIC -> 2
+            PRIORITY.NORMAL_MUSIC -> 1
+        }
+
+}
+enum class PRIORITY{
+    PRAYER,ADS,PLAN_MESSAGE,NORMAL_MUSIC,BRANDING,ON_DEMAND,SCHEDULED_MUSIC,OP_MESSAGE
+}

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="vm"
+            type="com.mydia.restaurantsmartqr.viewModel.VMWebview" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <RelativeLayout
+            android:id="@+id/action_bar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginBottom="@dimen/_5sdp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imgBack"
+                android:layout_width="@dimen/_15sdp"
+                android:layout_height="@dimen/_15sdp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/_15sdp"
+                app:tint="@color/textColor"
+                android:src="@drawable/ic_back_arrow" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/imgBack"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="Manual Order"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/_8sdp" />
+
+
+        </RelativeLayout>
+        <!--<androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/viewLine">-->
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingHorizontal="@dimen/_5sdp"
+            android:layout_below="@+id/action_bar"
+            >
+            <TextView
+                android:id="@+id/tvHtmlText"
+                style="@style/darkTextBold"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text=""
+                android:visibility="gone"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/_14sdp" />
+            <WebView
+                android:id="@+id/webView"
+                android:layout_width="fill_parent"
+                android:visibility="visible"
+                android:layout_height="fill_parent"
+                />
+
+
+            <ProgressBar
+                android:id="@+id/iv_progress"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_centerInParent="true"
+                android:indeterminateTint="@color/colorPrimary"
+                android:indeterminateTintMode="src_atop"
+                android:progressTint="@color/colorPrimary"
+                android:visibility="@{vm.isLoading == true ? View.VISIBLE : View.GONE}" />
+        </RelativeLayout>
+        <!--</androidx.core.widget.NestedScrollView>-->
+    </RelativeLayout>
+</layout>

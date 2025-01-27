@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Foodcus Order Management</string>
+    <string name="add_display"><u>Add Display</u></string>
+    <string name="uploadmedia"><u>Upload Media</u></string>
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancel</string>
+    <string name="login_desc">Use the details provided to you by your Account administrator</string>
+    <string name="login_uname">Username</string>
+    <string name="login_edit_u_name">Enter your username</string>
+    <string name="login_pass">Password</string>
+    <string name="login_edit_pass">Enter your password</string>
+    <string name="don_t_have_an_account_sign_up">Need help?</string>
+    <string name="contact_us">Contact us</string>
+</resources>

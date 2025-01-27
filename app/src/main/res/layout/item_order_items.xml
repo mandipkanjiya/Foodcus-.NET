@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+<androidx.appcompat.widget.AppCompatTextView
+    android:id="@+id/tvName"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="1 * sweet potato fries(modified)"
+    android:textSize="@dimen/_5sdp"
+    android:maxLines="1"
+    android:fontFamily="@font/poppins_regular"
+    android:textColor="@color/black">
+
+</androidx.appcompat.widget.AppCompatTextView>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvdesc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="1 * sweet potato fries(modified)"
+        android:textSize="@dimen/_4sdp"
+        android:layout_below="@id/tvName"
+        android:maxLines="1"
+        android:fontFamily="@font/poppins_regular"
+        android:textColor="@color/gray">
+
+    </androidx.appcompat.widget.AppCompatTextView>
+    <View
+        android:id="@+id/viewLine"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1sdp"
+        android:background="@color/color90FFFFFF"
+        android:layout_marginTop="@dimen/_1sdp"
+        android:layout_below="@+id/tvdesc" />
+</RelativeLayout>
+</layout>

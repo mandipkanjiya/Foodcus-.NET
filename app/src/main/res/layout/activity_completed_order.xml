@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="vm"
+            type="com.mydia.restaurantsmartqr.viewModel.VMCompletedOrder" />
+    </data>
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/backgroundColor"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginBottom="@dimen/_5sdp">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imgBack"
+                android:layout_width="@dimen/_15sdp"
+                android:layout_height="@dimen/_15sdp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/_15sdp"
+                app:tint="@color/textColor"
+                android:src="@drawable/ic_back_arrow" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/imgBack"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="Orders History"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/_8sdp" />
+            <RelativeLayout
+                android:id="@+id/rvDate"
+                android:layout_toStartOf="@id/rvSection"
+                android:layout_width="@dimen/_70sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:background="@drawable/rounded_dashborad">
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/llCalender"
+                    android:layout_width="@dimen/_15sdp"
+                    android:layout_height="@dimen/_15sdp"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:background="@drawable/rounded_live_order_small">
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="@dimen/_8sdp"
+                        android:layout_height="@dimen/_8sdp"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_calender"/>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvStartDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_15sdp"
+                    android:layout_centerInParent="true"
+                    android:layout_marginHorizontal="@dimen/_3sdp"
+                    android:layout_toEndOf="@id/llCalender"
+                    android:gravity="center"
+                    android:text="Select Date Range"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_4sdp" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/rvSection"
+                android:layout_toStartOf="@id/rvTableFilter"
+                android:layout_width="@dimen/_70sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:background="@drawable/rounded_dashborad">
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="@dimen/_15sdp"
+                    android:layout_height="@dimen/_15sdp"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:background="@drawable/rounded_live_order_small">
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="@dimen/_8sdp"
+                        android:layout_height="@dimen/_8sdp"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_filter"/>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+                <Spinner
+                    android:id="@+id/spnTableSection"
+                    android:layout_height="@dimen/_15sdp"
+                    android:layout_width="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_4sdp"
+                    android:layout_alignParentEnd="true"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/rvTableFilter"
+                android:layout_toStartOf="@id/rvFilter"
+                android:layout_width="@dimen/_70sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:background="@drawable/rounded_dashborad">
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="@dimen/_15sdp"
+                    android:layout_height="@dimen/_15sdp"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:background="@drawable/rounded_live_order_small">
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="@dimen/_8sdp"
+                        android:layout_height="@dimen/_8sdp"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_filter"/>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+                <Spinner
+                    android:id="@+id/spnTableFilter"
+                    android:layout_height="@dimen/_15sdp"
+                    android:layout_width="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_4sdp"
+                    android:layout_alignParentEnd="true"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/rvFilter"
+                android:layout_width="@dimen/_70sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/rounded_dashborad">
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="@dimen/_15sdp"
+                    android:layout_height="@dimen/_15sdp"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:background="@drawable/rounded_live_order_small">
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="@dimen/_8sdp"
+                        android:layout_height="@dimen/_8sdp"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_filter"/>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+                <Spinner
+                    android:id="@+id/spnFilter"
+                    android:layout_height="@dimen/_15sdp"
+                    android:layout_width="wrap_content"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_4sdp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"/>
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:layout_marginBottom="@dimen/_10sdp">
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:orientation="vertical"
+                android:background="@drawable/rounded_liveorder">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvCompletedOrder"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    tools:listitem="@layout/item_completed_order"
+                    app:spanCount="3"
+                    android:visibility="@{vm.isNoData() == true ? View.GONE :View.VISIBLE}"
+                    />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                   android:layout_gravity="center"
+                    android:gravity="center"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="No Orders Found"
+                    android:textColor="@color/textColor"
+                    android:visibility="@{vm.isNoData() == true ? View.VISIBLE :View.GONE}"
+                    android:textSize="@dimen/_12sdp" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

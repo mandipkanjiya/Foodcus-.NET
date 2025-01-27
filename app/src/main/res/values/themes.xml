@@ -1,0 +1,208 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <!--<style name="Theme.MydiaRestaurant" parent="Theme.MaterialComponents.DayNight.NoActionBar">-->
+    <style name="Theme.MydiaRestaurant" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/textColor</item>
+        <item name="colorPrimaryVariant">@color/main_black_second</item>
+        <item name="colorOnPrimary">@color/main_black</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <!-- Secondary brand color. -->
+        <!--<item name="colorSecondary">@color/main_black</item>
+        <item name="colorSecondaryVariant">@color/main_black_second</item>
+        <item name="colorOnSecondary">@color/black</item>-->
+        <!-- Status bar color. -->
+       <!-- <item name="android:statusBarColor">@color/lightbackground</item>-->
+        <!--   darker variant for the status bar and contextual app bars -->
+        <item name="android:colorPrimaryDark">@color/lightbackground</item>
+        <!-- Customize your theme here. -->
+        <!-- <item name="android:windowTranslucentStatus">true</item>-->
+        <!--<item name="android:windowTranslucentNavigation">true</item>-->
+    </style>
+    <style name="MaterialCalendarTheme" parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
+
+        <!-- Header panel -->
+        <item name="materialCalendarHeaderLayout">@style/MaterialCalendar.HeaderLayout1</item>
+        <!-- Buttons -->
+        <item name="buttonBarPositiveButtonStyle">@style/TextButton.Dialog1</item>
+        <item name="buttonBarNegativeButtonStyle">@style/TextButton.Dialog1</item>
+    </style>
+    <style name="MaterialCalendar.HeaderLayout1" parent="Widget.MaterialComponents.MaterialCalendar.HeaderLayout">
+        <!--<item name="android:background">?attr/colorPrimary</item>-->
+        <item name="android:background">@color/main_blue_text</item>
+    </style>
+    <style name="TextButton.Dialog1" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/white</item>
+        <item name="backgroundTint">@color/main_blue</item>
+    </style>
+
+    <style name="darkTextExtraBold" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="fontFamily">@font/popins_extrabold</item>
+        <item name="android:textColor">@color/textColor</item>
+    </style>
+
+    <style name="darkTextSemiBold" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="fontFamily">@font/poppins_semibold</item>
+        <item name="android:textColor">@color/textColor</item>
+    </style>
+
+    <style name="lightTextBold" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="fontFamily">@font/poppins_bold</item>
+        <item name="android:textColor">@color/textColor</item>
+    </style>
+
+    <style name="darkTextBold" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="fontFamily">@font/poppins_bold</item>
+        <item name="android:textColor">@color/textColor</item>
+    </style>
+
+
+    <style name="darkTextMedium" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="fontFamily">@font/poppins_medium</item>
+        <item name="android:textColor">@color/textColor</item>
+    </style>
+
+
+    <style name="darkTextRegular" parent="Widget.AppCompat.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="fontFamily">@font/poppins_regular</item>
+        <item name="android:textColor">@color/textColor</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.App.SelectedCornerRadius" parent="">
+
+        <item name="cornerSizeBottomLeft">@dimen/_25sdp</item>
+        <item name="cornerFamilyBottomLeft">rounded</item>
+        <item name="cornerSizeBottomRight">@dimen/_25sdp</item>
+        <item name="cornerFamilyBottomRight">rounded</item>
+        <item name="cornerSizeTopLeft">@dimen/_25sdp</item>
+        <item name="cornerFamilyTopLeft">rounded</item>
+        <item name="cornerSizeTopRight">@dimen/_25sdp</item>
+        <item name="cornerFamilyTopRight">rounded</item>
+    </style>
+    <style name="ShapeAppearanceOverlay.App.SelectedCornerRadiusNew" parent="">
+
+        <item name="cornerSizeBottomLeft">@dimen/_18sdp</item>
+        <item name="cornerFamilyBottomLeft">rounded</item>
+        <item name="cornerSizeBottomRight">@dimen/_18sdp</item>
+        <item name="cornerFamilyBottomRight">rounded</item>
+        <item name="cornerSizeTopLeft">@dimen/_18sdp</item>
+        <item name="cornerFamilyTopLeft">rounded</item>
+        <item name="cornerSizeTopRight">@dimen/_18sdp</item>
+        <item name="cornerFamilyTopRight">rounded</item>
+        <item name="strokeColor">@color/main_blue</item>
+        <item name="strokeWidth">@dimen/_2sdp</item>
+        <item name="android:radius">@dimen/_18sdp</item>
+        <item name="android:padding">0dp</item>
+    </style>
+    <style name="bannerImageRadius" parent="">
+
+
+        <item name="cornerSizeBottomLeft">20dp</item>
+        <item name="cornerFamilyBottomLeft">rounded</item>
+        <item name="cornerSizeBottomRight">20dp</item>
+        <item name="cornerFamilyBottomRight">rounded</item>
+        <item name="cornerSizeTopLeft">20dp</item>
+        <item name="cornerFamilyTopLeft">rounded</item>
+        <item name="cornerSizeTopRight">20dp</item>
+        <item name="cornerFamilyTopRight">rounded</item>
+    </style>
+
+    <style name="bannerBottomImageRadius" parent="">
+        <item name="cornerSizeBottomLeft">20dp</item>
+        <item name="cornerFamilyBottomLeft">rounded</item>
+        <item name="cornerSizeBottomRight">20dp</item>
+        <item name="cornerFamilyBottomRight">rounded</item>
+
+    </style>
+
+    <style name="onecornerRadius" parent="">
+
+
+        <item name="cornerSizeBottomLeft">@dimen/_20sdp</item>
+        <item name="cornerFamilyBottomLeft">rounded</item>
+        <!--<item name="cornerSizeBottomRight">25dp</item>
+        <item name="cornerFamilyBottomRight">rounded</item>
+        <item name="cornerSizeTopLeft">25dp</item>
+        <item name="cornerFamilyTopLeft">rounded</item>
+        <item name="cornerSizeTopRight">25dp</item>
+        <item name="cornerFamilyTopRight">rounded</item>-->
+    </style>
+
+    <style name="BottomSheetDialog3" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="cardCornerRadius">@dimen/_50sdp</item>
+        <item name="behavior_peekHeight">1000dp</item>
+        <item name="behavior_skipCollapsed">true</item>
+        <item name="behavior_hideable">true</item>
+        <item name="behavior_fitToContents">true</item>
+        <item name="bottomSheetStyle">@style/AppModalStyle</item>
+    </style>
+
+    <style name="BottomSheetDialogSmalheight" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="cardCornerRadius">@dimen/_50sdp</item>
+        <!--  &lt;!&ndash; <item name="android:state_expanded">true</item>&ndash;&gt;
+           &lt;!&ndash;<item name="behavior_skipCollapsed">true</item>&ndash;&gt;
+           <item name="behavior_fitToContents">true</item>
+           <item name="behavior_peekHeight">1000dp</item>
+         -->
+        <item name="behavior_peekHeight">400dp</item>
+        <item name="behavior_skipCollapsed">true</item>
+        <item name="behavior_hideable">true</item>
+        <item name="behavior_fitToContents">true</item>
+        <item name="bottomSheetStyle">@style/AppModalStyle</item>
+    </style>
+    <style name="BottomSheetDialogSmalheightnew" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="cardCornerRadius">@dimen/_50sdp</item>
+        <!--  &lt;!&ndash; <item name="android:state_expanded">true</item>&ndash;&gt;
+           &lt;!&ndash;<item name="behavior_skipCollapsed">true</item>&ndash;&gt;
+           <item name="behavior_fitToContents">true</item>
+           <item name="behavior_peekHeight">1000dp</item>
+         -->
+        <item name="behavior_peekHeight">400dp</item>
+        <item name="behavior_skipCollapsed">true</item>
+        <item name="behavior_hideable">true</item>
+        <item name="behavior_fitToContents">false</item>
+        <item name="bottomSheetStyle">@style/AppModalStyle</item>
+    </style>
+
+    <style name="AppModalStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/bottom_dialog_background</item>
+    </style>
+
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_up_dialog</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_down</item>
+    </style>
+    <style name="AlertDialog" parent="@style/Theme.Material3.Light.Dialog.Alert">
+
+        <!-- Text Color for buttons -->
+
+        <item name="colorPrimary">@color/black</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="MaterialCalendarTheme_RangeFill" parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
+        <item name="materialCalendarStyle">@style/MyMaterialCalendar</item>
+        <item name="colorPrimary">@color/main_blue</item>
+        <item name="colorPrimaryDark">@color/main_blue</item>
+        <item name="colorAccent">@color/main_blue</item>
+    </style>
+    <style name="MyMaterialCalendar"  parent="Widget.MaterialComponents.MaterialCalendar">
+        <item name="rangeFillColor">@color/main_blue_text</item>
+    </style>
+    <style name="ShapeAppearanceOverlay.App.CornerSize50Percent" parent="">
+        <item name="cornerSize">50%</item>
+    </style>
+</resources>

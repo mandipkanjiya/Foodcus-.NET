@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="vm"
+            type="com.mydia.restaurantsmartqr.viewModel.VMMain" />
+    </data>
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/backgroundColor"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_5sdp">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imgMenu"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:padding="@dimen/_3sdp"
+                        app:tint="@color/tintcolor"
+                        android:src="@drawable/ic_menu" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="@dimen/_120sdp"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:padding="@dimen/_5sdp"
+                        android:src="@drawable/ic_mydia" />
+
+
+                </RelativeLayout>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:textSize="@dimen/_11sdp"
+                        android:text="SALT is open"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:textColor="@color/textColor"
+                        />
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textSize="@dimen/_9sdp"
+                        android:text="Souk Al Bahar Bridge, Dubai Mall - Dubai"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:textColor="@color/gray"
+                        />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_margin="@dimen/_5sdp">
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="@dimen/_50sdp"
+                    android:background="@drawable/rounded_dashborad"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp">
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivTotalRevenue"
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="@dimen/_25sdp"
+                        android:src="@drawable/ic_total_revenue"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/_10sdp"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@id/ivTotalRevenue"
+                        android:layout_centerVertical="true"
+                        android:orientation="vertical"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        >
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvTotalRevenue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_regular"
+                            android:textSize="@dimen/_8sdp"
+                            android:text="Total Gross Revenue"
+                            android:textColor="@color/gray"
+                            />
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_bold"
+                            android:textSize="@dimen/_11sdp"
+                            android:text="$1120.55"
+                            android:textColor="@color/textColor"
+                            />
+                    </LinearLayout>
+
+
+
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:background="@drawable/rounded_dashborad">
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/ivAcceptedOrder"
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="@dimen/_25sdp"
+                        android:src="@drawable/ic_dashboara_accepted_order"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/_10sdp"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@id/ivAcceptedOrder"
+                        android:layout_centerVertical="true"
+                        android:orientation="vertical"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        >
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_regular"
+                            android:textSize="@dimen/_8sdp"
+                            android:text="Accepted orders"
+                            android:textColor="@color/gray"
+                            />
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_bold"
+                            android:textSize="@dimen/_11sdp"
+                            android:text="98%"
+                            android:textColor="@color/textColor"
+                            />
+                    </LinearLayout>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:background="@drawable/rounded_dashborad">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:orientation="vertical"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        >
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_regular"
+                            android:textSize="@dimen/_8sdp"
+                            android:text="Today's working hours:"
+                            android:textColor="@color/gray"
+                            />
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_bold"
+                            android:textSize="@dimen/_11sdp"
+                            android:text="8AM - 8PM"
+                            android:textColor="@color/textColor"
+                            />
+                    </LinearLayout>
+
+                </RelativeLayout>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="@dimen/_240sdp"
+            android:layout_height="match_parent"
+            android:layout_gravity="left|start"
+            android:fitsSystemWindows="true"
+            tools:ignore="RtlHardcoded">
+
+            <include
+                android:id="@+id/d_layout"
+
+                layout="@layout/drawerlayout" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.drawerlayout.widget.DrawerLayout>
+</layout>

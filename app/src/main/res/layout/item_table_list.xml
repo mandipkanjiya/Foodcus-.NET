@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_80sdp"
+        android:layout_margin="@dimen/_5sdp">
+        <LinearLayout
+            android:id="@+id/llMain"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:background="@drawable/section_selected_bg">
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvOrderId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:paddingVertical="@dimen/_5sdp"
+                android:paddingHorizontal="@dimen/_10sdp"
+                android:textSize="@dimen/_12sdp"
+                android:textColor="@color/textColor"
+                android:fontFamily="@font/poppins_regular"
+                android:visibility="visible"
+                android:text="Table 1st"/>
+
+
+        </LinearLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

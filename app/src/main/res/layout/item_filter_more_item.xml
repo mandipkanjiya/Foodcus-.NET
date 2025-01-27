@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <!--<import type="com.tahani.flower.app.Utils.LabelKey" />-->
+    </data>
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/llProductColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_3sdp"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/tvFilterColorName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_1sdp"
+            android:text="+ More"
+            android:textColor="#757575"
+            android:textSize="@dimen/_6sdp"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

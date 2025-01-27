@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_dashborad"
+        android:orientation="vertical"
+        android:layout_marginHorizontal="@dimen/_5sdp"
+        android:layout_marginVertical="@dimen/_2sdp">
+
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/llMain"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_100sdp"
+            android:layout_centerHorizontal="true"
+            android:orientation="vertical">
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:src="@drawable/ic_completed">
+
+            </androidx.appcompat.widget.AppCompatImageView>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvOrderId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_bold"
+                android:textSize="@dimen/_10sdp"
+                android:text="#45454545"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:layout_gravity="center"
+                android:textColor="@color/main_blue"
+                />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvSectionName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:textSize="@dimen/_5sdp"
+                android:maxLines="1"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:text="Sweet potato fries (10)"
+                android:textColor="@color/black"
+                />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvCustomerName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:textSize="@dimen/_5sdp"
+                android:maxLines="1"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:text="Sweet potato fries (10)"
+                android:textColor="@color/black"
+                />
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_15sdp"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_gravity="center"
+                android:background="@drawable/rounded_live_order_small">
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivOrderDate"
+                    android:layout_width="@dimen/_8sdp"
+                    android:layout_height="@dimen/_8sdp"
+                    android:layout_gravity="center"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/_3sdp"
+                    android:src="@drawable/ic_calender"
+                    android:backgroundTint="@color/tintcolor"
+                    />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvOrderDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textSize="@dimen/_4sdp"
+                    android:text="8-11-2023 14:40"
+                    android:textColor="@color/black"
+                    android:layout_toEndOf="@id/ivOrderDate"
+                    android:layout_marginStart="@dimen/_3sdp"
+                   android:layout_centerVertical="true"
+                    />
+                <View
+                    android:id="@+id/view"
+                    android:layout_width="@dimen/_1sdp"
+                    android:layout_height="@dimen/_8sdp"
+                    android:background="@color/color90FFFFFF"
+                    android:layout_marginHorizontal="@dimen/_3sdp"
+                   android:layout_centerVertical="true"
+                    android:layout_toEndOf="@id/tvOrderDate"/>
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivOrderTime"
+                    android:layout_width="@dimen/_8sdp"
+                    android:layout_height="@dimen/_8sdp"
+                    android:layout_toEndOf="@id/view"
+                    android:src="@drawable/ic_time_away"
+                    android:layout_gravity="center"
+                    android:backgroundTint="@color/tintcolor"
+                    android:layout_centerVertical="true"
+                    />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tvOrderTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textSize="@dimen/_4sdp"
+                    android:text="8-11-2023 14:40"
+                    android:textColor="@color/black"
+                    android:layout_toEndOf="@id/ivOrderTime"
+                    android:layout_marginStart="@dimen/_3sdp"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="@dimen/_3sdp"
+                    android:layout_centerVertical="true"
+                    />
+            </RelativeLayout>
+
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+    </RelativeLayout>
+</layout>
