@@ -51,9 +51,6 @@ class ProductMenuActivity :  BaseActivity<ActivityProductMenuBinding, VMProductM
     var cartList = ArrayList<ProductModel>()
     var grandTotalnew: Double = 0.0
     var valuesItemNew = ArrayList<ValuesItem>()
- /*   var productList = ArrayList<Product>()
-    var subProductList:MutableList<Product> = ArrayList<Product>()
-    var allproductList = ArrayList<Product>()*/
     var cartListNew = ArrayList<CartItemNew>()
     override fun getViewBinding() = ActivityProductMenuBinding.inflate(layoutInflater)
     override fun observeViewModel() {
