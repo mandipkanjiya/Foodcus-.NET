@@ -97,8 +97,6 @@ class VMTableList @javax.inject.Inject constructor(private val prefs: Preference
                         _tableList.postValue(it)
                         isNoDataTable.set(false)
                     }
-
-
                 }else{
                     isNoDataTable.set(true)
                 }
