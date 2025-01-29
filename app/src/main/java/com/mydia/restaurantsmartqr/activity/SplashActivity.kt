@@ -40,7 +40,7 @@ class SplashActivity: BaseActivity<ActivitySplashBinding, VMSplash>()  {
                             FirebaseDataManager.firebaseDataReference
                             Handler(Looper.getMainLooper()).postDelayed({
                                 lifecycleScope.launch {
-                                    openTableOrdertActivity()
+                                    openNextActivity()
                                 }
                             },5000)
 

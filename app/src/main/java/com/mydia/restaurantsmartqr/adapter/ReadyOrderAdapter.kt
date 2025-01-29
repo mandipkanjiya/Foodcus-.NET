@@ -31,12 +31,12 @@ class ReadyOrderAdapter(context: Context, private var readyOrderList:List<OrderL
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val readyData = readyOrderList[position]
-        holder.binding.tvOrderId.text = "#"+readyData.orderRef
-        holder.binding.tvCustomerName.text =  readyData.cutomerName
+        holder.binding.tvOrderId.text = "#"+readyData.cOrderCode
+        holder.binding.tvCustomerName.text =  readyData.cCustomerName
         holder.binding.relMain.background=context.getDrawable(R.drawable.bg_pickup_order)
-        holder.binding.tvOrderType.text =  readyData.order_type_name
-        holder.binding.tvRemainingTime.text = readyData.pickupTime.toString()
-        holder.binding.tvDate.text = readyData.pickupDate.toString()
+        holder.binding.tvOrderType.text =  readyData.cOrderType
+      /*  holder.binding.tvRemainingTime.text = readyData.pickupTime.toString()
+        holder.binding.tvDate.text = readyData.pickupDate.toString()*/
         holder.binding.llPickUp.visibility = View.VISIBLE
         holder.binding.rvMain.setOnClickListener {
             context.startActivity(Intent(context, OrderDetailActivity::class.java).putExtra("orderDetail",readyOrderList[position]))

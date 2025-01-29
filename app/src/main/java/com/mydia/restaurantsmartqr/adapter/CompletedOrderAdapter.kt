@@ -33,16 +33,16 @@ class CompletedOrderAdapter(context: Context) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val orderListData = orderList!![position]
-        if(orderListData.tableName!!.isNotEmpty()){
+       /* if(orderListData.tableName!!.isNotEmpty()){
             holder.binding.tvOrderId.text = "#"+orderListData.tableName
         }else{
             holder.binding.tvOrderId.text = "#"+orderListData.orderRef
-        }
+        }*/
+        holder.binding.tvOrderId.text = "#"+orderListData.cOrderCode
+        holder.binding.tvCustomerName.text =orderListData.cCustomerName
+       // holder.binding.tvSectionName.text = orderListData.section_name
 
-        holder.binding.tvCustomerName.text =orderListData.cutomerName
-        holder.binding.tvSectionName.text = orderListData.section_name
-
-        val time  = orderListData.createdDate?.split(" ")
+        val time  = orderListData.dtGeneratedDate?.split(" ")
         holder.binding.tvOrderDate.text = time!![0]
         holder.binding.tvOrderTime.text = time[1]
 

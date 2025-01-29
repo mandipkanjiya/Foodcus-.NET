@@ -60,13 +60,13 @@ class CompletedOrderActivity : BaseActivity<ActivityCompletedOrderBinding, VMCom
                 lifecycleScope.launch {
                     if(position == 0){
                         spnSelectedOrder = "1"
-                        val orderListRequest = OrderListRequest(branch_id = prefs.getString(PrefKey.BRANCH_ID), status = "4", offset = "0", limit = "1000", table_id = selectedTableId,start_date = selectedStartDate, end_date = selectedEndDate)
+                        val orderListRequest = OrderListRequest(nUserId = prefs.getString(PrefKey.USER_ID), nCustomerId = "19", nFromId = "0", nToId = "1000", cSectionId = 0, cTableId = 0, nOrderType = "3")
                         viewModel.completedOrderListApi(orderListRequest)
 
                         // setTodayFilter()
                     }else{
                         spnSelectedOrder = "0"
-                        val orderListRequest = OrderListRequest(branch_id = prefs.getString(PrefKey.BRANCH_ID), status = "4", offset = "0", limit = "1000", table_id = selectedTableId,start_date = selectedStartDate, end_date = selectedEndDate)
+                        val orderListRequest = OrderListRequest(nUserId = prefs.getString(PrefKey.USER_ID), nCustomerId = "19", nFromId = "0", nToId = "1000", cSectionId = 0, cTableId = 0, nOrderType = "3")
                         viewModel.completedOrderListApi(orderListRequest)
 
                         // setAdapter()
@@ -82,7 +82,7 @@ class CompletedOrderActivity : BaseActivity<ActivityCompletedOrderBinding, VMCom
 
             Log.e(TAG,prefs.getString(PrefKey.BRANCH_ID))
 
-            val orderListRequest = OrderListRequest(branch_id = prefs.getString(PrefKey.BRANCH_ID), status = "4", offset = "0", limit = "1000")
+            val orderListRequest = OrderListRequest(nUserId = prefs.getString(PrefKey.USER_ID), nCustomerId = "19", nFromId = "0", nToId = "1000", cSectionId =0, cTableId = 0, nOrderType = "3")
             viewModel.completedOrderListApi(orderListRequest)
 
             val tableLIstRequest = TableListRequest(nUserId = prefs.getString(PrefKey.BRANCH_ID))
@@ -104,7 +104,7 @@ class CompletedOrderActivity : BaseActivity<ActivityCompletedOrderBinding, VMCom
     override val viewModel:  VMCompletedOrder by viewModels()
     override fun observeViewModel() {
         viewModel.completedOrderList.observe(this){
-            if (it.status == 1){
+            if (it.Success == "1"){
                 orderList = it.result
                setAdapter()
             }
@@ -114,7 +114,7 @@ class CompletedOrderActivity : BaseActivity<ActivityCompletedOrderBinding, VMCom
             tableList.add("Select Table")
             if (it.status == 1){
                 for(i in it.result){
-                    tableList.add(i.ctableName)
+                    tableList.add(i.cTableName)
                 }
 
             }
@@ -134,12 +134,12 @@ class CompletedOrderActivity : BaseActivity<ActivityCompletedOrderBinding, VMCom
 
                     if(spnSelectedTableName != "Select Table"){
                       for(i in allList){
-                          if(i.ctableName == spnSelectedTableName){
-                              selectedTableId = i.nid.toString()
+                          if(i.cTableName == spnSelectedTableName){
+                              selectedTableId = i.nRestaurantTableId.toString()
                           }
                       }
 
-                        val orderListRequest = OrderListRequest(branch_id = prefs.getString(PrefKey.BRANCH_ID), status = "4", offset = "0", limit = "1000", table_id = selectedTableId,start_date = selectedStartDate, end_date = selectedEndDate)
+                        val orderListRequest = OrderListRequest(nUserId = prefs.getString(PrefKey.USER_ID), nCustomerId = "19", nFromId = "0", nToId = "1000", cSectionId = 0, cTableId = 0, nOrderType = "")
                         viewModel.completedOrderListApi(orderListRequest)
                     }
                 }
@@ -182,8 +182,9 @@ class CompletedOrderActivity : BaseActivity<ActivityCompletedOrderBinding, VMCom
             val formatter = SimpleDateFormat("yyyy-MM-dd")
             val currentDate = formatter.parse(Utils.getCurrentDate())
             var date: Date? = null
-            val createdDate = order.createdDate?.split(" ")
-            Log.e(TAG, createdDate!![0].toString()+","+order.createdDate)
+           // val createdDate = ""
+            val createdDate = order.dtGeneratedDate?.split(" ")
+          //  Log.e(TAG, createdDate!![0].toString()+","+order.createdDate)
             try {
                 date = formatter.parse(createdDate!![0].toString())
             } catch (e: ParseException) {
@@ -277,7 +278,7 @@ class CompletedOrderActivity : BaseActivity<ActivityCompletedOrderBinding, VMCom
     }
     fun apiCallForDateFilter(startDate:String,endDate:String){
         lifecycleScope.launch{
-            val orderListRequest = OrderListRequest(branch_id = prefs.getString(PrefKey.BRANCH_ID), status = "4", offset = "0", limit = "1000", table_id = selectedTableId, start_date = startDate, end_date = endDate)
+            val orderListRequest = OrderListRequest(nUserId = "21", nCustomerId = "19", nFromId = "0", nToId = "1000", cSectionId =0, cTableId = 0, nOrderType = "")
             viewModel.completedOrderListApi(orderListRequest)
         }
     }

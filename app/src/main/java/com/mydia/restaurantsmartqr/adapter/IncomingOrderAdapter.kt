@@ -47,47 +47,48 @@ class IncomingOrderAdapter(context: Context,private var incomingOrderList:List<O
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val incomingData = incomingOrderList[position]
 
-        Log.e("adptre",incomingData.orderType.toString())
+        Log.e("adptre",incomingData.cOrderType.toString())
 
-        if(incomingData.orderType.equals("2")){
+        if(incomingData.cOrderType.equals("DineIn")){
             //dinin
-            if(incomingData.tableName!!.isNotEmpty()){
-                holder.binding.tvOrderId.text = incomingData.tableName
+            if(incomingData.cTableName!!.isNotEmpty()){
+                holder.binding.tvOrderId.text = incomingData.cTableName
             }else{
-                holder.binding.tvOrderId.text = "# "+incomingData.orderRef
+                holder.binding.tvOrderId.text = "# "+incomingData.cOrderCode
             }
+
             holder.binding.llPickUp.visibility = View.GONE
             holder.binding.tvName.visibility = View.GONE
             holder.binding.btnAccept.visibility = View.VISIBLE
             holder.binding.btnReject.visibility = View.VISIBLE
             holder.binding.relMain.background=context.getDrawable(R.drawable.bg_dinein_order)
 
-        }else if(incomingData.orderType.equals("1")){
+        }else if(incomingData.cOrderType.equals("Pickup")){
             //pickup
-            holder.binding.tvOrderId.text = "#${incomingData.orderRef}"
+            holder.binding.tvOrderId.text = "#${incomingData.cOrderCode}"
             holder.binding.tvName.visibility = View.VISIBLE
-            holder.binding.tvName.text = incomingData.cutomerName
+            holder.binding.tvName.text = incomingData.cCustomerName
             holder.binding.btnAccept.visibility = View.VISIBLE
             holder.binding.btnReject.visibility = View.VISIBLE
-            holder.binding.tvRemainingTime.text = incomingData.pickupTime.toString()
-            holder.binding.tvDate.text = incomingData.pickupDate.toString()
+            holder.binding.tvRemainingTime.text = incomingData.dtDeliveryDate.toString()
+            holder.binding.tvDate.text = incomingData.dtGeneratedDate.toString()
             holder.binding.llPickUp.visibility = View.VISIBLE
             holder.binding.relMain.background=context.getDrawable(R.drawable.bg_pickup_order)
         }
 
-        holder.binding.tvTime.text = incomingData.estimatedTime
-        if(incomingData.corderNote!!.isNotEmpty()){
+        holder.binding.tvTime.text = incomingData.cDeliveryTime
+      /*  if(incomingData.co!!.isNotEmpty()){
             holder.binding.tvOrderNote.text = "Order Note: "+incomingData.corderNote
-        }
+        }*/
 
-        holder.binding.tvSection.text = incomingData.section_name
-        holder.binding.tvOrderType.text = incomingData.order_type_name
-        if(incomingData.items.size > 3){
+       holder.binding.tvSection.text = incomingData.cSectionName
+        holder.binding.tvOrderType.text = incomingData.cOrderType
+        if(incomingData.Item.size > 3){
             holder.binding.tvViewMore.visibility = View.VISIBLE
         }else{
             holder.binding.tvViewMore.visibility = View.GONE
         }
-        incomingOrderItemsAdapter = IncomingOrderItemsAdapter(context, incomingData.items)
+        incomingOrderItemsAdapter = IncomingOrderItemsAdapter(context, incomingData.Item)
         holder.binding.rvItems.adapter = incomingOrderItemsAdapter
 
         holder.binding.rvMain.setOnClickListener {

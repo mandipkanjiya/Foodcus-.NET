@@ -29,10 +29,10 @@ class OrderDetailItemAdapter(context: Context, private var itemList:ArrayList<It
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val itemListData = itemList[position]
-        holder.binding.tvQnty.text = itemListData.nqty
-        holder.binding.tvItemName.text = itemListData.cname
+        holder.binding.tvQnty.text = itemListData.fQuantity.toString()
+        holder.binding.tvItemName.text = itemListData.cProductName
         val itemName :StringBuilder = StringBuilder()
-
+/*
         for( i in itemListData.attributes){
             if(i.attribute_title.isNullOrEmpty()){
                 itemName.append("")
@@ -43,13 +43,13 @@ class OrderDetailItemAdapter(context: Context, private var itemList:ArrayList<It
           for(k in i.attributes){
               itemName.append(k.quantity).append("x").append(k.itemName).append(",")
           }
-        }
+        }*/
 
 
         holder.binding.tvItemDesc.text = itemName.toString()
 
 
-      val price =  (itemListData.itemPrice!!.toDouble() * 10.0).roundToInt() / 10.0
+      val price =  (itemListData.fProductPrice!!.toDouble() * 10.0).roundToInt() / 10.0
         holder.binding.tvItemPrice.text =  currency + price
 
         holder.binding.executePendingBindings()

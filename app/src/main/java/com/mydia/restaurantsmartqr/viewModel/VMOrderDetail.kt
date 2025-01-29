@@ -50,53 +50,55 @@ class VMOrderDetail @javax.inject.Inject constructor(private val prefs: Preferen
     fun setData(){
 
 
-        if(orderList.get()!!.tableName!!.isNotEmpty()){
+    /*    if(orderList.get()!!.tableName!!.isNotEmpty()){
             orderRef.set(orderList.get()!!.tableName)
         }else{
-            orderRef.set("Order #"+orderList.get()!!.orderRef)
+            orderRef.set("Order #"+orderList.get()!!.cOrderCode)
         }
-        if(orderList.get()!!.items.size > 0){
-            totalItem.set(orderList.get()!!.items.size.toString()+" Items")
+*/
+        orderRef.set("Order #"+orderList.get()!!.cOrderCode)
+        if(orderList.get()!!.Item.size > 0){
+            totalItem.set(orderList.get()!!.Item.size.toString()+" Items")
         }else{
-            totalItem.set(orderList.get()!!.items.size.toString()+" Item")
+            totalItem.set(orderList.get()!!.Item.size.toString()+" Item")
         }
 
-        if(orderList.get()!!.orderType.equals("2")){
+        if(orderList.get()!!.cOrderType.equals("DineIn")){
             //dinin
             customerName.set("")
 
-        }else if(orderList.get()!!.orderType.equals("1")){
-            customerName.set(orderList.get()!!.cutomerName)
+        }else if(orderList.get()!!.cOrderType.equals("Pickup")){
+            customerName.set(orderList.get()!!.cCustomerName)
         }
 
-        orderType.set(orderList.get()!!.order_type_name)
-        orderTypeId.set(orderList.get()!!.orderType)
-        orderStatusType.set(orderList.get()!!.norderStatus)
-        sectionName.set(orderList.get()!!.section_name)
-        if(orderList.get()!!.corderNote!!.isNotEmpty()){
+        orderType.set(orderList.get()!!.cOrderType)
+      //  orderTypeId.set(orderList.get()!!.cOrderCode)
+        orderStatusType.set(orderList.get()!!.cCurrentStatus)
+      //  sectionName.set(orderList.get()!!.section_name)
+      /*  if(orderList.get()!!.corderNote!!.isNotEmpty()){
             isShowOrderNOte.set(true)
             orderNote.set(orderList.get()!!.corderNote)
         }else{
            isShowOrderNOte.set(false)
-        }
+        }*/
 
-        orderId.set(orderList.get()!!.nid)
-        pickupTime.set(orderList.get()!!.pickupTime)
-       var payment =""
-        if(orderList.get()!!.paymentMethod == "1"){
+        orderId.set(orderList.get()!!.nOrderId.toString())
+        pickupTime.set(orderList.get()!!.cDeliveryTime)
+       var payment =orderList.get()!!.cPaymentTerms
+     /*   if(orderList.get()!!.cPaymentTerms == "1"){
             payment ="Cash"
-        }else if(orderList.get()!!.paymentMethod == "2"){
+        }else if(orderList.get()!!.cPaymentTerms == "2"){
             payment ="Card on pickup"
         }else{
             payment ="Credit Card"
-        }
+        }*/
         paymentMethod.set(payment)
 
 
         viewModelScope.launch{
             val currency = prefs.getString(PrefKey.CURRENCY)
 
-            val subTotal = (orderList.get()!!.corderTotal!!.toDouble() * 10.0).roundToInt() / 10.0
+            val subTotal = (orderList.get()!!.fTotalPrice!! * 10.0).roundToInt() / 10.0
          //   val tipTotal = (orderList.get()!!.tip!!.toDouble() * 10.0).roundToInt() / 10.0
           //  val finalTotal = subTotal+ tip
             orderTotal.set(currency+subTotal.toString())
@@ -104,11 +106,11 @@ class VMOrderDetail @javax.inject.Inject constructor(private val prefs: Preferen
          //   tip.set(currency+tipTotal.toString())
         }
 
-        orderStatus.set(orderList.get()!!.orderStatusName.toString())
+        orderStatus.set(orderList.get()!!.cCurrentStatus.toString())
 
-        if(orderList.get()!!.ntableId!!.isNotEmpty()){
+        if(orderList.get()!!.nEmployeeId!!.toString().isNotEmpty()){
             tableTitle.set("Table Name")
-            tableName.set(orderList.get()!!.tableName)
+          //  tableName.set(orderList.get()!!.tableName)
         }/*else if(orderList.get()!!.co!!.isNotEmpty()){
             tableTitle.set("Counter Name")
             tableName.set(orderList.get()!!.co)
@@ -120,12 +122,12 @@ class VMOrderDetail @javax.inject.Inject constructor(private val prefs: Preferen
     fun orderStatusApi(orderStatusRequest: OrderStatusRequest)=viewModelScope.launch{
         triggerLoadingDetection(true)
         isLoading.set(true)
-        loginRepository.orderStatus(
+        loginRepository.orderStatusApi(
             scope = viewModelScope,
             onSuccess = {
                 triggerLoadingDetection(false)
                 isLoading.set(false)
-                if(it!!.status == 1){
+                if(it!!.Success == "1"){
                     viewModelScope.launch {
                         eventChannel.send(1)
                     }

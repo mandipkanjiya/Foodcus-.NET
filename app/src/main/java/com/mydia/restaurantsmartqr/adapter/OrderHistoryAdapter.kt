@@ -38,44 +38,44 @@ class OrderHistoryAdapter(context: Context,private var currency:String) :
         val orderListData = orderList!![position]
 
 
-        if(orderListData.orderRef!!.isNotEmpty()){
-            holder.binding.tvOrderId.text = "#"+orderListData.orderRef
+        if(orderListData.cOrderCode!!.isNotEmpty()){
+            holder.binding.tvOrderId.text = "#"+orderListData.cOrderCode
         }else{
             holder.binding.tvOrderId.text = "-"
         }
 
-        if(orderListData.section_name!!.isNotEmpty()){
+      /*  if(orderListData.section_name!!.isNotEmpty()){
             holder.binding.tvSectionName.text = orderListData.section_name
         }else{
             holder.binding.tvSectionName.text = "-"
-        }
-        if(orderListData.order_type_name!!.isNotEmpty()){
-            holder.binding.tvOrdertype.text = orderListData.order_type_name
+        }*/
+        if(orderListData.cOrderType!!.isNotEmpty()){
+            holder.binding.tvOrdertype.text = orderListData.cOrderType
         }else{
             holder.binding.tvOrdertype.text = "-"
         }
 
-        if(orderListData.tableName!!.isNotEmpty()){
+      /*  if(orderListData.tableName!!.isNotEmpty()){
             holder.binding.tvTableName.text = orderListData.tableName
         }else{
             holder.binding.tvTableName.text = "-"
         }
-
-        if(orderListData.orderType.equals("2")){
+*/
+        if(orderListData.cOrderType.equals("DineIn")){
             //dinin
             holder.binding.llMain.background=context.getDrawable(R.drawable.bg_dinein_order)
 
-        }else if(orderListData.orderType.equals("1")){
+        }else if(orderListData.cOrderType.equals("Pickup")){
             //pickup
             holder.binding.llMain.background=context.getDrawable(R.drawable.bg_pickup_order)
         }
-        if(orderListData.corderTotal!!.isNotEmpty()){
-            holder.binding.tvTotal.text =  currency+" "+orderListData.corderTotal
+        if(orderListData.fTotalPrice!!.toString().isNotEmpty()){
+            holder.binding.tvTotal.text =  currency+" "+orderListData.fTotalPrice
         }else{
             holder.binding.tvTotal.text = "-"
         }
         var payment=""
-        payment = when (orderListData.paymentMethod) {
+        payment = when (orderListData.cPaymentTerms) {
             "1" -> {
                 "Cash"
             }
@@ -86,22 +86,19 @@ class OrderHistoryAdapter(context: Context,private var currency:String) :
                 "Credit Card"
             }
         }
-        if(orderListData.paymentMethod!!.isNotEmpty()){
+        if(orderListData.cPaymentTerms!!.isNotEmpty()){
             holder.binding.tvPaymentType.text = payment
         }else{
             holder.binding.tvPaymentType.text = "-"
         }
 
 
-        holder.binding.tvOrderTime.text = orderListData.createdDate
+        holder.binding.tvOrderTime.text = orderListData.dtGeneratedDate
 
 
         holder.binding.llMain.setOnClickListener {
             context.startActivity(Intent(context,OrderDetailActivity::class.java).putExtra("orderDetail",orderList[position]))
         }
-
-
-
 
         holder.binding.executePendingBindings()
     }

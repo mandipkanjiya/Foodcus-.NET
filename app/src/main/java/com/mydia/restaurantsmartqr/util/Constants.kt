@@ -16,8 +16,8 @@ object Constants {
     /*End points*/
 
     const val LOGIN_URL = "/login.asmx/Login_resturant"
-    const val ORDER_LIST_URL = "/api_v1/orders/list"
-    const val ORDER_STATUS_URL = "/api_v1/orders/order_status"
+    const val ORDER_LIST_URL = "/Order.asmx/SelectAllOrderByCustomerWise_Foodcus"
+    const val ORDER_STATUS_URL = "/Order.asmx/UpdateOrderStatus_Foodcus"
     const val TABLE_LIST = "/RestaurantTable.asmx/SelectAll"
     const val SECTION_LIST = "/RestaurantTable.asmx/SelectAllSection"
     const val REVIEW_LINK = "/api_v1/SendText/review_link"
@@ -28,6 +28,8 @@ object Constants {
     const val CATEGORY_LIST = "/Category.asmx/SelectAllCategoryByLanguageId"
     const val PRODUCT_LIST = "/Product.asmx/SelectAllProductByCategoryV1"
     const val PLACE_ORDER = "/Order.asmx/CreateOrderWithJsonDataV6"
+    const val ALERT_LIST = "/RestaurantAlert.asmx/AlertList"
+    const val UPDATE_ALERT_LIST = "/RestaurantAlert.asmx/UpdateAlertStatus"
     const val ADD_CUSTOMER = "/Customer.asmx/AddFoodcusCustomer"
     const val CUSTOMER_LIST = "/Customer.asmx/SelectAllFoodcusCustomer"
 

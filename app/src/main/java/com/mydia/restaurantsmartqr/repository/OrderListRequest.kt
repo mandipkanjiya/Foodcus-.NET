@@ -4,22 +4,21 @@ import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import org.json.JSONObject
 
-data class OrderListRequest(  @SerializedName("branch_id")
-                         val branch_id: String = "",
-                         @SerializedName("status")
-                         val status: String = "",
-                         @SerializedName("offset")
-                         val offset: String = "",
-                         @SerializedName("limit")
-                         val limit: String = "",
-                         @SerializedName("table_id")
-                         val table_id : String = "",
-                         @SerializedName("start_date")
-                         val start_date : String = "",
-                          @SerializedName("end_date")
-                         val end_date : String = "",
-                          @SerializedName("section_id")
-                         val sectionId: String = "", ){
+data class OrderListRequest(  @SerializedName("nUserId")
+                         val nUserId: String = "",
+                         @SerializedName("nCustomerId")
+                         val nCustomerId: String = "",
+                         @SerializedName("nOrderType")
+                         val nOrderType: String = "",
+                         @SerializedName("nFromId")
+                         val nFromId: String = "",
+                         @SerializedName("nToId")
+                         val nToId : String = "",
+                         @SerializedName("cTableId")
+                         val cTableId : Int = 0,
+                          @SerializedName("cSectionId")
+                         val cSectionId : Int =0,    @SerializedName("cToken")
+                         val cToken : String = "", ){
 
     fun toFieldMap() : HashMap<String,String>{
         val requestMap = HashMap<String,String>()

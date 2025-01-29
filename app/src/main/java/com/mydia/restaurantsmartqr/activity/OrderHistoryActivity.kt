@@ -44,7 +44,7 @@ class OrderHistoryActivity : BaseActivity<ActivityOrderHistoryBinding, VMOrderHi
     override fun observeViewModel() {
         viewModel.getUserData()
         viewModel.completedOrderList.observe(this){
-            if (it.status == 1){
+            if (it.Success == "1"){
                 setAdapter(it.result)
             }
 
@@ -65,7 +65,7 @@ class OrderHistoryActivity : BaseActivity<ActivityOrderHistoryBinding, VMOrderHi
         binding.vm = viewModel
 
         viewModel.sectionListApiCall()
-        viewModel.orderListUsingFilter("","","","","")
+        viewModel.orderListUsingFilter("",0,0,"","")
         setOrderStatusFilter()
         setDateSpinner()
 
@@ -109,15 +109,15 @@ class OrderHistoryActivity : BaseActivity<ActivityOrderHistoryBinding, VMOrderHi
                     }else if( position ==2){
                         selectedStatus = "2"
                     }else if( position ==3){
-                        selectedStatus = "4"
+                        selectedStatus = "3"
                     }else if( position ==4){
-                        selectedStatus = "5"
+                        selectedStatus = "4"
                     }
                     Log.e(TAG, "spn $spnSelectedStatus")
 
                     viewModel.orderListUsingFilter(selectedStatus,
-                        selectedTable?.nid ?: kotlin.run { "" },
-                        selectedSection?.id ?: kotlin.run { "" },
+                        selectedTable?.nRestaurantTableId?: kotlin.run { 0 },
+                        selectedSection?.nSectionId ?: kotlin.run {0 },
                         selectedStartDate,
                         selectedEndDate)
                 }
@@ -130,7 +130,7 @@ class OrderHistoryActivity : BaseActivity<ActivityOrderHistoryBinding, VMOrderHi
 
 
     fun setSectionFilter(list:ArrayList<SectionList>){
-        list.add(0,SectionList("","Select Section","",""))
+        list.add(0,SectionList(0, cName = "Select Section",0,0,"","",""))
 
         val ad: ArrayAdapter<*> = ArrayAdapter<Any?>(this, R.layout.spinner_item, list as List<SectionList?>)
         ad.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -150,12 +150,12 @@ class OrderHistoryActivity : BaseActivity<ActivityOrderHistoryBinding, VMOrderHi
 
                     }else{
                         selectedSection = spnSelectedSection
-                        viewModel.tableListApiCAll(sectionId = selectedSection?.id!!)
+                        viewModel.tableListApiCAll(sectionId = selectedSection?.nSectionId!!.toString())
                     }
 
                     viewModel.orderListUsingFilter(selectedStatus,
-                        selectedTable?.nid ?: kotlin.run { "" },
-                        selectedSection?.id ?: kotlin.run { "" },
+                        selectedTable?.nRestaurantTableId ?: kotlin.run { 0 },
+                        selectedSection?.nSectionId ?: kotlin.run { 0 },
                         selectedStartDate,
                         selectedEndDate)
                     Log.e(TAG, "spn $spnSelectedSection")
@@ -173,7 +173,7 @@ class OrderHistoryActivity : BaseActivity<ActivityOrderHistoryBinding, VMOrderHi
     fun setTableAdapter(){
         val tableList = arrayListOf<TableList>()
 
-        tableList.add(0, TableList("","","","Select Table"))
+        tableList.add(0, TableList(0,0,0,"Select Table","","",0,false,"","",""))
         tableSpnAdapter = ArrayAdapter<Any?>(this, R.layout.spinner_item, tableList as List<TableList?>)
         tableSpnAdapter?.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.spnTableFilter.adapter = tableSpnAdapter
@@ -181,7 +181,7 @@ class OrderHistoryActivity : BaseActivity<ActivityOrderHistoryBinding, VMOrderHi
 
     fun setTableFilter(list:ArrayList<TableList>){
 
-        list.add(0, TableList("","","","Select Table"))
+        list.add(0,TableList(0,0,0,"Select Table","","",0,false,"","",""))
         tableSpnAdapter = ArrayAdapter<Any?>(this, R.layout.spinner_item, list as List<TableList?>)
         tableSpnAdapter?.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.spnTableFilter.adapter = tableSpnAdapter
@@ -197,8 +197,8 @@ class OrderHistoryActivity : BaseActivity<ActivityOrderHistoryBinding, VMOrderHi
                     selectedTable = null
                 }
                 viewModel.orderListUsingFilter(selectedStatus,
-                    selectedTable?.nid ?: kotlin.run { "" },
-                    selectedSection?.id ?: kotlin.run { "" },
+                    selectedTable?.nRestaurantTableId ?: kotlin.run { 0 },
+                    selectedSection?.nSectionId ?: kotlin.run { 0 },
                     selectedStartDate,
                     selectedEndDate)
 
@@ -255,8 +255,8 @@ class OrderHistoryActivity : BaseActivity<ActivityOrderHistoryBinding, VMOrderHi
             binding.tvStartDate.text = selectedDateRange
 
             viewModel.orderListUsingFilter(selectedStatus,
-                selectedTable?.nid ?: kotlin.run { "" },
-                selectedSection?.id ?: kotlin.run { "" },
+                selectedTable?.nRestaurantTableId ?: kotlin.run { 0 },
+                selectedSection?.nSectionId ?: kotlin.run {0 },
                 selectedStartDate,
                 selectedEndDate)
 
@@ -270,8 +270,8 @@ class OrderHistoryActivity : BaseActivity<ActivityOrderHistoryBinding, VMOrderHi
             selectionDates = null
             binding.tvStartDate.text = "Select Date Range"
             viewModel.orderListUsingFilter(selectedStatus,
-                selectedTable?.nid ?: kotlin.run { "" },
-                selectedSection?.id ?: kotlin.run { "" },
+                selectedTable?.nRestaurantTableId ?: kotlin.run { 0 },
+                selectedSection?.nSectionId?: kotlin.run {0 },
                 selectedStartDate,
                 selectedEndDate)
           //  Toast.makeText(this, "${datePicker.headerText} is cancelled", Toast.LENGTH_LONG).show()
@@ -280,8 +280,8 @@ class OrderHistoryActivity : BaseActivity<ActivityOrderHistoryBinding, VMOrderHi
         // Setting up the event for when back button is pressed
         datePicker.addOnCancelListener {
             viewModel.orderListUsingFilter(selectedStatus,
-                selectedTable?.nid ?: kotlin.run { "" },
-                selectedSection?.id ?: kotlin.run { "" },
+                selectedTable?.nRestaurantTableId ?: kotlin.run { 0 },
+                selectedSection?.nSectionId ?: kotlin.run { 0 },
                 selectedStartDate,
                 selectedEndDate)
            // Toast.makeText(this, "Date Picker Cancelled", Toast.LENGTH_LONG).show()

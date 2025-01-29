@@ -121,23 +121,23 @@ class IncomingOrderWithMoreAdapter : RecyclerView.Adapter<RecyclerView.ViewHolde
         RecyclerView.ViewHolder(binding.root) {
         lateinit var incomingOrderItemsAdapter: IncomingOrderItemsAdapter
         fun bind(incomingData: OrderList) {
-            if(incomingData.orderType.equals("2")){
+            if(incomingData.cOrderType.equals("2")){
                 //dinin
-              binding.tvOrderId.text = incomingData.tableName
+             // binding.tvOrderId.text = incomingData.tableName
                binding.tvName.visibility = View.GONE
                 binding.btnAccept.visibility = View.GONE
                binding.btnReject.visibility = View.GONE
 
-            }else if(incomingData.orderType.equals("1")){
+            }else if(incomingData.cOrderType.equals("1")){
                 //pickup
-               binding.tvOrderId.text = "#${incomingData.orderRef}"
+               binding.tvOrderId.text = "#${incomingData.cOrderCode}"
                binding.tvName.visibility = View.VISIBLE
-                binding.tvName.text = incomingData.cutomerName
+                binding.tvName.text = incomingData.cCustomerName
                binding.btnAccept.visibility = View.VISIBLE
                 binding.btnReject.visibility = View.VISIBLE
             }
-            binding.tvTime.text = incomingData.estimatedTime
-           binding.tvOrderType.text = incomingData.order_type_name
+         //   binding.tvTime.text = incomingData.estimatedTime
+           binding.tvOrderType.text = incomingData.cOrderType
 
 
 

@@ -38,7 +38,7 @@ class OrderDetailActivity : BaseActivity<ActivityOrderDetailBinding, VMOrderDeta
                 viewModel.orderList.set(orderList)
 
                 viewModel.setData()
-                setAdapter(orderList!!.items)
+                setAdapter(orderList!!.Item)
             }
         }
 
@@ -52,13 +52,13 @@ class OrderDetailActivity : BaseActivity<ActivityOrderDetailBinding, VMOrderDeta
 
 
         val statusType = viewModel.orderStatusType.get().toString()
-        val orderType = viewModel.orderTypeId.get().toString()
+        val orderType = viewModel.orderType.get().toString()
 
         var status = ""
         if(statusType == "1"){
             status= "2"
         }else if(statusType == "2"){
-            if(orderType == "2"){
+            if(orderType == "DineIn"){
                 status ="4"
             }else{
                 status= "3"
@@ -72,7 +72,7 @@ class OrderDetailActivity : BaseActivity<ActivityOrderDetailBinding, VMOrderDeta
             binding.rlCustomer.visibility = View.GONE
             binding.btnStatus.visibility = View.GONE
             binding.btnReject.visibility = View.GONE
-            if(orderType == "2"){
+            if(orderType == "DineIn"){
                 binding.llbottomViewpickup.visibility = View.GONE
             }else{
                 binding.llbottomViewpickup.visibility = View.VISIBLE
@@ -82,13 +82,13 @@ class OrderDetailActivity : BaseActivity<ActivityOrderDetailBinding, VMOrderDeta
 
 
         }else{
-            if(orderType == "2"){
+            if(orderType == "DineIn"){
                 Log.e(TAG,"orderType$orderType")
                 binding.btnStatus.visibility = View.VISIBLE
                 binding.btnReject.visibility = View.VISIBLE
                 binding.rlCustomer.visibility = View.GONE
                 binding.llbottomViewpickup.visibility = View.GONE
-            }else if(orderType == "1"){
+            }else if(orderType == "Pickup"){
                 Log.e(TAG,"orderType$orderType")
                 binding.btnStatus.visibility = View.VISIBLE
                 binding.btnReject.visibility = View.VISIBLE
@@ -101,12 +101,18 @@ class OrderDetailActivity : BaseActivity<ActivityOrderDetailBinding, VMOrderDeta
         }
         setStatusButtonBackground(viewModel.orderStatusType.get().toString(),orderType)
         binding.btnStatus.setOnClickListener {
-            val orderStatusApi  = OrderStatusRequest(order_id = viewModel.orderId.get().toString(), norder_status = status)
-            viewModel.orderStatusApi(orderStatusApi)
+            lifecycleScope.launch {
+                val orderStatusApi  = OrderStatusRequest(nUserId =prefs.getString(PrefKey.USER_ID), nOrderId = viewModel.orderId.get().toString(), cStatus = status)
+                viewModel.orderStatusApi(orderStatusApi)
+            }
+
         }
         binding.btnReject.setOnClickListener {
-            val orderStatusApi  = OrderStatusRequest(order_id = viewModel.orderId.get().toString(), norder_status = "5")
-            viewModel.orderStatusApi(orderStatusApi)
+            lifecycleScope.launch {
+                val orderStatusApi  = OrderStatusRequest(nUserId = prefs.getString(PrefKey.USER_ID), nOrderId = viewModel.orderId.get().toString(), cStatus = "5")
+                viewModel.orderStatusApi(orderStatusApi)
+            }
+
         }
 
         lifecycleScope.launch {
@@ -134,7 +140,7 @@ class OrderDetailActivity : BaseActivity<ActivityOrderDetailBinding, VMOrderDeta
 
     @SuppressLint("RestrictedApi")
     fun setStatusButtonBackground(orderstatus:String,orderTYpe:String){
-        if(orderstatus == "4"){
+       /* if(orderstatus == "4"){
             binding.btnStatus.text ="Complete"
             binding.btnStatus.supportBackgroundTintList = applicationContext.getColorStateList(R.color.darkGreen)
         }else if(orderstatus =="3"){
@@ -151,6 +157,26 @@ class OrderDetailActivity : BaseActivity<ActivityOrderDetailBinding, VMOrderDeta
 
 
         } else if(orderstatus =="1"){
+            binding.btnStatus.supportBackgroundTintList = applicationContext.getColorStateList(R.color.darkGreen)
+            binding.btnStatus.text ="Accept"
+        }  */
+        if(orderstatus == "Cancelled"){
+            binding.btnStatus.text ="Complete"
+            binding.btnStatus.supportBackgroundTintList = applicationContext.getColorStateList(R.color.darkGreen)
+        }else if(orderstatus =="Completed"){
+            binding.btnStatus.text ="Complete"
+            binding.btnStatus.supportBackgroundTintList = applicationContext.getColorStateList(R.color.darkGreen)
+        }else if(orderstatus =="Inkitchen"){
+            if(orderTYpe == "DineIn"){
+                binding.btnStatus.text ="Punched On POS"
+                binding.btnStatus.supportBackgroundTintList = applicationContext.getColorStateList(R.color.darkGreen)
+            }else{
+                binding.btnStatus.text ="Ready to collect"
+                binding.btnStatus.supportBackgroundTintList = applicationContext.getColorStateList(R.color.darkGreen)
+            }
+
+
+        } else if(orderstatus =="Pending"){
             binding.btnStatus.supportBackgroundTintList = applicationContext.getColorStateList(R.color.darkGreen)
             binding.btnStatus.text ="Accept"
         }
