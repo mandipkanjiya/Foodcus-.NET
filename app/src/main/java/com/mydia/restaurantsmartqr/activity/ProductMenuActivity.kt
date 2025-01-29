@@ -544,13 +544,10 @@ binding.llCharge.setOnClickListener{
         val etName = dialogRenameDoc.findViewById<AppCompatEditText>(R.id.etName)
         val etPhoneNumber = dialogRenameDoc.findViewById<AppCompatEditText>(R.id.etPhoneNumber)
         val etEmail = dialogRenameDoc.findViewById<AppCompatEditText>(R.id.etEmail)
-        //val etMobileNumber = dialogRenameDoc.findViewById<AppCompatEditText>(R.id.etMobileNumber)
-
-        etName.setText(viewModel.customerName.get().toString())
+         etName.setText(viewModel.customerName.get().toString())
         etPhoneNumber.setText(viewModel.cMobileNo.get().toString())
         etEmail.setText(viewModel.emailCustomer.get().toString())
         val ivCancel = dialogRenameDoc.findViewById<ImageView>(R.id.ivBack)
-
 
         ivCancel!!.setOnClickListener {
             dialogRenameDoc.dismiss()
