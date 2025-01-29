@@ -1,56 +1,48 @@
 package com.mydia.restaurantsmartqr.viewModel
+
 import android.util.Log
-import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.mydia.restaurantsmartqr.base.BaseViewModel
 import com.mydia.restaurantsmartqr.model.CreateOrderModel
+import com.mydia.restaurantsmartqr.model.CustomerItem
 import com.mydia.restaurantsmartqr.model.CustomerResponse
 import com.mydia.restaurantsmartqr.model.login.NewLoginModel
-import com.mydia.restaurantsmartqr.model.product.CategoryListResponse
-import com.mydia.restaurantsmartqr.model.product.ProductListResponse
 import com.mydia.restaurantsmartqr.prefrences.PrefKey
 import com.mydia.restaurantsmartqr.prefrences.PreferencesServices
 import com.mydia.restaurantsmartqr.repository.LoginRepository
 import com.mydia.restaurantsmartqr.util.Constants.ADD_CUSTOMER
-import com.mydia.restaurantsmartqr.util.Constants.CATEGORY_LIST
 import com.mydia.restaurantsmartqr.util.Constants.CUSTOMER_LIST
 import com.mydia.restaurantsmartqr.util.Constants.PLACE_ORDER
-import com.mydia.restaurantsmartqr.util.Constants.PRODUCT_LIST
 import com.mydia.restaurantsmartqr.util.Utils
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 
 @HiltViewModel
-class VMProductMenu @javax.inject.Inject constructor(private val prefs: PreferencesServices, private  val loginRepository: LoginRepository) : BaseViewModel(){
-    private val _categoryList = MutableLiveData<CategoryListResponse>()
-    val categoryList: LiveData<CategoryListResponse> = _categoryList
-    private val _productList = MutableLiveData<ProductListResponse>()
-    val productList: LiveData<ProductListResponse> = _productList
-    private val _placeorder = MutableLiveData<CreateOrderModel>()
-    val placeorder: LiveData<CreateOrderModel> = _placeorder
+class VMDirectOrder @javax.inject.Inject constructor(private val prefs: PreferencesServices, private  val loginRepository: LoginRepository) : BaseViewModel(){
     var nUserId = ObservableField("")
     var fTotal = ObservableField("")
     var jsonString = ObservableField("")
-    var customerName = ObservableField("")
-    var cMobileNo = ObservableField("")
-    var cAlterMobileNo = ObservableField("")
+    var nCustomerId = ObservableField("")
+    var customerName = ObservableField("Aadil Mansuri")
+    var cMobileNo = ObservableField("+918141849244")
+    var cAlterMobileNo = ObservableField("+918141849244")
+    var emailCustomer = ObservableField("+918141849244")
+    var cOrderType = ObservableField("1")
     var versionName = ObservableField("")
     var nTableId = ObservableField("")
     var nSectionId = ObservableField("")
-    var nCustomerId = ObservableField("")
-    var currency = ObservableField("")
-    var emailCustomer = ObservableField("")
-    var isNoDataSection = ObservableBoolean(false)
-    var isNoDataTable = ObservableBoolean(false)
-    var isNoDataReady = ObservableBoolean(false)
+    private val _placeorder = MutableLiveData<CreateOrderModel>()
+    val placeorder: LiveData<CreateOrderModel> = _placeorder
     private val _addCustomer = MutableLiveData<CustomerResponse>()
     val addCustomer: LiveData<CustomerResponse> = _addCustomer
 
     private val _customerList = MutableLiveData<CustomerResponse>()
     val customerList: LiveData<CustomerResponse> = _customerList
+
+
     fun getUserData(){
         viewModelScope.launch {
             val user = prefs.get(PrefKey.SAVE_LOGIN, NewLoginModel::class.java)
@@ -63,45 +55,17 @@ class VMProductMenu @javax.inject.Inject constructor(private val prefs: Preferen
             prefs.clearData()
         }
     }
-    fun categoryListApiCAll(){
-        viewModelScope.launch {
-            //passing parameter
-            val map = HashMap<String, String>()
-            map["nUserId"] = nUserId.get().toString()
-            map["cToken"] = ""
-            map["nLanguageId"] ="0"
-            map["nCountryId"] = ""
 
-            categoryListApi(map)
-        }
-    }
-    fun productListApiCall(categoryId:String){
-        viewModelScope.launch {
-            val map = HashMap<String, String>()
-            map["nUserId"] = nUserId.get().toString()
-            map["cToken"] = ""
-            map["nCategoryId"] = categoryId
-            map["cFilterType"] = "" //--->temporary static
-            map["nFromId"] = "1"
-            map["nToId"] = "100"
-            map["nBrandId"] = "0"
-            map["nLanguageId"] = "0"
-            map["cAttributeJsonData"] = ""
-            map["nCountryId"] =""
 
-            productListApi(map)
-        }
-    }
     fun placeOrderApiCall(){
         viewModelScope.launch {
-
             //passing parameter
             val map = HashMap<String, String>()
             map["nUserId"] = nUserId.get().toString()
             map["cToken"] = ""
             map["nLanguageId"] ="0"
             map["nCountryId"] = ""
-            map["nCustId"] = "12"
+            map["nCustId"] = nCustomerId.get().toString()
             map["fTotal"] = fTotal.get().toString()
             map["cPaymentTerms"] = "1"
             map["dtDelivaryDate"] = Utils.getCurrentDate()
@@ -125,7 +89,7 @@ class VMProductMenu @javax.inject.Inject constructor(private val prefs: Preferen
             map["cGovernorate"] = ""
             map["cArea"] = ""
             map["cSpecialInstruction"] = ""
-            map["cOrderType"] = "1"
+            map["cOrderType"] ="3"
             map["fCouponDiscount"] = "0"
             map["cFrom"] = ""
             map["cTo"] =""
@@ -140,73 +104,15 @@ class VMProductMenu @javax.inject.Inject constructor(private val prefs: Preferen
             map["nStoreId"] ="0"
             map["cGiftCardImage"] = ""
             map["nDeliveryTimeType"] = "0"
-            map["nTableId"] = nTableId.get().toString()
-            map["nSectionId"] = nSectionId.get().toString()
+            map["nTableId"] = "0"
+            map["nSectionId"] ="0"
             map["nEmployeeId"] = "1"
 
             Log.e("CreateOrderParam", map.toString())
             placeOrderApi(map)
         }
+
     }
-
-    fun productListApi(orderListRequest: HashMap<String,String>)=viewModelScope.launch{
-        triggerLoadingDetection(true)
-        isLoading.set(true)
-        loginRepository.productList(
-            scope = viewModelScope,
-            onSuccess = {
-                triggerLoadingDetection(false)
-                isLoading.set(false)
-                if(it!!.status == 1){
-                    viewModelScope.launch {
-                        _productList.postValue(it)
-                        isNoDataSection.set(false)
-                    }
-
-
-                }else{
-                    isNoDataSection.set(true)
-                }
-
-            }, onErrorAction = {
-                triggerLoadingDetection(false)
-                isLoading.set(false)
-                isNoDataSection.set(true)
-                triggerShowMessage(it)
-                Log.e("error",it.toString())
-            }, orderListRequest,prefs.getBaseUrl(PrefKey.BASE_URL).toString()+ PRODUCT_LIST
-        )
-    }
-    fun categoryListApi(orderListRequest: HashMap<String,String>)=viewModelScope.launch{
-        triggerLoadingDetection(true)
-        isLoading.set(true)
-        loginRepository.categoryList(
-            scope = viewModelScope,
-            onSuccess = {
-                triggerLoadingDetection(false)
-                isLoading.set(false)
-                if(it!!.status == 1){
-                    viewModelScope.launch {
-
-                        _categoryList.postValue(it)
-                        isNoDataTable.set(false)
-                    }
-
-
-                }else{
-                    isNoDataTable.set(true)
-                }
-
-            }, onErrorAction = {
-                triggerLoadingDetection(false)
-                isLoading.set(false)
-                isNoDataTable.set(true)
-                triggerShowMessage(it)
-                Log.e("error",it.toString())
-            }, orderListRequest,prefs.getBaseUrl(PrefKey.BASE_URL).toString()+ CATEGORY_LIST
-        )
-    }
-
     fun placeOrderApi(orderListRequest: HashMap<String,String>)=viewModelScope.launch{
         triggerLoadingDetection(true)
         isLoading.set(true)
@@ -218,24 +124,25 @@ class VMProductMenu @javax.inject.Inject constructor(private val prefs: Preferen
                 if(it!!.success == 1){
                     viewModelScope.launch {
                         _placeorder.postValue(it)
-                        isNoDataSection.set(false)
+                      //  isNoDataSection.set(false)
                     }
 
 
                 }else{
-                    isNoDataSection.set(true)
+                    showToast(it.message.toString())
+                   // isNoDataSection.set(true)
                 }
 
             }, onErrorAction = {
                 triggerLoadingDetection(false)
                 isLoading.set(false)
-                isNoDataSection.set(true)
+               // showToast(it.toString())
+               // isNoDataSection.set(true)
                 triggerShowMessage(it)
                 Log.e("error",it.toString())
             }, orderListRequest,prefs.getBaseUrl(PrefKey.BASE_URL).toString()+ PLACE_ORDER
         )
     }
-
     fun addCustomerApiCall(){
         viewModelScope.launch {
             //passing parameter
@@ -265,7 +172,7 @@ class VMProductMenu @javax.inject.Inject constructor(private val prefs: Preferen
                 if(it!!.success == 1){
                     viewModelScope.launch {
                         _addCustomer.postValue(it)
-                        // isNoDataSection.set(false)
+                       // isNoDataSection.set(false)
                     }
 
 
@@ -282,12 +189,18 @@ class VMProductMenu @javax.inject.Inject constructor(private val prefs: Preferen
             }, orderListRequest,prefs.getBaseUrl(PrefKey.BASE_URL).toString()+ ADD_CUSTOMER
         )
     }
+
     fun customerListApiCall(){
         viewModelScope.launch {
             //passing parameter
             val map = HashMap<String, String>()
             map["nUserId"] = nUserId.get().toString()
             map["cCustomerName"] = ""
+            /*map["cCustomerLastName"] =" "
+            map["cCustomerContactNo"] = cMobileNo.get().toString()
+            map["cCustomerEmailId"] = emailCustomer.get().toString()
+            map["dtAnniversary"] = " "
+            map["dtBirthDay"] = " "*/
 
 
             Log.e("CreateOrderParam", map.toString())

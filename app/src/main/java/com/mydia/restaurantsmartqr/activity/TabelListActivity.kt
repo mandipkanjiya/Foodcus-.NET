@@ -50,6 +50,9 @@ class TabelListActivity :  BaseActivity<ActivityTabelListBinding, VMTableList>()
         binding.vm = viewModel
         viewModel.getUserData()
         viewModel.sectionListApiCall()
+        binding.ivCreateOrder.setOnClickListener {
+            startActivity(Intent(this@TabelListActivity,DirectOrderActivity::class.java))
+        }
 
     }
     override val viewModel: VMTableList by viewModels()

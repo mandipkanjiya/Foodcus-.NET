@@ -20,17 +20,20 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.mydia.restaurantsmartqr.R
 import com.mydia.restaurantsmartqr.adapter.ItemCartListAdapter
 import com.mydia.restaurantsmartqr.adapter.ItemCategoryAdapter
+import com.mydia.restaurantsmartqr.adapter.ItemCustomerListAdapter
 import com.mydia.restaurantsmartqr.adapter.ItemProductAdapter
 import com.mydia.restaurantsmartqr.base.BaseActivity
 import com.mydia.restaurantsmartqr.databinding.ActivityProductMenuBinding
 import com.mydia.restaurantsmartqr.model.CartItem
 import com.mydia.restaurantsmartqr.model.CartItemNew
+import com.mydia.restaurantsmartqr.model.CustomerItem
 import com.mydia.restaurantsmartqr.model.ValuesItem
 import com.mydia.restaurantsmartqr.model.product.CategoryModel
 import com.mydia.restaurantsmartqr.model.product.ProductModel
@@ -50,12 +53,15 @@ class ProductMenuActivity :  BaseActivity<ActivityProductMenuBinding, VMProductM
     lateinit var itemCartListAdapter: ItemCartListAdapter
     var cartList = ArrayList<ProductModel>()
     var grandTotalnew: Double = 0.0
+    var fTotal: Double = 0.0
     var valuesItemNew = ArrayList<ValuesItem>()
     var cartListNew = ArrayList<CartItemNew>()
+    var customerItem:CustomerItem? = null
+    var customerList:List<CustomerItem>?=null
+    var currency:String=""
     override fun getViewBinding() = ActivityProductMenuBinding.inflate(layoutInflater)
     override fun observeViewModel() {
-        viewModel.getUserData()
-        viewModel.categoryListApiCAll()
+
         viewModel.categoryList.observe(this){
             if (it.status == 1){
                 setCategoryAdapter(it.result)
@@ -75,14 +81,44 @@ class ProductMenuActivity :  BaseActivity<ActivityProductMenuBinding, VMProductM
                 finish()
             }
         }
-binding.llCharge.setOnClickListener{
+        viewModel.customerList.observe(this){
+            if (it.success == 1){
+                customerList = it.result
 
+                //finish()
+            }
+        }
+        viewModel.addCustomer.observe(this){
+            if (it.success == 1){
+                showToast("Add Customer successfully")
+                // viewModel.cMobileNo.set(it.)
+                customerItem = it.result?.get(0)
+                binding.etCustomer.setText(customerItem?.cCustomerName)
+                viewModel.nCustomerId.set(customerItem?.nCustomerId.toString())
+                viewModel.emailCustomer.set(customerItem?.cEmail)
+                viewModel.customerName.set(customerItem?.cCustomerName)
+                viewModel.cMobileNo.set(customerItem?.cContactNo)
+                //finish()
+            }
+        }
+binding.llCharge.setOnClickListener{
+    lifecycleScope.launch {
         if (cartList != null && cartList.size > 0) {
             viewModel.jsonString.set(getJsonArray(cartList))
+            if (viewModel.fTotal.get() == "") {
+                Log.e("error", "Please enter email")
+                showToast("Please calculate Total")
+                return@launch
+            }
+            if (viewModel.customerName.get() == "") {
+                showToast("Please Select customer")
+                return@launch
+            }
             viewModel.placeOrderApiCall()
-        }else{
+        } else {
             showToast("Please add item in cart")
         }
+    }
 
 
 }
@@ -103,7 +139,27 @@ binding.llCharge.setOnClickListener{
         } catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
         }
-        setCartListAdapter(cartList)
+        setCartListAdapter()
+        if(cartList!=null && cartList.size>0){
+            viewModel.isNoDataReady.set(false)
+        }else{
+            viewModel.isNoDataReady.set(true)
+        }
+
+        viewModel.getUserData()
+        viewModel.customerListApiCall()
+        viewModel.categoryListApiCAll()
+        binding.ivEditCustomer.setOnClickListener {
+            dialogAddCustomer()
+        }
+
+        binding.btnselectcust.setOnClickListener {
+            dialogCustomerList()
+        }
+        binding.imgMenu.setOnClickListener {
+            finish()
+        }
+        dialogAddCustomer()
        // binding.
     }
     override val viewModel: VMProductMenu by viewModels()
@@ -122,6 +178,7 @@ binding.llCharge.setOnClickListener{
     }
     fun setProcuctListAdapter(list:List<ProductModel>){
         //Log.e(TAG," incoming ${list.size}")
+        viewModel.currency.set(list.get(0).currency.toString())
         itemProductAdapter = ItemProductAdapter(this,list)
         binding.rvProduct.adapter = itemProductAdapter
 
@@ -136,14 +193,96 @@ binding.llCharge.setOnClickListener{
 
         })
     }
-    fun setCartListAdapter(list:List<ProductModel>){
+    fun setCartListAdapter(){
         //Log.e(TAG," incoming ${list.size}")
         itemCartListAdapter = ItemCartListAdapter(this)
         binding.rvCartList.adapter = itemCartListAdapter
 
         itemCartListAdapter.setOnItemCLickListener(object : ItemCartListAdapter.OnItemClickListener{
-            override fun onItemClick(datum: ProductModel?, pos: Int) {
+            override fun onItemDelete(datum: ProductModel?, pos: Int) {
+                if (datum?.fSpecialPrice != null && java.lang.String.format(
+                        Locale.ENGLISH,
+                        "%.3f",
+                        datum.fSpecialPrice
+                    ).equals("0.000", ignoreCase = true)
+                ) {
+                    val totalPrice = datum.fPrice!!.toDouble()* datum.quantity!!.toDouble()
+                    fTotal-= totalPrice
+                } else {
+
+                    val totalPrice = datum?.fSpecialPrice!!.toDouble()* datum?.quantity!!.toDouble()
+                    fTotal-= totalPrice
+                }
+                binding.tvSubTotal.setText(viewModel.currency.get()+" "+String.format(Locale.ENGLISH, "%.3f", fTotal))
+                binding.tvFinalChage.setText(viewModel.currency.get()+" "+String.format(Locale.ENGLISH, "%.3f", fTotal))
+
+                cartList.removeAt(pos)
+                itemCartListAdapter.notifyDataSetChanged()
+                if(cartList!=null && cartList.size>0){
+                    viewModel.isNoDataReady.set(false)
+                }else{
+                    viewModel.isNoDataReady.set(true)
+                }
                 //startActivity(Intent(this@ProductMenuActivity,ProductMenuActivity::class.java))
+            }
+
+            override fun onItemMinus(datum: ProductModel?, pos: Int) {
+                var quantityCounter =  datum?.quantity!!.toInt()
+                if (quantityCounter > 1) {
+                    quantityCounter -= 1
+                    cartList.get(pos)?.quantity = quantityCounter.toString()
+                    itemCartListAdapter.notifyDataSetChanged()
+
+                    if (datum.fSpecialPrice != null && java.lang.String.format(
+                            Locale.ENGLISH,
+                            "%.3f",
+                            datum.fSpecialPrice
+                        ).equals("0.000", ignoreCase = true)
+                    ) {
+                        val totalPrice = datum.fPrice!!.toDouble()* datum.quantity!!.toDouble()
+                        fTotal-= datum.fPrice!!.toDouble()
+                    } else {
+
+                        val totalPrice = datum.fSpecialPrice!!.toDouble()* datum.quantity!!.toDouble()
+                        fTotal-= datum.fSpecialPrice!!.toDouble()
+                    }
+                    binding.tvSubTotal.setText(viewModel.currency.get()+" "+String.format(Locale.ENGLISH, "%.3f", fTotal))
+                    binding.tvFinalChage.setText(viewModel.currency.get()+" "+String.format(Locale.ENGLISH, "%.3f", fTotal))
+
+                    //holder.binding.tvCounter.setText(quantityCounter.toString())
+                    //  totalProduct = quantity * itemPrice
+                    //totalWithAttribute = totalProduct + totalAttribute
+                    //  etSetCount.setText(SharedPref.getInstance(requireActivity())?.getStoreDetail()?.currencySymbol.toString()+" "+String.format("%.2f", totalWithAttribute))
+                }
+            }
+
+            override fun onItemPlus(datum: ProductModel?, pos: Int) {
+                var quantityCounter =  datum?.quantity!!.toInt()
+                if (datum?.fStock?.toInt()!! > quantityCounter) {
+                    quantityCounter += 1
+                    cartList.get(pos)?.quantity = quantityCounter.toString()
+                    itemCartListAdapter.notifyDataSetChanged()
+                    if (datum.fSpecialPrice != null && java.lang.String.format(
+                            Locale.ENGLISH,
+                            "%.3f",
+                            datum.fSpecialPrice
+                        ).equals("0.000", ignoreCase = true)
+                    ) {
+                        val totalPrice = datum.fPrice!!.toDouble()* datum.quantity!!.toDouble()
+                        fTotal+= datum.fPrice!!.toDouble()
+                    } else {
+
+                        val totalPrice = datum.fSpecialPrice!!.toDouble()* datum.quantity!!.toDouble()
+                        fTotal+= datum.fSpecialPrice!!.toDouble()
+                    }
+                    binding.tvSubTotal.setText(viewModel.currency.get()+" "+String.format(Locale.ENGLISH, "%.3f", fTotal))
+                    binding.tvFinalChage.setText(viewModel.currency.get()+" "+String.format(Locale.ENGLISH, "%.3f", fTotal))
+
+                    //holder.binding.tvCounter.setText(quantityCounter.toString())
+                    //  totalProduct = quantity * itemPrice
+                    //totalWithAttribute = totalProduct + totalAttribute
+                    //  etSetCount.setText(SharedPref.getInstance(requireActivity())?.getStoreDetail()?.currencySymbol.toString()+" "+String.format("%.2f", totalWithAttribute))
+                }
             }
 
         })
@@ -193,7 +332,7 @@ binding.llCharge.setOnClickListener{
      }
 
      if (productData.fPrice != null && productData.fPrice.toString().length > 0) {
-         tvProductPrice.text = String.format(Locale.ENGLISH, "%.3f", productData.fPrice.toDouble())
+         tvProductPrice.text = viewModel.currency.get()+" "+String.format(Locale.ENGLISH, "%.3f", productData.fPrice.toDouble())
      }
      /*  if(selectedPostion == position){
            //dinin
@@ -263,9 +402,26 @@ binding.llCharge.setOnClickListener{
              showToast("Please add at least one quantity")
              return@setOnClickListener
          }else {
-             productData.quantity = etProductCount.text.toString()
+             productData.quantity = quantity.toString()
              cartList.add(productData)
              itemCartListAdapter.updateData(cartList)
+             if (productData.fSpecialPrice != null && java.lang.String.format(
+                     Locale.ENGLISH,
+                     "%.3f",
+                     productData.fSpecialPrice
+                 ).equals("0.000", ignoreCase = true)
+             ) {
+                 val totalPrice = productData.fPrice!!.toDouble()* productData.quantity!!.toDouble()
+                 fTotal+= totalPrice
+             } else {
+
+                 val totalPrice = productData.fSpecialPrice!!.toDouble()* productData.quantity!!.toDouble()
+                 fTotal+= totalPrice
+             }
+             binding.tvSubTotal.setText(viewModel.currency.get()+" "+String.format(Locale.ENGLISH, "%.3f", fTotal))
+             binding.tvFinalChage.setText(viewModel.currency.get()+" "+String.format(Locale.ENGLISH, "%.3f", fTotal))
+
+             viewModel.isNoDataReady.set(false)
              dialogRenameDoc.dismiss()
          }
 
@@ -390,7 +546,9 @@ binding.llCharge.setOnClickListener{
         val etEmail = dialogRenameDoc.findViewById<AppCompatEditText>(R.id.etEmail)
         //val etMobileNumber = dialogRenameDoc.findViewById<AppCompatEditText>(R.id.etMobileNumber)
 
-
+        etName.setText(viewModel.customerName.get().toString())
+        etPhoneNumber.setText(viewModel.cMobileNo.get().toString())
+        etEmail.setText(viewModel.emailCustomer.get().toString())
         val ivCancel = dialogRenameDoc.findViewById<ImageView>(R.id.ivBack)
 
 
@@ -411,15 +569,13 @@ binding.llCharge.setOnClickListener{
                     viewModel.showToast("Please enter Name.")
                     return@launch
                 }
-                if (etEmail.text.toString().length == 0) {
-                    Log.e("error","Please enter email")
-                    showToast("Please enter email")
-                    if (etPhoneNumber.text.toString().length == 0) {
-                        Log.e("error","Please enter Phone Number")
-                        showToast("Please enter email")
-                        return@launch
-                    }
-                 //   return@launch
+                if (etEmail.text.toString().length == 0 && etPhoneNumber.text.toString().length == 0) {
+                    //Log.e("error","Please enter email")
+                    //  showToast("Please enter email")
+                    Log.e("error","Please enter Phone Number")
+                    showToast("Please enter Email Or Phone Number")
+
+                    //   return@launch
                 }
                 if (etEmail.text.toString().length > 0) {
                     if (!Utils.isValidEmail(etEmail.text.toString())) {
@@ -427,11 +583,11 @@ binding.llCharge.setOnClickListener{
                         return@launch
                     }
                 }
-                if (etPhoneNumber.text.toString().length == 0) {
-                    Log.e("error","Please enter Phone Number")
-                    showToast("Please enter email")
-                    return@launch
-                }
+                viewModel.customerName.set(etName.text.toString())
+                viewModel.emailCustomer.set(etEmail.text.toString())
+                viewModel.cMobileNo.set(etPhoneNumber.text.toString())
+                // viewModel.cMobileNo.set(etPhoneNumber.text.toString())
+                viewModel.addCustomerApiCall()
                 //BASE_URL = etBaseUrl.text.toString()
                 dialogRenameDoc.dismiss()
             }
@@ -446,4 +602,61 @@ binding.llCharge.setOnClickListener{
         dialogRenameDoc.show()
 
     }
+    fun dialogCustomerList() {
+        /*  getViewModel().startDate.set("")
+          getViewModel().endDate.set("")
+
+          getViewModel().cReason.set("")*/
+        //   var bannerModel: BreakTypeModel?=null
+        val dialogRenameDoc =
+            Dialog(this@ProductMenuActivity)
+        dialogRenameDoc.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialogRenameDoc.setContentView(R.layout.dialog_customerlist)
+        dialogRenameDoc.setCancelable(true)
+        dialogRenameDoc.setCanceledOnTouchOutside(true)
+        //dialogRenameDoc.window?.setGravity(Gravity.BOTTOM)
+        //dialog.behavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
+        dialogRenameDoc.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialogRenameDoc.setOnDismissListener {
+            //  getViewModel().breakTypeId.set("")
+            //getViewModel().breakTypeName.set("")
+        }
+        val tvTitle = dialogRenameDoc.findViewById<TextView>(R.id.tvTitle)
+        val ivCancel = dialogRenameDoc.findViewById<ImageView>(R.id.ivCancel)
+        val rvBreakType = dialogRenameDoc.findViewById<RecyclerView>(R.id.rvBreakType)
+        tvTitle?.setText("Select Customer")
+        if(customerList!=null){
+            val adapter = ItemCustomerListAdapter(this@ProductMenuActivity, customerList!!)
+            rvBreakType?.adapter = adapter
+            adapter?.setOnItemCLickListener(object : ItemCustomerListAdapter.OnItemClickListener {
+                override fun onItemClick(bannerModel: CustomerItem?, position: Int) {
+                    //getViewModel().getOtherProfileApi(bannerModel.nEmployeeId.toString())
+                    /* statesList = null*/
+                    viewModel.nCustomerId.set(bannerModel?.nCustomerId.toString())
+                    viewModel.customerName.set(bannerModel?.cCustomerName)
+                    viewModel.cMobileNo.set(bannerModel?.cContactNo)
+                    viewModel.emailCustomer.set(bannerModel?.cEmail)
+                    //   viewModel.pack.set(bannerModel?.name)
+                    //    viewModel.statesListApiCall()
+                    dialogRenameDoc.dismiss()
+                }
+
+            })
+        }
+
+        ivCancel!!.setOnClickListener {
+            dialogRenameDoc.dismiss()
+
+        }
+        val lp = WindowManager.LayoutParams()
+        lp.copyFrom(dialogRenameDoc.window!!.attributes)
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT
+        lp.height = WindowManager.LayoutParams.MATCH_PARENT
+        lp.gravity = Gravity.BOTTOM
+        lp.windowAnimations = R.style.DialogAnimation
+        dialogRenameDoc.show()
+
+    }
+
+
 }

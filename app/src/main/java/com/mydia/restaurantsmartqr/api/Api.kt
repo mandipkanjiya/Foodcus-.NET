@@ -4,6 +4,7 @@ package com.mydia.restaurantsmartqr.api
 import com.mydia.restaurantsmartqr.model.AppUpdateResponse
 import com.mydia.restaurantsmartqr.model.BaseResponse
 import com.mydia.restaurantsmartqr.model.CreateOrderModel
+import com.mydia.restaurantsmartqr.model.CustomerResponse
 import com.mydia.restaurantsmartqr.model.OrderStatusResponse
 import com.mydia.restaurantsmartqr.model.login.LoginResponse
 import com.mydia.restaurantsmartqr.model.orderList.OrderListResponse
@@ -79,5 +80,13 @@ interface Api {
     @FormUrlEncoded
     @POST
     suspend fun placeOrderApi(@Url url:String,@FieldMap requestFieldMap: HashMap<String,String>): CreateOrderModel?
+
+    @FormUrlEncoded
+    @POST
+    suspend fun addCustomerApi(@Url url:String,@FieldMap requestFieldMap: HashMap<String,String>): CustomerResponse?
+
+    @FormUrlEncoded
+    @POST
+    suspend fun customerListApi(@Url url:String,@FieldMap requestFieldMap: HashMap<String,String>): CustomerResponse?
 
 }

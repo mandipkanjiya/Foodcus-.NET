@@ -35,7 +35,9 @@ class ItemCartListAdapter(context: Context) :  RecyclerView.Adapter<ItemCartList
 
 
     interface OnItemClickListener {
-        fun onItemClick(datum: ProductModel?, pos: Int)
+        fun onItemDelete(datum: ProductModel?, pos: Int)
+        fun onItemMinus(datum: ProductModel?, pos: Int)
+        fun onItemPlus(datum: ProductModel?, pos: Int)
     }
 
     //method of item click
@@ -61,6 +63,8 @@ class ItemCartListAdapter(context: Context) :  RecyclerView.Adapter<ItemCartList
         val incomingData = incomingOrderList[position]
        /* holder.binding.tvItemName.text = incomingData
         holder.binding.tvQuantityCount.text = "10"*/
+        holder.binding.tvCounter.text = incomingData.quantity
+      // var quantityCounter =  incomingData.quantity!!.toInt()
         if (incomingData.cName != null && incomingData.cName.length > 0
         ) {
             val upperString: String = incomingData.cName.substring(0, 1)
@@ -70,7 +74,7 @@ class ItemCartListAdapter(context: Context) :  RecyclerView.Adapter<ItemCartList
         }
 
         if (incomingData.fPrice != null && incomingData.fPrice.toString().length > 0) {
-            holder.binding.tvProductPrice.text = String.format(Locale.ENGLISH, "%.3f", incomingData.fPrice.toDouble())
+            holder.binding.tvProductPrice.text = incomingData.currency.toString()+" "+String.format(Locale.ENGLISH, "%.3f", incomingData.fPrice.toDouble())
         }
         /*  if(selectedPostion == position){
               //dinin
@@ -107,6 +111,23 @@ class ItemCartListAdapter(context: Context) :  RecyclerView.Adapter<ItemCartList
                 .error(R.drawable.app_icon)
                 .apply(RequestOptions.bitmapTransform(RoundedCorners(35)))
                 .into(holder.binding.ivProduct)
+        }
+        holder.binding.ivAddCount.setOnClickListener {
+
+            onItemClickListener?.onItemPlus(incomingOrderList[position],position)
+        }
+        holder.binding.ivDeleteCart.setOnClickListener {
+            onItemClickListener?.onItemDelete(incomingOrderList[position],position)
+        }
+
+        holder.binding.ivMinusCount.setOnClickListener {
+          //  if (quantityCounter > 1) {
+                onItemClickListener?.onItemMinus(incomingOrderList[position],position)
+                // val priceQuantity = quantity * product.price.toDouble()
+                // totalProduct = quantity * itemPrice
+                // totalWithAttribute = totalProduct + totalAttribute
+                //etSetCount.setText(SharedPref.getInstance(requireActivity())?.getStoreDetail()?.currencySymbol.toString()+" "+String.format("%.2f", totalWithAttribute))
+           // }
         }
         //holder.binding.tv.text = "10"
      /*   Glide.with(context).load(cartlist[position].image).error(R.mipmap.ic_launcher_foreground)

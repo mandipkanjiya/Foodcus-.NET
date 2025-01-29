@@ -72,6 +72,7 @@
                     android:src="@drawable/ic_order_history"
                     android:visibility="visible" />
                 <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/etCustomer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_semibold"
@@ -118,15 +119,16 @@
                     android:layout_height="wrap_content"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     android:orientation="horizontal"
+                    android:visibility="@{vm.isNoDataTable() == true ?View.GONE :View.VISIBLE}"
                     tools:listitem="@layout/item_category_adapter"
                     />
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/_40sdp"
                     android:fontFamily="@font/poppins_bold"
                     android:gravity="center"
-                    android:text="No Orders Found"
-                    android:visibility="gone"
+                    android:text="No Category Found"
+                    android:visibility="@{vm.isNoDataTable() == true ?View.VISIBLE :View.GONE}"
                     android:textColor="@color/textColor"
                     android:layout_centerInParent="true"
                     android:textSize="@dimen/_10sdp" />
@@ -146,6 +148,7 @@
                         android:layout_height="match_parent"
                         app:spanCount="4"
                         tools:itemCount="50"
+                        android:visibility="@{vm.isNoDataSection() == true ?View.GONE :View.VISIBLE}"
                         tools:listitem="@layout/item_product"
                         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                         />
@@ -155,8 +158,8 @@
                         android:fontFamily="@font/poppins_bold"
                         android:gravity="center"
                         android:layout_centerInParent="true"
-                        android:text="No Orders Found"
-                        android:visibility="gone"
+                        android:text="No Product Found"
+                        android:visibility="@{vm.isNoDataSection() == true ?View.VISIBLE :View.GONE}"
                         android:textColor="@color/textColor"
                         android:textSize="@dimen/_10sdp" />
                 </RelativeLayout>
@@ -315,9 +318,20 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:orientation="vertical"
-                                    tools:itemCount="4"
+                                    tools:itemCount="0"
+                                    android:visibility="@{vm.isNoDataReady() == true ?View.GONE :View.VISIBLE}"
                                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                                     tools:listitem="@layout/item_cart" />
+                                <androidx.appcompat.widget.AppCompatTextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/_100sdp"
+                                    android:fontFamily="@font/poppins_bold"
+                                    android:gravity="center"
+                                    android:layout_centerInParent="true"
+                                    android:text="Cart is Empty!"
+                                    android:visibility="@{vm.isNoDataReady() == true ?View.VISIBLE :View.GONE}"
+                                    android:textColor="@color/textColor"
+                                    android:textSize="@dimen/_10sdp" />
                             </RelativeLayout>
 
 
@@ -327,6 +341,7 @@
                             android:id="@+id/view1"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_5sdp"
+                            android:visibility="@{vm.isNoDataReady() == true ?View.GONE :View.VISIBLE}"
                             android:layout_below="@+id/linItemList"
                             android:background="@color/backgroundColor" />
                         <LinearLayout
@@ -377,6 +392,7 @@
                             <androidx.appcompat.widget.LinearLayoutCompat
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:visibility="@{vm.isNoDataReady() == true ?View.GONE :View.VISIBLE}"
                                 android:layout_marginTop="@dimen/_5sdp"
                                 android:orientation="horizontal">
 
@@ -390,16 +406,13 @@
                                     android:layout_weight="1"
                                     android:textColor="@color/textColor"
                                     android:textSize="@dimen/_9sdp" />
-
                                 <TextView
                                     android:id="@+id/tvSubTotal"
                                     style="@style/darkTextRegular"
-                                    android:layout_width="0dp"
+                                    android:layout_width="wrap_content"
                                     android:layout_centerInParent="true"
-                                    android:layout_marginStart="@dimen/_10sdp"
-                                    android:layout_weight="0.5"
+                                    android:layout_marginStart="@dimen/_1sdp"
                                     android:layout_marginEnd="@dimen/_5sdp"
-                                    android:gravity="end"
                                     android:text="0.000"
                                     android:textColor="@color/textColor"
                                     android:textSize="@dimen/_9sdp" />
@@ -520,7 +533,6 @@
                         android:layout_weight="1"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_9sdp" />
-
                     <TextView
                         android:id="@+id/tvFinalChage"
                         style="@style/darkTextBold"

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <LinearLayout
+        android:id="@+id/llMain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvDescription"
+            style="@style/darkTextSemiBold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Facebook"
+            android:paddingVertical="@dimen/_10sdp"
+            android:paddingHorizontal="@dimen/_5sdp"
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/_12sdp" />
+        <View
+            android:id="@+id/viewLine"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:background="@color/black"/>
+
+    </LinearLayout>
+
+</layout>

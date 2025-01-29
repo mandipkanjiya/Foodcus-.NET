@@ -51,10 +51,11 @@ class ItemSectionListAdapter(context: Context,private var incomingOrderList:List
         if(selectedPostion == position){
             //dinin
             holder.binding.llMain.background=context.getDrawable(R.drawable.section_selected_bg)
-
+            holder.binding.tvOrderId.setTextColor(context.getColor(R.color.color2e71f9))
         }else{
             //pickup
             holder.binding.llMain.background=context.getDrawable(R.drawable.section_unselected_bg)
+            holder.binding.tvOrderId.setTextColor(context.getColor(R.color.gray))
         }
 
 

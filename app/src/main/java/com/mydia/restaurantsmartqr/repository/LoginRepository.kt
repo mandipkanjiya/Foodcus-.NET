@@ -7,6 +7,7 @@ import com.mydia.restaurantsmartqr.base.BaseRepository
 import com.mydia.restaurantsmartqr.model.AppUpdateResponse
 import com.mydia.restaurantsmartqr.model.BaseResponse
 import com.mydia.restaurantsmartqr.model.CreateOrderModel
+import com.mydia.restaurantsmartqr.model.CustomerResponse
 import com.mydia.restaurantsmartqr.model.OrderStatusResponse
 import com.mydia.restaurantsmartqr.model.login.LoginResponse
 import com.mydia.restaurantsmartqr.model.orderList.OrderListResponse
@@ -276,6 +277,44 @@ class LoginRepository @Inject constructor(
             scope = scope,
             client = {
                 api.placeOrderApi(url,tableListRequest)
+            },
+            onSuccess = {
+                onSuccess(it)
+            },
+            onErrorAction = {
+                onErrorAction(it)
+            }
+        )
+    suspend fun addCustomerApi(
+        scope: CoroutineScope,
+        onSuccess: (CustomerResponse?) -> Unit,
+        onErrorAction: (String?) -> Unit,
+        tableListRequest: HashMap<String,String>,
+        url: String
+    ) =
+        sendRequest(
+            scope = scope,
+            client = {
+                api.addCustomerApi(url,tableListRequest)
+            },
+            onSuccess = {
+                onSuccess(it)
+            },
+            onErrorAction = {
+                onErrorAction(it)
+            }
+        )
+    suspend fun customerListApi(
+        scope: CoroutineScope,
+        onSuccess: (CustomerResponse?) -> Unit,
+        onErrorAction: (String?) -> Unit,
+        tableListRequest: HashMap<String,String>,
+        url: String
+    ) =
+        sendRequest(
+            scope = scope,
+            client = {
+                api.customerListApi(url,tableListRequest)
             },
             onSuccess = {
                 onSuccess(it)

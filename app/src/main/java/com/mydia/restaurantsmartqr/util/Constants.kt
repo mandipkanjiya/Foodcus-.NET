@@ -28,6 +28,8 @@ object Constants {
     const val CATEGORY_LIST = "/Category.asmx/SelectAllCategoryByLanguageId"
     const val PRODUCT_LIST = "/Product.asmx/SelectAllProductByCategoryV1"
     const val PLACE_ORDER = "/Order.asmx/CreateOrderWithJsonDataV6"
+    const val ADD_CUSTOMER = "/Customer.asmx/AddFoodcusCustomer"
+    const val CUSTOMER_LIST = "/Customer.asmx/SelectAllFoodcusCustomer"
 
 
 

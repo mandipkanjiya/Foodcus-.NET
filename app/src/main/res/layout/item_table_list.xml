@@ -3,30 +3,62 @@
 
     <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_80sdp"
-        android:layout_margin="@dimen/_5sdp">
+        android:layout_height="wrap_content"
+        android:id="@+id/llMain"
+        android:orientation="vertical"
+        android:backgroundTint="@color/colorf6faff"
+        android:background="@drawable/bg_shape_product_detail_common"
+        android:layout_margin="@dimen/_5sdp"
+        android:padding="@dimen/_8sdp">
         <LinearLayout
-            android:id="@+id/llMain"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:orientation="vertical"
+            android:layout_weight="1"
             android:gravity="center"
-            android:background="@drawable/section_selected_bg">
+          >
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvOrderId"
+                android:id="@+id/tvTableName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:paddingVertical="@dimen/_5sdp"
                 android:paddingHorizontal="@dimen/_10sdp"
-                android:textSize="@dimen/_12sdp"
-                android:textColor="@color/textColor"
+                android:textSize="@dimen/_10sdp"
+                android:backgroundTint="@color/color2e71f9"
+                android:background="@drawable/bg_shape_product_detail_common"
+                android:textColor="@color/white"
+                android:fontFamily="@font/poppins_semibold"
+                android:visibility="visible"
+                android:text="T-01"/>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvGuestcount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:paddingVertical="@dimen/_5sdp"
+                android:paddingHorizontal="@dimen/_10sdp"
+                android:textSize="@dimen/_9sdp"
+                android:textColor="@color/color2e71f9"
                 android:fontFamily="@font/poppins_regular"
                 android:visibility="visible"
-                android:text="Table 1st"/>
-
+                android:text="Sharan: 2 Guests"/>
 
         </LinearLayout>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:paddingHorizontal="@dimen/_10sdp"
+            android:textSize="@dimen/_9sdp"
+            android:textColor="@color/gray"
+            android:fontFamily="@font/poppins_regular"
+            android:visibility="visible"
+            android:text="9:00 AM"/>
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

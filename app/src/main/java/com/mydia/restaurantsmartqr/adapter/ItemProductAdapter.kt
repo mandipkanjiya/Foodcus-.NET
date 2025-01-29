@@ -51,7 +51,7 @@ class ItemProductAdapter(context: Context,private var incomingOrderList:List<Pro
         }
 
         if (incomingData.fPrice != null && incomingData.fPrice.toString().length > 0) {
-            holder.binding.tvProductPrice.text = String.format(Locale.ENGLISH, "%.3f", incomingData.fPrice.toDouble())
+            holder.binding.tvProductPrice.text = incomingData.currency.toString()+" "+String.format(Locale.ENGLISH, "%.3f", incomingData.fPrice.toDouble())
         }
       /*  if(selectedPostion == position){
             //dinin
@@ -66,16 +66,19 @@ class ItemProductAdapter(context: Context,private var incomingOrderList:List<Pro
             holder.binding.tvSpecialPrice.setVisibility(View.VISIBLE)
             holder.binding.tvProductPrice.paintFlags = holder.binding.tvProductPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
             //  tvSpecPrice.setText(productDetails.get(0).getnSpecialPrice());
-            holder.binding.tvProductPrice.textSize = 13f
+            holder.binding.tvProductPrice.textSize = 10f
             holder.binding.tvSpecialPrice.setText(java.lang.String.format(Locale.ENGLISH, "%.3f", incomingData.fSpecialPrice))
         } else {
             holder.binding.tvSpecialPrice.setVisibility(View.GONE)
-            holder.binding.tvProductPrice.textSize = 16f
+            holder.binding.tvProductPrice.textSize = 11f
             holder.binding.tvProductPrice.paintFlags = 0
         }
         if (incomingData.cImage != null && incomingData.cImage.length > 0) {
+            if(!incomingData.cImage.startsWith("https")){
+
+            }
             Glide.with(context)
-                .load(incomingData.cImage)
+                .load(incomingData.cImage.toString())
                 .placeholder(R.drawable.app_icon)
                 .error(R.drawable.app_icon)
                 .apply(RequestOptions.bitmapTransform(RoundedCorners(35)))

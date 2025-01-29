@@ -6,7 +6,7 @@
         <import type="android.view.View" />
         <variable
             name="vm"
-            type="com.mydia.restaurantsmartqr.viewModel.VMLogin" />
+            type="com.mydia.restaurantsmartqr.viewModel.VMDirectOrder" />
     </data>
     <RelativeLayout
         android:layout_width="match_parent"
@@ -14,10 +14,57 @@
         android:background="@color/backgroundColor"
         android:orientation="vertical"
         tools:context=".activity.LoginActivity">
+        <RelativeLayout
+            android:id="@+id/relAction"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_30sdp"
+            >
 
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imgMenu"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:padding="@dimen/_3sdp"
+                app:tint="@color/textColor"
+                android:backgroundTint="@color/white"
+                android:src="@drawable/ic_back_arrow"
+                android:visibility="visible" />
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/imgMenu"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/poppins_bold"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:text="Create Order"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/_10sdp" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:visibility="visible"
+                android:layout_alignParentEnd="true"
+                android:layout_height="wrap_content">
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivLogo"
+                    android:layout_width="@dimen/_50sdp"
+                    android:layout_height="match_parent"
+                    android:padding="@dimen/_5sdp"
+                    android:visibility="visible"
+                    android:src="@drawable/ic_mydia" />
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_below="@+id/relAction">
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
@@ -30,36 +77,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_20sdp"
                     android:src="@drawable/ic_mydia"
-                    android:visibility="visible"/>
+                    android:visibility="gone"/>
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:fontFamily="@font/poppins_bold"
-                    android:gravity="center"
-                    android:layout_gravity="center"
-                    android:text="@string/app_name"
-                    android:textColor="@color/textColor"
-                    android:textSize="@dimen/_15sdp" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="@dimen/_200sdp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:gravity="center"
-                    android:layout_gravity="center"
-                    android:visibility="visible"
-                    android:text="@string/login_desc"
-                    android:textColor="@color/gray"
-                    android:textSize="@dimen/_7sdp" />
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="@dimen/_200sdp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_15sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_15sdp"
                     android:layout_marginEnd="@dimen/_15sdp"
                     android:layout_gravity="center"
                     android:orientation="vertical">
@@ -77,26 +102,24 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/poppins_semibold"
-                            android:text="@string/login_uname"
+                            android:text="Order Amount"
                             android:textColor="@color/textColor"
-                            android:layout_marginStart="@dimen/_10sdp"
-                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:layout_marginEnd="@dimen/_5sdp"
                             android:layout_marginTop="@dimen/_2sdp"
                             android:textSize="@dimen/_9sdp" />
                         <androidx.appcompat.widget.AppCompatEditText
-                            android:id="@+id/etEmail"
+                            android:id="@+id/etAmount"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_gravity="center_vertical"
                             android:background="@null"
                             android:fontFamily="@font/poppins_regular"
-                            android:hint="@string/login_edit_u_name"
+                            android:hint="Enter Amount"
                             android:imeOptions="actionGo"
-                            android:inputType="text"
-                            android:maxLength="80"
-                            android:text="@={vm.userName}"
-                            android:layout_marginStart="@dimen/_10sdp"
-                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:inputType="number"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:layout_marginEnd="@dimen/_5sdp"
                             android:singleLine="true"
                             android:textColor="@color/textColor"
                             android:textColorHint="@color/gray"
@@ -109,57 +132,59 @@
 
 
                     <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_45sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:background="@drawable/rounded_edit_text"
+                        android:orientation="vertical"
+                        android:padding="@dimen/_3sdp">
+                        <androidx.appcompat.widget.AppCompatTextView
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_45sdp"
-                            android:layout_marginTop="@dimen/_5sdp"
-                            android:background="@drawable/rounded_edit_text"
-                            android:orientation="vertical"
-                            android:padding="@dimen/_3sdp">
-                            <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:text="Select Customer"
+                            android:textColor="@color/textColor"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:layout_marginEnd="@dimen/_5sdp"
+                            android:layout_marginTop="@dimen/_2sdp"
+                            android:textSize="@dimen/_9sdp" />
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="0.8"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:layout_marginEnd="@dimen/_5sdp">
+
+                            <androidx.appcompat.widget.AppCompatEditText
+                                android:id="@+id/etCustomer"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="@font/poppins_semibold"
-                                android:text="@string/login_pass"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center_vertical"
+                                android:background="@null"
+                                android:fontFamily="@font/poppins_regular"
+                                android:hint="Select Customer"
+                                android:imeOptions="actionDone"
+                                android:inputType="text"
+                                android:singleLine="true"
+                                android:editable="false"
+                                android:focusableInTouchMode="false"
+                                android:focusable="false"
                                 android:textColor="@color/textColor"
-                                android:layout_marginStart="@dimen/_10sdp"
-                                android:layout_marginEnd="@dimen/_10sdp"
-                                android:layout_marginTop="@dimen/_2sdp"
-                                android:textSize="@dimen/_9sdp" />
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="0dp"
-                                android:layout_weight="0.8"
-                                android:layout_marginStart="@dimen/_10sdp"
-                                android:layout_marginEnd="@dimen/_10sdp">
+                                android:textColorHint="@color/gray"
+                                android:textSize="@dimen/_10sdp" />
 
-                                <androidx.appcompat.widget.AppCompatEditText
-                                    android:id="@+id/etPassword"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:layout_gravity="center_vertical"
-                                    android:background="@null"
-                                    android:fontFamily="@font/poppins_regular"
-                                    android:hint="@string/login_edit_pass"
-                                    android:imeOptions="actionDone"
-                                    android:inputType="textPassword"
-                                    android:singleLine="true"
-                                    android:text="@={vm.password}"
-                                    android:textColor="@color/textColor"
-                                    android:textColorHint="@color/gray"
-                                    android:textSize="@dimen/_10sdp" />
-
-                                <androidx.appcompat.widget.AppCompatImageView
-                                    android:id="@+id/imgPassword"
-                                    android:layout_width="@dimen/_20sdp"
-                                    android:layout_height="@dimen/_18sdp"
-                                    android:layout_alignParentEnd="true"
-                                    android:layout_centerInParent="true"
-                                    android:layout_gravity="center_vertical"
-                                    android:visibility="gone"
-                                    android:layout_marginEnd="@dimen/_10sdp"
-                                    android:src="@drawable/hide" />
-                            </RelativeLayout>
-                        </LinearLayout>
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/ivAddCustomer"
+                                android:layout_width="@dimen/_20sdp"
+                                android:layout_height="@dimen/_20sdp"
+                                android:padding="@dimen/_3sdp"
+                                android:layout_alignParentEnd="true"
+                                android:layout_centerInParent="true"
+                                android:layout_gravity="center_vertical"
+                                android:visibility="visible"
+                                android:src="@drawable/ic_add_quantity" />
+                        </RelativeLayout>
+                    </LinearLayout>
 
 
 
@@ -184,29 +209,20 @@
                     android:layout_marginTop="@dimen/_10sdp">
 
                     <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/btnSignin"
+                        android:id="@+id/btnCreateOrder"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/rounded_button"
                         android:fontFamily="@font/poppins_bold"
-                        android:text="Sign in"
+                        android:text="Create Order"
                         android:textAllCaps="false"
                         android:textColor="@color/white"
-                        android:onClick="@{()->vm.onLoginClick()}"
+
                         android:textSize="@dimen/_10sdp" />
 
                 </RelativeLayout>
 
-                <ProgressBar
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_gravity="center"
-                    android:indeterminateTint="@color/main_blue"
-                    android:indeterminateTintMode="src_atop"
-                    android:progressTint="@color/main_blue"
-                    android:visibility="@{vm.isLoading() == true ? View.VISIBLE : View.GONE}"
-                    />
+
 
 
                 <androidx.appcompat.widget.LinearLayoutCompat
@@ -242,6 +258,7 @@
                 </androidx.appcompat.widget.LinearLayoutCompat>
             </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.core.widget.NestedScrollView>
+
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivSettings"
             android:layout_width="@dimen/_25sdp"
@@ -253,5 +270,14 @@
             android:visibility="gone"
             android:backgroundTint="@color/white"
             android:src="@drawable/ic_settings" />
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:indeterminateTint="@color/main_blue"
+            android:indeterminateTintMode="src_atop"
+            android:progressTint="@color/main_blue"
+            android:visibility="@{vm.isLoading() == true ? View.VISIBLE : View.GONE}"
+            />
     </RelativeLayout>
 </layout>

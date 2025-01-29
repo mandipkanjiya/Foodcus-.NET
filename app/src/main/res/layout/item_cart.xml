@@ -63,7 +63,7 @@
                         android:layout_gravity="center_vertical"
                         android:orientation="vertical">
                         <TextView
-                            style="@style/darkTextBold"
+                            style="@style/darkTextSemiBold"
                             android:id="@+id/tvProductName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -111,7 +111,7 @@
                                 android:layout_marginStart="@dimen/_3sdp"
                                 />
                             <TextView
-                                style="@style/darkTextBold"
+                                style="@style/darkTextSemiBold"
                                 android:id="@+id/tvSpecialPrice"
                                 android:layout_weight="1"
                                 android:layout_width="wrap_content"
@@ -169,7 +169,7 @@
                                         android:layout_gravity="center"
                                         android:gravity="center"
                                         android:textColor="@color/textColor"
-                                        android:textSize="@dimen/_16sdp"  />
+                                        android:textSize="@dimen/_10sdp"  />
 
                                     <ImageView
                                         android:id="@+id/ivAddCount"
