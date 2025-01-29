@@ -122,7 +122,7 @@ class LiveOrderActivity : BaseActivity<ActivityLiveOrderBinding, VMLiveOrder>(),
 
     override fun onResume() {
         super.onResume()
-        viewModel.appUpdateApi()
+     //   viewModel.appUpdateApi()
     }
     private val receiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
@@ -200,13 +200,13 @@ class LiveOrderActivity : BaseActivity<ActivityLiveOrderBinding, VMLiveOrder>(),
     }
     override fun observeViewModel() {
         viewModel.incomingOrder.observe(this){
-            if(it.status == 1){
+            if(it.result.isNotEmpty()){
 
                 setIncomingAdapter(it.result)
             }
         }
         viewModel.acceptedOrder.observe(this){
-            if(it.status == 1){
+            if(it.result.isNotEmpty()){
 
                 setAcceptedAdapter(it.result)
             } else{
@@ -215,12 +215,12 @@ class LiveOrderActivity : BaseActivity<ActivityLiveOrderBinding, VMLiveOrder>(),
         }
 
         viewModel.readyOrder.observe(this){
-            if(it.status == 1){
+            if(!it.result.isNullOrEmpty()){
                 Log.e(TAG," ready order")
-              //  binding.llReady.visibility = View.VISIBLE
+                binding.llReady.visibility = View.VISIBLE
                 setReadyAdapter(it.result)
             }else{
-              //  binding.llReady.visibility = View.GONE
+                binding.llReady.visibility = View.GONE
             }
         }
         viewModel.appupdateData.observe(this, Observer {
@@ -247,7 +247,7 @@ class LiveOrderActivity : BaseActivity<ActivityLiveOrderBinding, VMLiveOrder>(),
         incomingOrderAdapter.setOnItemCLickListener(object : IncomingOrderAdapter.OnItemClickListener{
             override fun onItemAcceptClick(datum: OrderList?, pos: Int) {
                 var title = "Are you sure you want to accept this order?"
-                showAcceptRejectDialog(title, datum!!.nid.toString(),"2")
+                showAcceptRejectDialog(title, datum!!.nOrderId.toString(),"2")
 
 
             }
@@ -256,7 +256,7 @@ class LiveOrderActivity : BaseActivity<ActivityLiveOrderBinding, VMLiveOrder>(),
             override fun onItemRejectClick(datum: OrderList?, pos: Int) {
                 var title = "Are you sure you want to reject this order?"
 
-                showAcceptRejectDialog(title, datum!!.nid.toString(),"5")
+                showAcceptRejectDialog(title, datum!!.nOrderId.toString(),"5")
 
             }
 
@@ -287,13 +287,13 @@ class LiveOrderActivity : BaseActivity<ActivityLiveOrderBinding, VMLiveOrder>(),
 
             override fun onItemAcceptClick(datum: OrderList?, pos: Int, orderType: String) {
 
-                if(orderType.equals("2")){
+                if(orderType.equals("DineIn")){
                     var title = "Are you sure this order is punched on the POS?"
-                    showAcceptRejectDialog(title, datum!!.nid.toString(),"4")
+                    showAcceptRejectDialog(title, datum!!.nOrderId.toString(),"4")
                     //dinin
-                }else if(orderType.equals("1")){
+                }else if(orderType.equals("Pickup")){
                     var title = "Are you sure this order is prepared?"
-                    showAcceptRejectDialog(title, datum!!.nid.toString(),"3")
+                    showAcceptRejectDialog(title, datum!!.nOrderId.toString(),"3")
                 }
 
             }
@@ -307,7 +307,7 @@ class LiveOrderActivity : BaseActivity<ActivityLiveOrderBinding, VMLiveOrder>(),
             .setPositiveButton("Yes",
                 DialogInterface.OnClickListener { dialog, which ->
 
-                    val orderStatusApi  = OrderStatusRequest(order_id = orderId, norder_status = orderStatus)
+                    val orderStatusApi  = OrderStatusRequest(nUserId = "21", nOrderId = orderId, cStatus = orderStatus)
                     viewModel.orderStatusApi(orderStatusApi)
                 })
             .setNegativeButton("No",

@@ -27,6 +27,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginStart="@dimen/_15sdp"
                 app:tint="@color/textColor"
+                android:visibility="gone"
                 android:src="@drawable/ic_back_arrow" />
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/imgHome"
@@ -42,7 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_toEndOf="@id/imgBack"
+                android:layout_toEndOf="@id/imgHome"
                 android:layout_marginStart="@dimen/_10sdp"
                 android:fontFamily="@font/poppins_medium"
                 android:text="Orders History"
@@ -51,14 +52,15 @@
 
 
         </RelativeLayout>
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:layout_marginHorizontal="@dimen/_10sdp">
             <RelativeLayout
                 android:id="@+id/rvDate"
-                android:layout_toStartOf="@id/rvSection"
-                android:layout_width="@dimen/_70sdp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="@dimen/_20sdp"
                 android:layout_marginEnd="@dimen/_5sdp"
                 android:background="@drawable/rounded_dashborad">
@@ -94,9 +96,9 @@
             </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/rvSection"
-                android:layout_toStartOf="@id/rvTableFilter"
-                android:layout_width="@dimen/_70sdp"
+                android:layout_width="0dp"
                 android:layout_height="@dimen/_20sdp"
+                android:layout_weight="1"
                 android:layout_marginEnd="@dimen/_5sdp"
                 android:background="@drawable/rounded_dashborad">
                 <androidx.appcompat.widget.LinearLayoutCompat
@@ -127,9 +129,9 @@
             </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/rvTableFilter"
-                android:layout_toStartOf="@id/rvFilter"
-                android:layout_width="@dimen/_70sdp"
+                android:layout_width="0dp"
                 android:layout_height="@dimen/_20sdp"
+                android:layout_weight="1"
                 android:layout_marginEnd="@dimen/_5sdp"
                 android:background="@drawable/rounded_dashborad">
                 <androidx.appcompat.widget.LinearLayoutCompat
@@ -160,9 +162,11 @@
             </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/rvFilter"
-                android:layout_width="@dimen/_70sdp"
+                android:layout_width="0dp"
                 android:layout_height="@dimen/_20sdp"
-                android:layout_alignParentEnd="true"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:layout_gravity="end"
                 android:background="@drawable/rounded_dashborad">
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:id="@+id/llSpinner"
@@ -191,7 +195,7 @@
                     android:layout_alignParentEnd="true"/>
 
             </RelativeLayout>
-        </RelativeLayout>
+        </LinearLayout>
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="match_parent"

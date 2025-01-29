@@ -130,7 +130,7 @@
                         android:layout_marginEnd="@dimen/_5sdp"
                         android:layout_marginStart="@dimen/_5sdp"
                         android:orientation="vertical"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         android:background="@drawable/rounded_liveorder">
                         <RelativeLayout
                             android:layout_width="match_parent"
@@ -176,10 +176,17 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_5sdp"
-                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                            app:spanCount="3"
 
                             tools:listitem="@layout/item_all_alert"
                             android:visibility="@{vm.isNoDataIncoming() == true ?View.GONE :View.VISIBLE}"
+                            />
+                        <ProgressBar
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:visibility="@{vm.isLoading()== true? View.VISIBLE : View.GONE}"
                             />
                         <androidx.appcompat.widget.AppCompatTextView
                             android:layout_width="match_parent"
@@ -197,6 +204,7 @@
                         android:layout_weight="1"
                         android:layout_marginStart="@dimen/_5sdp"
                         android:layout_marginEnd="@dimen/_5sdp"
+                        android:visibility="gone"
                         android:orientation="vertical">
                         <androidx.appcompat.widget.LinearLayoutCompat
                             android:layout_width="match_parent"

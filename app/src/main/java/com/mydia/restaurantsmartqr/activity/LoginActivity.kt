@@ -112,7 +112,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, VMLogin>() {
                         openNextActivity()
                     }
                     2 -> {
-                        openTableOrderActivity()
+                        openNextActivity()
                     }
 
                 }

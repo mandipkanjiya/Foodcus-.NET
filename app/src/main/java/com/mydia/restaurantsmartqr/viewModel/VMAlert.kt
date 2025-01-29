@@ -7,24 +7,30 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.mydia.restaurantsmartqr.base.BaseViewModel
+import com.mydia.restaurantsmartqr.model.alertList.AlertList
 import com.mydia.restaurantsmartqr.model.login.LoginModel
 import com.mydia.restaurantsmartqr.model.orderList.OrderListResponse
 import com.mydia.restaurantsmartqr.prefrences.PrefKey
 import com.mydia.restaurantsmartqr.prefrences.PreferencesServices
 import com.mydia.restaurantsmartqr.repository.AddPointRequest
+import com.mydia.restaurantsmartqr.repository.AlertListRequest
 import com.mydia.restaurantsmartqr.repository.LoginRepository
 import com.mydia.restaurantsmartqr.repository.OrderListRequest
 import com.mydia.restaurantsmartqr.repository.OrderStatusRequest
 import com.mydia.restaurantsmartqr.repository.RedeemPointRequest
 import com.mydia.restaurantsmartqr.repository.ReviewAndBranchLinkRequest
+import com.mydia.restaurantsmartqr.repository.UpdateAlertRequest
 import com.mydia.restaurantsmartqr.util.Constants.ADD_POINT
+import com.mydia.restaurantsmartqr.util.Constants.ALERT_LIST
 import com.mydia.restaurantsmartqr.util.Constants.APP_VERSIONS
 import com.mydia.restaurantsmartqr.util.Constants.BRANCH_LINK
 import com.mydia.restaurantsmartqr.util.Constants.LOGIN_URL
 import com.mydia.restaurantsmartqr.util.Constants.ORDER_LIST_URL
 import com.mydia.restaurantsmartqr.util.Constants.ORDER_STATUS_URL
+import com.mydia.restaurantsmartqr.util.Constants.PLACE_ORDER
 import com.mydia.restaurantsmartqr.util.Constants.REDEEM_POINT
 import com.mydia.restaurantsmartqr.util.Constants.REVIEW_LINK
+import com.mydia.restaurantsmartqr.util.Constants.UPDATE_ALERT_LIST
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 
@@ -38,11 +44,12 @@ class VMAlert @javax.inject.Inject constructor(private val prefs: PreferencesSer
     var versionName = ObservableField("")
     var totalReadyOrder = ObservableField("")
     var isNoDataIncoming = ObservableBoolean(false)
+    var isProgressShowing = ObservableBoolean(false)
     var isNoDataAccept = ObservableBoolean(false)
     var isNoDataReady = ObservableBoolean(false)
 
-    private val _incomingOrder = MutableLiveData<OrderListResponse>()
-    val incomingOrder: LiveData<OrderListResponse> = _incomingOrder
+    private val _alertList = MutableLiveData<ArrayList<AlertList>>()
+    val alertList: LiveData<ArrayList<AlertList>> = _alertList
 
     private val _acceptedOrder = MutableLiveData<OrderListResponse>()
     val acceptedOrder: LiveData<OrderListResponse> = _acceptedOrder
@@ -81,15 +88,8 @@ class VMAlert @javax.inject.Inject constructor(private val prefs: PreferencesSer
     fun allApiCall(){
         viewModelScope.launch {
             val offset = incomingOrderPage
-            val incomingOrderRequest  = OrderListRequest(branch_id = prefs.getString(PrefKey.BRANCH_ID), status = "1", offset = "0", limit = "1000")
-            incomingOrderListApi(incomingOrderRequest)
-
-            val offset2 = acceptedOrderPage
-            val acceptedOrderRequest  = OrderListRequest(branch_id = prefs.getString(PrefKey.BRANCH_ID), status = "2", offset ="0", limit = "1000")
-            acceptedOrderListApi(acceptedOrderRequest)
-
-            val readyOrderRequest  = OrderListRequest(branch_id = prefs.getString(PrefKey.BRANCH_ID), status = "3", offset = "0", limit = "1000")
-            readyOrderListApi(readyOrderRequest)
+            val alertListRequest  = AlertListRequest(nTableId = "0", nUserId =prefs.getString(PrefKey.USER_ID))
+            alertListApi(alertListRequest)
         }
     }
 
@@ -109,226 +109,65 @@ class VMAlert @javax.inject.Inject constructor(private val prefs: PreferencesSer
             incomingOrderListApi(incomingOrderRequest)
         }
     }*/
-    fun incomingOrderListApi(orderListRequest: OrderListRequest)=viewModelScope.launch{
+
+
+    fun alertListApi(alertListRequest: AlertListRequest)=viewModelScope.launch{
         triggerLoadingDetection(true)
         isLoading.set(true)
-        loginRepository.orderList(
+
+        loginRepository.alertListApi(
             scope = viewModelScope,
             onSuccess = {
                 triggerLoadingDetection(false)
                 isLoading.set(false)
-                if(it!!.status == 1){
-
-                    totalIncomingOrder.set(it.total.toString())
-                    _incomingOrder.postValue(it)
+                if(it!!.Success == "1"){
                     isNoDataIncoming.set(false)
+                    viewModelScope.launch {
+                        _alertList.value = it.result
+                    }
 
-                    Log.e(TAG+"deviceId", it.result[0].orderType.toString())
 
                 }else{
-                    _incomingOrder.postValue(it)
+                    isLoading.set(false)
                     isNoDataIncoming.set(true)
-                    totalIncomingOrder.set("0")
-                   /* if (incomingOrderPage == 0){
-                        isNoDataIncoming.set(true)
-
-                    }else{
-                        isNoDataIncoming.set(false)
-                    }*/
                 }
 
             }, onErrorAction = {
                 triggerLoadingDetection(false)
-                isLoading.set(false)
                 isNoDataIncoming.set(true)
+                isLoading.set(false)
                 triggerShowMessage(it)
-                Log.e(TAG+"error",it.toString())
-            }, orderListRequest.toFieldMap(),prefs.getBaseUrl(PrefKey.BASE_URL).toString()+ ORDER_LIST_URL
+                Log.e("error",it.toString())
+            }, alertListRequest.toFieldMap(),prefs.getBaseUrl(PrefKey.BASE_URL).toString()+ ALERT_LIST
         )
     }
 
-    fun acceptedOrderListApi(orderListRequest: OrderListRequest)=viewModelScope.launch{
+    fun updateAlertApi(alertListRequest: UpdateAlertRequest)=viewModelScope.launch{
         triggerLoadingDetection(true)
         isLoading.set(true)
-        loginRepository.orderList(
+        loginRepository.updateAlertApi(
             scope = viewModelScope,
             onSuccess = {
                 triggerLoadingDetection(false)
                 isLoading.set(false)
-                if(it!!.status == 1){
-                    totalAcceptedOrder.set(it.total.toString())
-                    _acceptedOrder.postValue(it)
-                    isNoDataAccept.set(false)
+                if(it!!.Success == "1"){
+                    isNoDataIncoming.set(false)
+                    viewModelScope.launch {
+                        allApiCall()
+                    }
 
-                    Log.e(TAG+"deviceId", it.result[0].orderType.toString())
 
                 }else{
-                    _acceptedOrder.postValue(it)
-                    isNoDataAccept.set(true)
-                    totalAcceptedOrder.set("0")
-                   /* if (acceptedOrderPage == 0){
-
-                    }else{
-                        isNoDataAccept.set(false)
-                    }*/
-
+                    isNoDataIncoming.set(true)
                 }
 
             }, onErrorAction = {
                 triggerLoadingDetection(false)
+                isNoDataIncoming.set(true)
                 isLoading.set(false)
-                isNoDataAccept.set(true)
                 triggerShowMessage(it)
-                Log.e(TAG+"error",it.toString())
-            }, orderListRequest.toFieldMap(),prefs.getBaseUrl(PrefKey.BASE_URL).toString()+ ORDER_LIST_URL
-        )
-    }
-    fun readyOrderListApi(orderListRequest: OrderListRequest)=viewModelScope.launch{
-        triggerLoadingDetection(true)
-        isLoading.set(true)
-        loginRepository.orderList(
-            scope = viewModelScope,
-            onSuccess = {
-                triggerLoadingDetection(false)
-                isLoading.set(false)
-                if(it!!.status == 1){
-                    Log.e(TAG,"ready list ${it.result.size}")
-                    //   totalReadyOrder.set(it.result.size.toString())
-                    _readyOrder.postValue(it)
-                    isNoDataReady.set(false)
-                     Log.e(TAG+"deviceId", it.result[0].orderType.toString())
-
-                }else{
-                    _readyOrder.postValue(it)
-                    isNoDataReady.set(true)
-                  //  totalReadyOrder.set("0")
-                }
-
-            }, onErrorAction = {
-                triggerLoadingDetection(false)
-                isLoading.set(false)
-                isNoDataReady.set(true)
-                triggerShowMessage(it)
-                Log.e(TAG+"error",it.toString())
-            }, orderListRequest.toFieldMap(),prefs.getBaseUrl(PrefKey.BASE_URL).toString()+ ORDER_LIST_URL
-        )
-    }
-
-    fun orderStatusApi(orderStatusRequest: OrderStatusRequest)=viewModelScope.launch{
-        triggerLoadingDetection(true)
-        isLoading.set(true)
-        loginRepository.orderStatus(
-            scope = viewModelScope,
-            onSuccess = {
-                triggerLoadingDetection(false)
-                isLoading.set(false)
-                if(it!!.status == 1){
-                    allApiCall()
-
-
-                }
-
-            }, onErrorAction = {
-                triggerLoadingDetection(false)
-                isLoading.set(false)
-
-                triggerShowMessage(it)
-                Log.e(TAG+"error",it.toString())
-            }, orderStatusRequest.toFieldMap(),prefs.getBaseUrl(PrefKey.BASE_URL).toString()+ ORDER_STATUS_URL
-        )
-    }
-
-    fun reviewLinkApi(orderStatusRequest: ReviewAndBranchLinkRequest)=viewModelScope.launch{
-        triggerLoadingDetection(true)
-        isLoading.set(true)
-        loginRepository.reviewLink(
-            scope = viewModelScope,
-            onSuccess = {
-                triggerLoadingDetection(false)
-                isLoading.set(false)
-                if(it!!.status == 1){
-                    //allApiCall()
-                    _sentLink.value = it.message.toString()
-
-                }
-
-            }, onErrorAction = {
-                triggerLoadingDetection(false)
-                isLoading.set(false)
-
-                triggerShowMessage(it)
-                Log.e(TAG+"error",it.toString())
-            }, orderStatusRequest.toFieldMap(),prefs.getBaseUrl(PrefKey.BASE_URL).toString()+ REVIEW_LINK
-        )
-    }
-    fun branchLinkApi(orderStatusRequest: ReviewAndBranchLinkRequest)=viewModelScope.launch{
-        triggerLoadingDetection(true)
-        isLoading.set(true)
-        loginRepository.branchLink(
-            scope = viewModelScope,
-            onSuccess = {
-                triggerLoadingDetection(false)
-                isLoading.set(false)
-                if(it!!.status == 1){
-                    //allApiCall()
-                    _sentLink.value = it.message.toString()
-
-                }
-
-            }, onErrorAction = {
-                triggerLoadingDetection(false)
-                isLoading.set(false)
-
-                triggerShowMessage(it)
-                Log.e(TAG+"error",it.toString())
-            }, orderStatusRequest.toFieldMap(),prefs.getBaseUrl(PrefKey.BASE_URL).toString()+ BRANCH_LINK
-        )
-    }
-
-    fun addPointApi(orderStatusRequest: AddPointRequest)=viewModelScope.launch{
-        triggerLoadingDetection(true)
-        isLoading.set(true)
-        loginRepository.addPointApi(
-            scope = viewModelScope,
-            onSuccess = {
-                triggerLoadingDetection(false)
-                isLoading.set(false)
-                if(it!!.status == 1){
-                    //allApiCall()
-                    _sentLink.value = it.message.toString()
-
-                }
-
-            }, onErrorAction = {
-                triggerLoadingDetection(false)
-                isLoading.set(false)
-
-                triggerShowMessage(it)
-                Log.e(TAG+"error",it.toString())
-            }, orderStatusRequest.toFieldMap(),prefs.getBaseUrl(PrefKey.BASE_URL).toString()+ ADD_POINT
-        )
-    }
-    fun redeemPointApi(orderStatusRequest: RedeemPointRequest)=viewModelScope.launch{
-        triggerLoadingDetection(true)
-        isLoading.set(true)
-        loginRepository.redeemPointApi(
-            scope = viewModelScope,
-            onSuccess = {
-                triggerLoadingDetection(false)
-                isLoading.set(false)
-                if(it!!.status == 1){
-                    //allApiCall()
-                    _sentLink.value = it.message.toString()
-
-                }
-
-            }, onErrorAction = {
-                triggerLoadingDetection(false)
-                isLoading.set(false)
-
-                triggerShowMessage(it)
-                Log.e(TAG+"error",it.toString())
-            }, orderStatusRequest.toFieldMap(),prefs.getBaseUrl(PrefKey.BASE_URL).toString()+ REDEEM_POINT
+                Log.e("error",it.toString())
+            }, alertListRequest.toFieldMap(),prefs.getBaseUrl(PrefKey.BASE_URL).toString()+ UPDATE_ALERT_LIST
         )
     }
 

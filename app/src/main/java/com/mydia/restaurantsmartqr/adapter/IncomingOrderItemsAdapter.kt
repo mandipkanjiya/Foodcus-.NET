@@ -27,10 +27,10 @@ class IncomingOrderItemsAdapter(context: Context, private var itemList:List<Item
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val itemData = itemList[position]
-        holder.binding.tvName.text = itemData.nqty+" X "+itemData.cname
+        holder.binding.tvName.text = itemData.fQuantity.toString() +" X "+itemData.cProductName
         val itemName : StringBuilder = StringBuilder()
 
-        for( i in itemData.attributes){
+      /*  for( i in itemData.attributes){
             if(i.attribute_title.isNullOrEmpty()){
                 itemName.append("")
             }else{
@@ -40,8 +40,8 @@ class IncomingOrderItemsAdapter(context: Context, private var itemList:List<Item
             for(k in i.attributes){
                 itemName.append(k.quantity).append("x").append(k.itemName).append(",")
             }
-        }
-        holder.binding.tvdesc.text = itemName.toString()
+        }*/
+        holder.binding.tvdesc.text = itemData.cDetail.toString()
         holder.binding.executePendingBindings()
     }
 

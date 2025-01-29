@@ -53,22 +53,22 @@ class VMOrderHistory @javax.inject.Inject constructor(private val prefs: Prefere
             prefs.clearData()
         }
     }
-    fun orderListUsingFilter(status:String,tableId:String,sectionId:String,startDate:String,endDate:String){
+    fun orderListUsingFilter(status:String,tableId:Int,sectionId:Int,startDate:String,endDate:String){
         viewModelScope.launch {
-            val orderListRequest = OrderListRequest(branch_id = prefs.getString(PrefKey.BRANCH_ID), status = status, offset = "0", limit = "1000", table_id = tableId,start_date = startDate, end_date = endDate, sectionId = sectionId)
+            val orderListRequest = OrderListRequest(nUserId = prefs.getString(PrefKey.USER_ID), nCustomerId = "12", nFromId = "0", nToId = "1000", cSectionId = sectionId.toInt(), cTableId =tableId.toInt(), nOrderType = status)
             completedOrderListApi(orderListRequest)
         }
 
     }
     fun tableListApiCAll(sectionId:String){
         viewModelScope.launch {
-            val orderListRequest = TableListRequest(nUserId = nUserId.get().toString(), nTableId = "0", nSection = sectionId)
+            val orderListRequest = TableListRequest(nUserId = prefs.getString(PrefKey.USER_ID), nTableId = "0", nSection = sectionId)
             tableListApi(orderListRequest)
         }
     }
     fun sectionListApiCall(){
         viewModelScope.launch {
-            val orderListRequest = TableListRequest(nUserId = nUserId.get().toString())
+            val orderListRequest = TableListRequest(nUserId = prefs.getString(PrefKey.USER_ID))
             sectionListApi(orderListRequest)
         }
     }
@@ -81,14 +81,14 @@ class VMOrderHistory @javax.inject.Inject constructor(private val prefs: Prefere
             onSuccess = {
                 triggerLoadingDetection(false)
                 isLoading.set(false)
-                if(it!!.status == 1){
+                if(it!!.Success == "1"){
                     viewModelScope.launch {
 
                         _completedOrderList.postValue(it)
                         isNoData.set(false)
                     }
 
-                    Log.e("deviceId", it.result[0].orderType.toString())
+                    Log.e("deviceId", it.result[0].cOrderType.toString())
 
                 }else{
                     isNoData.set(true)

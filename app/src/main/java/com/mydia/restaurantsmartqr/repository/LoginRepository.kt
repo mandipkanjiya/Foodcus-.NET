@@ -8,6 +8,8 @@ import com.mydia.restaurantsmartqr.model.AppUpdateResponse
 import com.mydia.restaurantsmartqr.model.BaseResponse
 import com.mydia.restaurantsmartqr.model.CreateOrderModel
 import com.mydia.restaurantsmartqr.model.OrderStatusResponse
+import com.mydia.restaurantsmartqr.model.alertList.AlertListResponse
+import com.mydia.restaurantsmartqr.model.alertList.UpdateAlertResponse
 import com.mydia.restaurantsmartqr.model.login.LoginResponse
 import com.mydia.restaurantsmartqr.model.orderList.OrderListResponse
 import com.mydia.restaurantsmartqr.model.product.CategoryListResponse
@@ -69,26 +71,6 @@ class LoginRepository @Inject constructor(
             }
         )
 
-    /*orderstatus  API call*/
-    suspend fun orderStatus(
-        scope: CoroutineScope,
-        onSuccess: (OrderStatusResponse?) -> Unit,
-        onErrorAction: (String?) -> Unit,
-        orderstatusRequest: HashMap<String,String>,
-        url: String
-    ) =
-        sendRequest(
-            scope = scope,
-            client = {
-                api.orderStatus(url,orderstatusRequest)
-            },
-            onSuccess = {
-                onSuccess(it)
-            },
-            onErrorAction = {
-                onErrorAction(it)
-            }
-        )
 
     suspend fun tableList(
         scope: CoroutineScope,
@@ -101,6 +83,47 @@ class LoginRepository @Inject constructor(
             scope = scope,
             client = {
                 api.tableList(url,tableListRequest)
+            },
+            onSuccess = {
+                onSuccess(it)
+            },
+            onErrorAction = {
+                onErrorAction(it)
+            }
+        )
+
+
+    suspend fun orderListApi(
+        scope: CoroutineScope,
+        onSuccess: (OrderListResponse?) -> Unit,
+        onErrorAction: (String?) -> Unit,
+        tableListRequest: HashMap<String,String>,
+        url: String
+    ) =
+        sendRequest(
+            scope = scope,
+            client = {
+                api.orderListApi(url,tableListRequest)
+            },
+            onSuccess = {
+                onSuccess(it)
+            },
+            onErrorAction = {
+                onErrorAction(it)
+            }
+        )
+
+    suspend fun orderStatusApi(
+        scope: CoroutineScope,
+        onSuccess: (OrderStatusResponse?) -> Unit,
+        onErrorAction: (String?) -> Unit,
+        orderStatusRequest: HashMap<String,String>,
+        url: String
+    ) =
+        sendRequest(
+            scope = scope,
+            client = {
+                api.orderStatusApi(url,orderStatusRequest)
             },
             onSuccess = {
                 onSuccess(it)
@@ -276,6 +299,46 @@ class LoginRepository @Inject constructor(
             scope = scope,
             client = {
                 api.placeOrderApi(url,tableListRequest)
+            },
+            onSuccess = {
+                onSuccess(it)
+            },
+            onErrorAction = {
+                onErrorAction(it)
+            }
+        )
+
+    suspend fun alertListApi(
+        scope: CoroutineScope,
+        onSuccess: (AlertListResponse?) -> Unit,
+        onErrorAction: (String?) -> Unit,
+        alertListRequest: HashMap<String,String>,
+        url: String
+    ) =
+        sendRequest(
+            scope = scope,
+            client = {
+                api.alertListApi(url,alertListRequest)
+            },
+            onSuccess = {
+                onSuccess(it)
+            },
+            onErrorAction = {
+                onErrorAction(it)
+            }
+        )
+
+    suspend fun updateAlertApi(
+        scope: CoroutineScope,
+        onSuccess: (UpdateAlertResponse?) -> Unit,
+        onErrorAction: (String?) -> Unit,
+        alertListRequest: HashMap<String,String>,
+        url: String
+    ) =
+        sendRequest(
+            scope = scope,
+            client = {
+                api.updateAlertApi(url,alertListRequest)
             },
             onSuccess = {
                 onSuccess(it)

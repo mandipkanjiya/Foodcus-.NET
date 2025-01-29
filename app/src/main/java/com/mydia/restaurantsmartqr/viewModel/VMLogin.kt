@@ -44,6 +44,7 @@ class VMLogin @javax.inject.Inject constructor(private val prefs: PreferencesSer
                         viewModelScope.launch {
                             prefs.put(PrefKey.SAVE_LOGIN,it.result)
                             prefs.putBoolean(PrefKey.IS_LOGIN,true)
+                            prefs.putString(PrefKey.USER_ID,it.result!!.nUserId.toString())
                             prefs.putString(PrefKey.CURRENCY, it.result!!.nDefaultCurrency)
                            // prefs.putString(PrefKey.BRANCH_ID, it.result!!.branchId)
                            //isShowReady.set(it.result!!.show_ready_section)

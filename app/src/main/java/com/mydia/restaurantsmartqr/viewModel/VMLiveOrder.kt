@@ -81,14 +81,14 @@ class VMLiveOrder @javax.inject.Inject constructor(private val prefs: Preference
     fun allApiCall(){
         viewModelScope.launch {
             val offset = incomingOrderPage
-            val incomingOrderRequest  = OrderListRequest(branch_id = prefs.getString(PrefKey.BRANCH_ID), status = "1", offset = "0", limit = "1000")
+            val incomingOrderRequest  = OrderListRequest(nUserId = prefs.getString(PrefKey.USER_ID), nCustomerId = "12", nFromId = "0", nToId = "1000", cSectionId = 0, cTableId =0, nOrderType = "1")
             incomingOrderListApi(incomingOrderRequest)
 
             val offset2 = acceptedOrderPage
-            val acceptedOrderRequest  = OrderListRequest(branch_id = prefs.getString(PrefKey.BRANCH_ID), status = "2", offset ="0", limit = "1000")
+            val acceptedOrderRequest  =OrderListRequest(nUserId = prefs.getString(PrefKey.USER_ID), nCustomerId = "12", nFromId = "0", nToId = "1000", cSectionId = 0, cTableId = 0, nOrderType = "2")
             acceptedOrderListApi(acceptedOrderRequest)
 
-            val readyOrderRequest  = OrderListRequest(branch_id = prefs.getString(PrefKey.BRANCH_ID), status = "3", offset = "0", limit = "1000")
+            val readyOrderRequest  =OrderListRequest(nUserId = prefs.getString(PrefKey.USER_ID), nCustomerId = "12", nFromId = "0", nToId = "1000", cSectionId = 0, cTableId = 0, nOrderType = "3")
             readyOrderListApi(readyOrderRequest)
         }
     }
@@ -112,29 +112,24 @@ class VMLiveOrder @javax.inject.Inject constructor(private val prefs: Preference
     fun incomingOrderListApi(orderListRequest: OrderListRequest)=viewModelScope.launch{
         triggerLoadingDetection(true)
         isLoading.set(true)
-        loginRepository.orderList(
+        loginRepository.orderListApi(
             scope = viewModelScope,
             onSuccess = {
                 triggerLoadingDetection(false)
                 isLoading.set(false)
-                if(it!!.status == 1){
+                if(it!!.Success == "1"){
 
-                    totalIncomingOrder.set(it.total.toString())
+                    totalIncomingOrder.set(it.nTotalRecords.toString())
                     _incomingOrder.postValue(it)
                     isNoDataIncoming.set(false)
 
-                    Log.e(TAG+"deviceId", it.result[0].orderType.toString())
+                    Log.e(TAG+"deviceId", it.result[0].cOrderType.toString())
 
                 }else{
                     _incomingOrder.postValue(it)
                     isNoDataIncoming.set(true)
                     totalIncomingOrder.set("0")
-                   /* if (incomingOrderPage == 0){
-                        isNoDataIncoming.set(true)
 
-                    }else{
-                        isNoDataIncoming.set(false)
-                    }*/
                 }
 
             }, onErrorAction = {
@@ -150,17 +145,17 @@ class VMLiveOrder @javax.inject.Inject constructor(private val prefs: Preference
     fun acceptedOrderListApi(orderListRequest: OrderListRequest)=viewModelScope.launch{
         triggerLoadingDetection(true)
         isLoading.set(true)
-        loginRepository.orderList(
+        loginRepository.orderListApi(
             scope = viewModelScope,
             onSuccess = {
                 triggerLoadingDetection(false)
                 isLoading.set(false)
-                if(it!!.status == 1){
-                    totalAcceptedOrder.set(it.total.toString())
+                if(it!!.Success == "1"){
+                    totalAcceptedOrder.set(it.nTotalRecords.toString())
                     _acceptedOrder.postValue(it)
                     isNoDataAccept.set(false)
 
-                    Log.e(TAG+"deviceId", it.result[0].orderType.toString())
+                    Log.e(TAG+"deviceId", it.result[0].cOrderType.toString())
 
                 }else{
                     _acceptedOrder.postValue(it)
@@ -186,17 +181,17 @@ class VMLiveOrder @javax.inject.Inject constructor(private val prefs: Preference
     fun readyOrderListApi(orderListRequest: OrderListRequest)=viewModelScope.launch{
         triggerLoadingDetection(true)
         isLoading.set(true)
-        loginRepository.orderList(
+        loginRepository.orderListApi(
             scope = viewModelScope,
             onSuccess = {
                 triggerLoadingDetection(false)
                 isLoading.set(false)
-                if(it!!.status == 1){
+                if(it!!.Success == "1"){
                     Log.e(TAG,"ready list ${it.result.size}")
                     //   totalReadyOrder.set(it.result.size.toString())
                     _readyOrder.postValue(it)
                     isNoDataReady.set(false)
-                     Log.e(TAG+"deviceId", it.result[0].orderType.toString())
+                     Log.e(TAG+"deviceId", it.result[0].cOrderType.toString())
 
                 }else{
                     _readyOrder.postValue(it)
@@ -217,12 +212,12 @@ class VMLiveOrder @javax.inject.Inject constructor(private val prefs: Preference
     fun orderStatusApi(orderStatusRequest: OrderStatusRequest)=viewModelScope.launch{
         triggerLoadingDetection(true)
         isLoading.set(true)
-        loginRepository.orderStatus(
+        loginRepository.orderStatusApi(
             scope = viewModelScope,
             onSuccess = {
                 triggerLoadingDetection(false)
                 isLoading.set(false)
-                if(it!!.status == 1){
+                if(it!!.Success == "1"){
                     allApiCall()
 
 

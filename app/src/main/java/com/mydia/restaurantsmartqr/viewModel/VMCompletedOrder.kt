@@ -42,19 +42,19 @@ class VMCompletedOrder @javax.inject.Inject constructor(private val prefs: Prefe
     fun completedOrderListApi(orderListRequest: OrderListRequest)=viewModelScope.launch{
         triggerLoadingDetection(true)
         isLoading.set(true)
-        loginRepository.orderList(
+        loginRepository.orderListApi(
             scope = viewModelScope,
             onSuccess = {
                 triggerLoadingDetection(false)
                 isLoading.set(false)
-                if(it!!.status == 1){
+                if(it!!.Success == "1"){
                     viewModelScope.launch {
 
                         _completedOrderList.postValue(it)
                         isNoData.set(false)
                     }
 
-                    Log.e("deviceId", it.result[0].orderType.toString())
+                    Log.e("deviceId", it.result[0].cOrderType.toString())
 
                 }else{
                     isNoData.set(true)

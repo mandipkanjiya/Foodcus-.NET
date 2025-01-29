@@ -4,16 +4,11 @@ import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import org.json.JSONObject
 
-data class OrderStatusRequest(@SerializedName("nUserId")
+data class AlertListRequest(@SerializedName("nUserId")
                          val nUserId: String = "",
-                              @SerializedName("nOrderId")
-                         val nOrderId: String = "",
-                              @SerializedName("cStatus")
-                         val cStatus: String = "",
-                              @SerializedName("cToken")
-                         val cToken: String = "",
-
-                              ){
+                            @SerializedName("nTableId")
+                         val nTableId  : String = "",
+                           ){
 
     fun toFieldMap() : HashMap<String,String>{
         val requestMap = HashMap<String,String>()
@@ -28,4 +23,3 @@ data class OrderStatusRequest(@SerializedName("nUserId")
         return requestMap
     }
 }
-

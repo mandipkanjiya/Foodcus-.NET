@@ -13,6 +13,7 @@ object PrefKey {
     const val IS_LOGIN = "IS_LOGIN"
     const val CURRENCY = "CURRENCY"
     const val BRANCH_ID = "BRANCH_ID"
+    const val USER_ID = "USER_ID"
     const val IS_SHOW_READY = "IS_SHOW_READY"
     const val FCM_TOKEN = "FCM_TOKEN"
     const val BASE_URL = "BASE_URL"
