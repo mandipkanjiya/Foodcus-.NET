@@ -59,9 +59,9 @@ class AcceptedOrderAdapter(context: Context,private var acceptedOrderList:List<O
             holder.binding.tvTableNAme.visibility = View.GONE
             holder.binding.tvPaymentType.visibility = View.GONE
             holder.binding.tvOrderNote.visibility = View.VISIBLE
-          /*  if(acceptedData.corderNote!!.isNotEmpty()){
-                holder.binding.tvOrderNote.text = "Order Note: "+ acceptedData.corderNote
-            }*/
+            if(acceptedData.cOrderNote!!.isNotEmpty()){
+                holder.binding.tvOrderNote.text = "Order Note: "+ acceptedData.cOrderNote
+            }
 
 
             holder.binding.btnReadyTocollect.text = "Punched On POS"

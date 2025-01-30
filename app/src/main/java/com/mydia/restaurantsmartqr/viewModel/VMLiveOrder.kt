@@ -81,14 +81,14 @@ class VMLiveOrder @javax.inject.Inject constructor(private val prefs: Preference
     fun allApiCall(){
         viewModelScope.launch {
             val offset = incomingOrderPage
-            val incomingOrderRequest  = OrderListRequest(nUserId = prefs.getString(PrefKey.USER_ID), nCustomerId = "12", nFromId = "0", nToId = "1000", cSectionId = 0, cTableId =0, nOrderType = "1")
+            val incomingOrderRequest  = OrderListRequest(nUserId = prefs.getString(PrefKey.USER_ID), nCustomerId = "12", nFromId = "0", nToId = "1000", cSectionId = 0, cTableId =0, nStatus = "1")
             incomingOrderListApi(incomingOrderRequest)
 
             val offset2 = acceptedOrderPage
-            val acceptedOrderRequest  =OrderListRequest(nUserId = prefs.getString(PrefKey.USER_ID), nCustomerId = "12", nFromId = "0", nToId = "1000", cSectionId = 0, cTableId = 0, nOrderType = "2")
+            val acceptedOrderRequest  =OrderListRequest(nUserId = prefs.getString(PrefKey.USER_ID), nCustomerId = "12", nFromId = "0", nToId = "1000", cSectionId = 0, cTableId = 0, nStatus = "2")
             acceptedOrderListApi(acceptedOrderRequest)
 
-            val readyOrderRequest  =OrderListRequest(nUserId = prefs.getString(PrefKey.USER_ID), nCustomerId = "12", nFromId = "0", nToId = "1000", cSectionId = 0, cTableId = 0, nOrderType = "3")
+            val readyOrderRequest  =OrderListRequest(nUserId = prefs.getString(PrefKey.USER_ID), nCustomerId = "12", nFromId = "0", nToId = "1000", cSectionId = 0, cTableId = 0, nStatus = "3")
             readyOrderListApi(readyOrderRequest)
         }
     }

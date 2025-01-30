@@ -17,7 +17,14 @@ data class OrderListRequest(  @SerializedName("nUserId")
                          @SerializedName("cTableId")
                          val cTableId : Int = 0,
                           @SerializedName("cSectionId")
-                         val cSectionId : Int =0,    @SerializedName("cToken")
+                         val cSectionId : Int =0,
+                        @SerializedName("nStatus")
+                         val nStatus : String ="",
+                        @SerializedName("FromDate")
+                         val FromDate : String ="",
+                         @SerializedName("ToDate")
+                         val ToDate : String ="",
+                          @SerializedName("cToken")
                          val cToken : String = "", ){
 
     fun toFieldMap() : HashMap<String,String>{

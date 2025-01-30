@@ -77,9 +77,9 @@ class IncomingOrderAdapter(context: Context,private var incomingOrderList:List<O
         }
 
         holder.binding.tvTime.text = incomingData.cDeliveryTime
-      /*  if(incomingData.co!!.isNotEmpty()){
-            holder.binding.tvOrderNote.text = "Order Note: "+incomingData.corderNote
-        }*/
+        if(incomingData.cOrderNote!!.isNotEmpty()){
+            holder.binding.tvOrderNote.text = "Order Note: "+incomingData.cOrderNote
+        }
 
        holder.binding.tvSection.text = incomingData.cSectionName
         holder.binding.tvOrderType.text = incomingData.cOrderType

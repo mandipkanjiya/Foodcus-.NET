@@ -306,9 +306,11 @@ class LiveOrderActivity : BaseActivity<ActivityLiveOrderBinding, VMLiveOrder>(),
             .setMessage(title)
             .setPositiveButton("Yes",
                 DialogInterface.OnClickListener { dialog, which ->
+                    lifecycleScope.launch {
+                        val orderStatusApi  = OrderStatusRequest(nUserId =prefs.getString(PrefKey.USER_ID), nOrderId = orderId, cStatus = orderStatus)
+                        viewModel.orderStatusApi(orderStatusApi)
+                    }
 
-                    val orderStatusApi  = OrderStatusRequest(nUserId = "21", nOrderId = orderId, cStatus = orderStatus)
-                    viewModel.orderStatusApi(orderStatusApi)
                 })
             .setNegativeButton("No",
                 DialogInterface.OnClickListener { dialogInterface, i -> dialogInterface.dismiss() })

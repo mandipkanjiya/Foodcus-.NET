@@ -44,23 +44,22 @@ class OrderHistoryAdapter(context: Context,private var currency:String) :
             holder.binding.tvOrderId.text = "-"
         }
 
-      /*  if(orderListData.section_name!!.isNotEmpty()){
-            holder.binding.tvSectionName.text = orderListData.section_name
+        if(orderListData.cSectionName!!.isNotEmpty()){
+            holder.binding.tvSectionName.text = orderListData.cSectionName
         }else{
             holder.binding.tvSectionName.text = "-"
-        }*/
+        }
         if(orderListData.cOrderType!!.isNotEmpty()){
             holder.binding.tvOrdertype.text = orderListData.cOrderType
         }else{
             holder.binding.tvOrdertype.text = "-"
         }
 
-      /*  if(orderListData.tableName!!.isNotEmpty()){
-            holder.binding.tvTableName.text = orderListData.tableName
+        if(orderListData.cTableName!!.isNotEmpty()){
+            holder.binding.tvTableName.text = orderListData.cTableName
         }else{
             holder.binding.tvTableName.text = "-"
         }
-*/
         if(orderListData.cOrderType.equals("DineIn")){
             //dinin
             holder.binding.llMain.background=context.getDrawable(R.drawable.bg_dinein_order)

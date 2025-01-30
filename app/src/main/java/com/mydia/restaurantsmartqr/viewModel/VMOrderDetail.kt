@@ -50,13 +50,12 @@ class VMOrderDetail @javax.inject.Inject constructor(private val prefs: Preferen
     fun setData(){
 
 
-    /*    if(orderList.get()!!.tableName!!.isNotEmpty()){
-            orderRef.set(orderList.get()!!.tableName)
+        if(orderList.get()!!.cTableName!!.isNotEmpty()){
+            orderRef.set(orderList.get()!!.cTableName)
         }else{
             orderRef.set("Order #"+orderList.get()!!.cOrderCode)
         }
-*/
-        orderRef.set("Order #"+orderList.get()!!.cOrderCode)
+     //   orderRef.set("Order #"+orderList.get()!!.cOrderCode)
         if(orderList.get()!!.Item.size > 0){
             totalItem.set(orderList.get()!!.Item.size.toString()+" Items")
         }else{
@@ -74,13 +73,13 @@ class VMOrderDetail @javax.inject.Inject constructor(private val prefs: Preferen
         orderType.set(orderList.get()!!.cOrderType)
       //  orderTypeId.set(orderList.get()!!.cOrderCode)
         orderStatusType.set(orderList.get()!!.cCurrentStatus)
-      //  sectionName.set(orderList.get()!!.section_name)
-      /*  if(orderList.get()!!.corderNote!!.isNotEmpty()){
+        sectionName.set(orderList.get()!!.cSectionName)
+        if(orderList.get()!!.cOrderNote!!.isNotEmpty()){
             isShowOrderNOte.set(true)
-            orderNote.set(orderList.get()!!.corderNote)
+            orderNote.set(orderList.get()!!.cOrderNote)
         }else{
            isShowOrderNOte.set(false)
-        }*/
+        }
 
         orderId.set(orderList.get()!!.nOrderId.toString())
         pickupTime.set(orderList.get()!!.cDeliveryTime)

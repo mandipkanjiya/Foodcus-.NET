@@ -49,6 +49,8 @@ data class OrderList(
     @SerializedName("cStoreAddress"             ) var cStoreAddress             : String?         = null,
     @SerializedName("cPaymentStatus"            ) var cPaymentStatus            : String?         = null,
     @SerializedName("cOrderCancellationReasons" ) var cOrderCancellationReasons : String?         = null,
+    @SerializedName("cOrderNote" ) var cOrderNote : String?         = null,
+
     @SerializedName("cCustomerFirstName"        ) var cCustomerFirstName        : String?         = null,
     @SerializedName("cCustomerMiddleName"       ) var cCustomerMiddleName       : String?         = null,
     @SerializedName("cCustomerLastName"         ) var cCustomerLastName         : String?         = null,
