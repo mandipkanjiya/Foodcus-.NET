@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat
 import java.time.LocalTime
 import java.util.Calendar
 import java.util.Date
+import java.util.Locale
 
 
 object Utils {
@@ -241,5 +242,13 @@ fun trimCathe(context : Context){
 
         return !TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches()
 
+    }
+    fun convertWalleteHistoryDate(date1: String?): String? {
+        val insdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH)
+        val outsdf = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+
+        var date: Date? = null
+        date = insdf.parse(date1)
+        return outsdf.format(date)
     }
 }

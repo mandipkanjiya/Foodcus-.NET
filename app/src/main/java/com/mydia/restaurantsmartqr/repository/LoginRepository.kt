@@ -8,6 +8,9 @@ import com.mydia.restaurantsmartqr.model.AppUpdateResponse
 import com.mydia.restaurantsmartqr.model.BaseResponse
 import com.mydia.restaurantsmartqr.model.CreateOrderModel
 import com.mydia.restaurantsmartqr.model.CustomerResponse
+import com.mydia.restaurantsmartqr.model.CustomerWalletHistoryDetailResponse
+import com.mydia.restaurantsmartqr.model.DottnetBaseResponse
+import com.mydia.restaurantsmartqr.model.EmployeListResponse
 import com.mydia.restaurantsmartqr.model.OrderStatusResponse
 import com.mydia.restaurantsmartqr.model.alertList.AlertListResponse
 import com.mydia.restaurantsmartqr.model.alertList.UpdateAlertResponse
@@ -153,10 +156,29 @@ class LoginRepository @Inject constructor(
                 onErrorAction(it)
             }
         )
+    suspend fun employeList(
+        scope: CoroutineScope,
+        onSuccess: (EmployeListResponse?) -> Unit,
+        onErrorAction: (String?) -> Unit,
+        tableListRequest: HashMap<String,String>,
+        url: String
+    ) =
+        sendRequest(
+            scope = scope,
+            client = {
+                api.employeList(url,tableListRequest)
+            },
+            onSuccess = {
+                onSuccess(it)
+            },
+            onErrorAction = {
+                onErrorAction(it)
+            }
+        )
 
     suspend fun reviewLink(
         scope: CoroutineScope,
-        onSuccess: (BaseResponse?) -> Unit,
+        onSuccess: (DottnetBaseResponse?) -> Unit,
         onErrorAction: (String?) -> Unit,
         loginRequest: HashMap<String, String>,
         url: String
@@ -293,7 +315,7 @@ class LoginRepository @Inject constructor(
         scope: CoroutineScope,
         onSuccess: (CreateOrderModel?) -> Unit,
         onErrorAction: (String?) -> Unit,
-        tableListRequest: HashMap<String,String>,
+        tableListRequest: HashMap<String,Any>,
         url: String
     ) =
         sendRequest(
@@ -378,6 +400,26 @@ class LoginRepository @Inject constructor(
             scope = scope,
             client = {
                 api.updateAlertApi(url,alertListRequest)
+            },
+            onSuccess = {
+                onSuccess(it)
+            },
+            onErrorAction = {
+                onErrorAction(it)
+            }
+        )
+
+    suspend fun getCustomerWalletHistory(
+        scope: CoroutineScope,
+        onSuccess: (CustomerWalletHistoryDetailResponse?) -> Unit,
+        onErrorAction: (String?) -> Unit,
+        tableListRequest: HashMap<String,String>,
+        url: String
+    ) =
+        sendRequest(
+            scope = scope,
+            client = {
+                api.getCustomerWalletHistoryApi(url,tableListRequest)
             },
             onSuccess = {
                 onSuccess(it)

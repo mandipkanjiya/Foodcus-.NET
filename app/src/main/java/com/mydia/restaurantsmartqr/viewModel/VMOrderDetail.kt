@@ -71,6 +71,14 @@ class VMOrderDetail @javax.inject.Inject constructor(private val prefs: Preferen
         }
 
         orderType.set(orderList.get()!!.cOrderType)
+
+      /*  if(orderList.get()!!.cCurrentStatus.equals("Pending")){
+            //dinin
+            customerName.set("")
+            orderStatusType.set(
+        }else if(orderList.get()!!.cOrderType.equals("Inkitchen")){
+            customerName.set(orderList.get()!!.cCustomerName)
+        }*/
       //  orderTypeId.set(orderList.get()!!.cOrderCode)
         orderStatusType.set(orderList.get()!!.cCurrentStatus)
         sectionName.set(orderList.get()!!.cSectionName)

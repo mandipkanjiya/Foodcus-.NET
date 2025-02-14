@@ -28,6 +28,7 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatEditText
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
@@ -42,12 +43,14 @@ import com.mydia.restaurantsmartqr.base.BaseActivity
 import com.mydia.restaurantsmartqr.databinding.ActivityLiveOrderBinding
 import com.mydia.restaurantsmartqr.fcm.FirebaseDataManager
 import com.mydia.restaurantsmartqr.fcm.FirebaseEventListener
+import com.mydia.restaurantsmartqr.model.alertList.AlertList
 import com.mydia.restaurantsmartqr.model.orderList.OrderList
 import com.mydia.restaurantsmartqr.prefrences.PrefKey
 import com.mydia.restaurantsmartqr.repository.AddPointRequest
 import com.mydia.restaurantsmartqr.repository.OrderStatusRequest
 import com.mydia.restaurantsmartqr.repository.RedeemPointRequest
 import com.mydia.restaurantsmartqr.repository.ReviewAndBranchLinkRequest
+import com.mydia.restaurantsmartqr.repository.UpdateAlertRequest
 import com.mydia.restaurantsmartqr.viewModel.VMLiveOrder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -72,14 +75,26 @@ class LiveOrderActivity : BaseActivity<ActivityLiveOrderBinding, VMLiveOrder>(),
         FirebaseDataManager.firebaseDataReference.firebaseEventListener = this
         val ss:String = intent.getStringExtra("isShowReady").toString()
         val orderId:String = intent.getStringExtra("orderId").toString()
+        val pageid:String = intent.getStringExtra("pageid").toString()
         Log.e(TAG, "Notification id " + orderId)
-        if(orderId.isNotEmpty()){
+        if(pageid.isNotEmpty()) {
+            if (pageid.equals("1")) {
+                viewModel.alertApiCall(orderId)
+            } else if (pageid.equals("2")) {
+
+                if (orderId.isNotEmpty()) {
+                    viewModel.allApiCall()
+                }
+            }
+        }
+        /*if(orderId.isNotEmpty()){
             viewModel.allApiCall()
-         }
+         }*/
         viewModel.getUserData()
         binding.dLayout.llLiveOrder.isSelected = true
+        binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
         drawerClickListner()
-        //dialogAlertOpen()
+
         viewModel.allApiCall()
      //   playSound()
         if(ss == "1"){
@@ -127,9 +142,15 @@ class LiveOrderActivity : BaseActivity<ActivityLiveOrderBinding, VMLiveOrder>(),
     private val receiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
            val  orderId = intent.getStringExtra("orderId").toString()
-            if(orderId.isNotEmpty()){
-                viewModel.allApiCall()
+           val  pageid = intent.getStringExtra("pageid").toString()
+            if(pageid.equals("1")){
+                viewModel.alertApiCall(orderId)
+            }else if(pageid.equals("2")){
+                if(orderId.isNotEmpty()){
+                    viewModel.allApiCall()
+                }
             }
+
         }
     }
 
@@ -183,22 +204,30 @@ class LiveOrderActivity : BaseActivity<ActivityLiveOrderBinding, VMLiveOrder>(),
             showLogoutDialog()
         }
         binding.ivRedeemPoint.setOnClickListener {
-            startActivity(Intent(this,ScanQrActivity::class.java))
-            //dialogStartBreak(4)
+          //  startActivity(Intent(this,ScanQrDetailActivity::class.java))
+            dialogStartBreak(4)
         }
         binding.ivSentPoint.setOnClickListener {
-            dialogStartBreak(3)
+            startActivity(Intent(this,TabelListActivity::class.java))
+           // dialogStartBreak(3)
         }
 
     }
     private fun openDrawer() {
         binding.drawerLayout.openDrawer(GravityCompat.START)
+
     }
 
     private fun closeDrawer() {
         binding.drawerLayout.closeDrawers()
     }
     override fun observeViewModel() {
+        viewModel.alertList.observe(this){
+            if(it.isNotEmpty()){
+                binding.tvCount.text = it.size.toString()
+                dialogAlertOpen(it.get(0))
+            }
+        }
         viewModel.incomingOrder.observe(this){
             if(it.result.isNotEmpty()){
 
@@ -289,7 +318,7 @@ class LiveOrderActivity : BaseActivity<ActivityLiveOrderBinding, VMLiveOrder>(),
 
                 if(orderType.equals("DineIn")){
                     var title = "Are you sure this order is punched on the POS?"
-                    showAcceptRejectDialog(title, datum!!.nOrderId.toString(),"4")
+                    showAcceptRejectDialog(title, datum!!.nOrderId.toString(),"3")
                     //dinin
                 }else if(orderType.equals("Pickup")){
                     var title = "Are you sure this order is prepared?"
@@ -386,22 +415,33 @@ class LiveOrderActivity : BaseActivity<ActivityLiveOrderBinding, VMLiveOrder>(),
     override fun onPOSOrderCountCommand() {
 
     }
-    private fun dialogAlertOpen() {
+    private fun dialogAlertOpen(alertData:AlertList) {
         val inflater = LayoutInflater.from(this)
         val dialogView = inflater.inflate(R.layout.dialog_alert_open, null)
 
 // Initialize views in the custom layout
         val dialogTitle = dialogView.findViewById<TextView>(R.id.tvTitle)
-        val dialogInput = dialogView.findViewById<AppCompatTextView>(R.id.tvTitle1)
-        val dialogButton = dialogView.findViewById<AppCompatTextView>(R.id.tvTitle2)
+        val tableName = dialogView.findViewById<AppCompatTextView>(R.id.tvTitle1)
+        val sectionName = dialogView.findViewById<AppCompatTextView>(R.id.tvTitle2)
+        val btnResolve = dialogView.findViewById<AppCompatButton>(R.id.btnResolve)
+        val btnMinimize = dialogView.findViewById<AppCompatButton>(R.id.btnMinimize)
 
 // Build the dialog
         val customDialog = AlertDialog.Builder(this)
             .setView(dialogView)
             .create()
 
+       //tvType.text = alertData.cRequestType
+        tableName.text = alertData.cRequestType +" From "+alertData.cTableName
+        sectionName.text = alertData.cSectionName
 
-
+        btnResolve.setOnClickListener {
+            val updateListRequest  = UpdateAlertRequest(nRestaurantLogId = alertData.nRestaurantLogId.toString(), nMarkCompleted = "1")
+            viewModel.updateAlertApi(updateListRequest)
+        }
+        btnMinimize.setOnClickListener {
+            customDialog.dismiss()
+        }
 
 // Show the dialog
         customDialog.show()

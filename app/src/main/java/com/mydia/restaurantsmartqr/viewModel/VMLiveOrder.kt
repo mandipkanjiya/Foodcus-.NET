@@ -7,17 +7,21 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.mydia.restaurantsmartqr.base.BaseViewModel
+import com.mydia.restaurantsmartqr.model.alertList.AlertList
 import com.mydia.restaurantsmartqr.model.login.LoginModel
 import com.mydia.restaurantsmartqr.model.orderList.OrderListResponse
 import com.mydia.restaurantsmartqr.prefrences.PrefKey
 import com.mydia.restaurantsmartqr.prefrences.PreferencesServices
 import com.mydia.restaurantsmartqr.repository.AddPointRequest
+import com.mydia.restaurantsmartqr.repository.AlertListRequest
 import com.mydia.restaurantsmartqr.repository.LoginRepository
 import com.mydia.restaurantsmartqr.repository.OrderListRequest
 import com.mydia.restaurantsmartqr.repository.OrderStatusRequest
 import com.mydia.restaurantsmartqr.repository.RedeemPointRequest
 import com.mydia.restaurantsmartqr.repository.ReviewAndBranchLinkRequest
+import com.mydia.restaurantsmartqr.repository.UpdateAlertRequest
 import com.mydia.restaurantsmartqr.util.Constants.ADD_POINT
+import com.mydia.restaurantsmartqr.util.Constants.ALERT_LIST
 import com.mydia.restaurantsmartqr.util.Constants.APP_VERSIONS
 import com.mydia.restaurantsmartqr.util.Constants.BRANCH_LINK
 import com.mydia.restaurantsmartqr.util.Constants.LOGIN_URL
@@ -25,6 +29,7 @@ import com.mydia.restaurantsmartqr.util.Constants.ORDER_LIST_URL
 import com.mydia.restaurantsmartqr.util.Constants.ORDER_STATUS_URL
 import com.mydia.restaurantsmartqr.util.Constants.REDEEM_POINT
 import com.mydia.restaurantsmartqr.util.Constants.REVIEW_LINK
+import com.mydia.restaurantsmartqr.util.Constants.UPDATE_ALERT_LIST
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 
@@ -40,6 +45,9 @@ class VMLiveOrder @javax.inject.Inject constructor(private val prefs: Preference
     var isNoDataIncoming = ObservableBoolean(false)
     var isNoDataAccept = ObservableBoolean(false)
     var isNoDataReady = ObservableBoolean(false)
+
+    private val _alertList = MutableLiveData<ArrayList<AlertList>>()
+    val alertList: LiveData<ArrayList<AlertList>> = _alertList
 
     private val _incomingOrder = MutableLiveData<OrderListResponse>()
     val incomingOrder: LiveData<OrderListResponse> = _incomingOrder
@@ -81,18 +89,52 @@ class VMLiveOrder @javax.inject.Inject constructor(private val prefs: Preference
     fun allApiCall(){
         viewModelScope.launch {
             val offset = incomingOrderPage
-            val incomingOrderRequest  = OrderListRequest(nUserId = prefs.getString(PrefKey.USER_ID), nCustomerId = "12", nFromId = "0", nToId = "1000", cSectionId = 0, cTableId =0, nStatus = "1")
+            val incomingOrderRequest  = OrderListRequest(nUserId = prefs.getString(PrefKey.USER_ID), nCustomerId = "0", nFromId = "0", nToId = "1000", cSectionId = "", cTableId ="", nStatus = "1")
             incomingOrderListApi(incomingOrderRequest)
 
             val offset2 = acceptedOrderPage
-            val acceptedOrderRequest  =OrderListRequest(nUserId = prefs.getString(PrefKey.USER_ID), nCustomerId = "12", nFromId = "0", nToId = "1000", cSectionId = 0, cTableId = 0, nStatus = "2")
+            val acceptedOrderRequest  =OrderListRequest(nUserId = prefs.getString(PrefKey.USER_ID), nCustomerId = "0", nFromId = "0", nToId = "1000", cSectionId = "", cTableId = "", nStatus = "2")
             acceptedOrderListApi(acceptedOrderRequest)
 
-            val readyOrderRequest  =OrderListRequest(nUserId = prefs.getString(PrefKey.USER_ID), nCustomerId = "12", nFromId = "0", nToId = "1000", cSectionId = 0, cTableId = 0, nStatus = "3")
+            val readyOrderRequest  =OrderListRequest(nUserId = prefs.getString(PrefKey.USER_ID), nCustomerId = "0", nFromId = "0", nToId = "1000", cSectionId ="" , cTableId ="" , nStatus = "3")
             readyOrderListApi(readyOrderRequest)
         }
     }
+    fun alertApiCall(alertId:String){
+        viewModelScope.launch {
+            val offset = incomingOrderPage
+            val alertListRequest  = AlertListRequest(nRestaurantLogId = alertId,nTableId = "0", nUserId =prefs.getString(PrefKey.USER_ID))
+            alertListApi(alertListRequest)
+        }
+    }
+    fun updateAlertApi(alertListRequest: UpdateAlertRequest)=viewModelScope.launch{
+        triggerLoadingDetection(true)
+        isLoading.set(true)
+        loginRepository.updateAlertApi(
+            scope = viewModelScope,
+            onSuccess = {
+                triggerLoadingDetection(false)
+                isLoading.set(false)
+                if(it!!.Success == "1"){
+                    //isNoDataIncoming.set(false)
+                    viewModelScope.launch {
+                        //alertApiCall()
+                    }
 
+
+                }else{
+                  //  isNoDataIncoming.set(true)
+                }
+
+            }, onErrorAction = {
+                triggerLoadingDetection(false)
+              //  isNoDataIncoming.set(true)
+                isLoading.set(false)
+                triggerShowMessage(it)
+                Log.e("error",it.toString())
+            }, alertListRequest.toFieldMap(),prefs.getBaseUrl(PrefKey.BASE_URL).toString()+ UPDATE_ALERT_LIST
+        )
+    }
    /* fun nextPageIncomingOrder(){
         viewModelScope.launch {
             incomingOrderPage++
@@ -241,7 +283,7 @@ class VMLiveOrder @javax.inject.Inject constructor(private val prefs: Preference
             onSuccess = {
                 triggerLoadingDetection(false)
                 isLoading.set(false)
-                if(it!!.status == 1){
+                if(it!!.success == 1){
                     //allApiCall()
                     _sentLink.value = it.message.toString()
 
@@ -351,6 +393,36 @@ class VMLiveOrder @javax.inject.Inject constructor(private val prefs: Preference
                 triggerShowMessage(it)
                 Log.e(TAG+"error",it.toString())
             }, map,prefs.getBaseUrl(PrefKey.BASE_URL).toString()+ APP_VERSIONS
+        )
+    }
+    fun alertListApi(alertListRequest: AlertListRequest)=viewModelScope.launch{
+        triggerLoadingDetection(true)
+        isLoading.set(true)
+
+        loginRepository.alertListApi(
+            scope = viewModelScope,
+            onSuccess = {
+                triggerLoadingDetection(false)
+                isLoading.set(false)
+                if(it!!.Success == "1"){
+                    isNoDataIncoming.set(false)
+                    viewModelScope.launch {
+                        _alertList.value = it.result
+                    }
+
+
+                }else{
+                    isLoading.set(false)
+                    isNoDataIncoming.set(true)
+                }
+
+            }, onErrorAction = {
+                triggerLoadingDetection(false)
+                isNoDataIncoming.set(true)
+                isLoading.set(false)
+                triggerShowMessage(it)
+                Log.e("error",it.toString())
+            }, alertListRequest.toFieldMap(),prefs.getBaseUrl(PrefKey.BASE_URL).toString()+ ALERT_LIST
         )
     }
 }

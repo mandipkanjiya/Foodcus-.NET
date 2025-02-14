@@ -33,14 +33,20 @@
                 android:textColor="@color/textColor"
                 android:textSize="@dimen/_12sdp" />
         </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginHorizontal="@dimen/_5sdp"
+        android:orientation="horizontal">
         <LinearLayout
             android:id="@+id/linName"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_45sdp"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_weight="1"
             android:background="@drawable/rounded_edit_text"
             android:orientation="vertical"
-            android:layout_marginHorizontal="@dimen/_10sdp"
+            android:layout_marginHorizontal="@dimen/_5sdp"
             android:padding="@dimen/_3sdp">
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="match_parent"
@@ -75,8 +81,8 @@
             android:id="@+id/linEmail"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_45sdp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginHorizontal="@dimen/_10sdp"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="@dimen/_5sdp"
             android:background="@drawable/rounded_edit_text"
             android:orientation="vertical"
             android:padding="@dimen/_3sdp">
@@ -109,12 +115,19 @@
                 android:textSize="@dimen/_10sdp" />
 
         </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginHorizontal="@dimen/_5sdp"
+        android:orientation="horizontal">
         <LinearLayout
             android:id="@+id/linPhoneNumber"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_45sdp"
-            android:layout_marginHorizontal="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_weight="1"
+            android:layout_marginHorizontal="@dimen/_5sdp"
             android:background="@drawable/rounded_edit_text"
             android:orientation="vertical"
             android:padding="@dimen/_3sdp">
@@ -146,6 +159,129 @@
                 android:textCursorDrawable="@null"
                 android:textSize="@dimen/_10sdp" />
 
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/linOrderAmount"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_45sdp"
+            android:layout_weight="1"
+
+            android:layout_marginHorizontal="@dimen/_5sdp"
+            android:background="@drawable/rounded_edit_text"
+            android:orientation="vertical"
+            android:padding="@dimen/_3sdp">
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Order Amount"
+                android:textColor="@color/textColor"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:textSize="@dimen/_9sdp" />
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/etAmount"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:background="@null"
+                android:fontFamily="@font/poppins_regular"
+                android:hint="Enter Amount"
+                android:imeOptions="actionGo"
+                android:inputType="number"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:singleLine="true"
+                android:textColor="@color/textColor"
+                android:textColorHint="@color/gray"
+                android:textCursorDrawable="@null"
+                android:textSize="@dimen/_10sdp" />
+
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginHorizontal="@dimen/_5sdp"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:id="@+id/linBirthDate"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_45sdp"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_edit_text"
+                android:orientation="vertical"
+                android:layout_marginHorizontal="@dimen/_5sdp"
+                android:padding="@dimen/_3sdp">
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="Birth Date"
+                    android:textColor="@color/textColor"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:textSize="@dimen/_9sdp" />
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/etBirthDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:background="@null"
+                    android:fontFamily="@font/poppins_regular"
+                    android:hint="Select Birth Date"
+                    android:text=""
+                    android:imeOptions="actionNext"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:singleLine="true"
+                    android:textColor="@color/textColor"
+                    android:textColorHint="@color/gray"
+                    android:textCursorDrawable="@null"
+                    android:textSize="@dimen/_10sdp" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/linAnnivarsaryDate"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_45sdp"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="@dimen/_5sdp"
+                android:background="@drawable/rounded_edit_text"
+                android:orientation="vertical"
+                android:padding="@dimen/_3sdp">
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="AnnivarsaryDate"
+                    android:textColor="@color/textColor"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:textSize="@dimen/_9sdp" />
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/etAnnivarsaryDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:background="@null"
+                    android:fontFamily="@font/poppins_regular"
+                    android:hint="Select Annivarsary Date"
+                    android:text=""
+                    android:imeOptions="actionNext"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:singleLine="true"
+                    android:textColor="@color/textColor"
+                    android:textColorHint="@color/gray"
+                    android:textCursorDrawable="@null"
+                    android:textSize="@dimen/_10sdp" />
+
+            </LinearLayout>
         </LinearLayout>
         <RelativeLayout
             android:layout_width="match_parent"

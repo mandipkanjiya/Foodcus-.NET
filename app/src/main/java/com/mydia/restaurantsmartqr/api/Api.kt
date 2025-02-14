@@ -5,6 +5,9 @@ import com.mydia.restaurantsmartqr.model.AppUpdateResponse
 import com.mydia.restaurantsmartqr.model.BaseResponse
 import com.mydia.restaurantsmartqr.model.CreateOrderModel
 import com.mydia.restaurantsmartqr.model.CustomerResponse
+import com.mydia.restaurantsmartqr.model.CustomerWalletHistoryDetailResponse
+import com.mydia.restaurantsmartqr.model.DottnetBaseResponse
+import com.mydia.restaurantsmartqr.model.EmployeListResponse
 import com.mydia.restaurantsmartqr.model.OrderStatusResponse
 import com.mydia.restaurantsmartqr.model.alertList.AlertListResponse
 import com.mydia.restaurantsmartqr.model.alertList.UpdateAlertResponse
@@ -29,7 +32,7 @@ interface Api {
 
     @FormUrlEncoded
     @POST
-    suspend fun reviewLinkApi(@Url url:String,@FieldMap requestFieldMap: HashMap<String,String>): BaseResponse?
+    suspend fun reviewLinkApi(@Url url:String,@FieldMap requestFieldMap: HashMap<String,String>): DottnetBaseResponse?
 
     @FormUrlEncoded
     @POST
@@ -43,9 +46,9 @@ interface Api {
     @POST
     suspend fun addPointApi(@Url url:String,@FieldMap requestFieldMap: HashMap<String,String>): BaseResponse?
 
-    @FormUrlEncoded
-    @POST
-    suspend fun orderList(@Url url:String,@FieldMap requestFieldMap: HashMap<String,String>): OrderListResponse?
+
+    @GET
+    suspend fun orderList(@Url url:String,@QueryMap requestFieldMap: HashMap<String,String>): OrderListResponse?
 
 
     @GET
@@ -54,6 +57,12 @@ interface Api {
     @FormUrlEncoded
     @POST
     suspend fun sectionList(@Url url:String,@FieldMap requestFieldMap: HashMap<String,String>): SectionListResponse?
+
+    @FormUrlEncoded
+    @POST
+    suspend fun employeList(@Url url:String,@FieldMap requestFieldMap: HashMap<String,String>): EmployeListResponse?
+
+
 
     @FormUrlEncoded
     @POST
@@ -69,7 +78,7 @@ interface Api {
 
     @FormUrlEncoded
     @POST
-    suspend fun placeOrderApi(@Url url:String,@FieldMap requestFieldMap: HashMap<String,String>): CreateOrderModel?
+    suspend fun placeOrderApi(@Url url:String,@FieldMap requestFieldMap: HashMap<String,Any>): CreateOrderModel?
 
 
     @FormUrlEncoded
@@ -92,5 +101,9 @@ interface Api {
     @FormUrlEncoded
     @POST
     suspend fun customerListApi(@Url url:String,@FieldMap requestFieldMap: HashMap<String,String>): CustomerResponse?
+
+    @FormUrlEncoded
+    @POST
+    suspend fun getCustomerWalletHistoryApi(@Url url:String,@FieldMap requestFieldMap: HashMap<String,String>): CustomerWalletHistoryDetailResponse?
 
 }

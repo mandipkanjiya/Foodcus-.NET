@@ -4,7 +4,9 @@ import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import org.json.JSONObject
 
-data class AlertListRequest(@SerializedName("nUserId")
+data class AlertListRequest(@SerializedName("nRestaurantLogId")
+                            val nRestaurantLogId: String = "",
+                            @SerializedName("nUserId")
                          val nUserId: String = "",
                             @SerializedName("nTableId")
                          val nTableId  : String = "",

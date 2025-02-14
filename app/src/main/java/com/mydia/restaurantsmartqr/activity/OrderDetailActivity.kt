@@ -55,20 +55,30 @@ class OrderDetailActivity : BaseActivity<ActivityOrderDetailBinding, VMOrderDeta
         val orderType = viewModel.orderType.get().toString()
 
         var status = ""
-        if(statusType == "1"){
+        if(statusType == "Pending"){
             status= "2"
-        }else if(statusType == "2"){
+        }else if(statusType == "Inkitchen"){
             if(orderType == "DineIn"){
-                status ="4"
+                status ="3"
             }else{
                 status= "3"
             }
 
-        }else if(statusType =="3"){
-            status ="4"
+        }else if(statusType =="Completed"){
+            status ="3"
+            binding.rlCustomer.visibility = View.GONE
+            binding.btnStatus.visibility = View.GONE
+            binding.btnReject.visibility = View.GONE
+            if(orderType == "DineIn"){
+                binding.llbottomViewpickup.visibility = View.GONE
+            }else{
+                binding.llbottomViewpickup.visibility = View.VISIBLE
+                binding.tvPickUpTime.text = viewModel.pickupTime.get()
+                binding.tvPaymentType.text = viewModel.paymentMethod.get()
+            }
         }
 
-        if(statusType == "4" || statusType == "5"){
+        if(statusType == "Cancelled"){
             binding.rlCustomer.visibility = View.GONE
             binding.btnStatus.visibility = View.GONE
             binding.btnReject.visibility = View.GONE
@@ -109,7 +119,7 @@ class OrderDetailActivity : BaseActivity<ActivityOrderDetailBinding, VMOrderDeta
         }
         binding.btnReject.setOnClickListener {
             lifecycleScope.launch {
-                val orderStatusApi  = OrderStatusRequest(nUserId = prefs.getString(PrefKey.USER_ID), nOrderId = viewModel.orderId.get().toString(), cStatus = "5")
+                val orderStatusApi  = OrderStatusRequest(nUserId = prefs.getString(PrefKey.USER_ID), nOrderId = viewModel.orderId.get().toString(), cStatus = "4")
                 viewModel.orderStatusApi(orderStatusApi)
             }
 
@@ -164,7 +174,7 @@ class OrderDetailActivity : BaseActivity<ActivityOrderDetailBinding, VMOrderDeta
             binding.btnStatus.text ="Complete"
             binding.btnStatus.supportBackgroundTintList = applicationContext.getColorStateList(R.color.darkGreen)
         }else if(orderstatus =="Completed"){
-            binding.btnStatus.text ="Complete"
+            binding.btnStatus.text ="Completed"
             binding.btnStatus.supportBackgroundTintList = applicationContext.getColorStateList(R.color.darkGreen)
         }else if(orderstatus =="Inkitchen"){
             if(orderTYpe == "DineIn"){

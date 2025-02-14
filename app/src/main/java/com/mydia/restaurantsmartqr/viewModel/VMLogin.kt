@@ -46,6 +46,8 @@ class VMLogin @javax.inject.Inject constructor(private val prefs: PreferencesSer
                             prefs.putBoolean(PrefKey.IS_LOGIN,true)
                             prefs.putString(PrefKey.USER_ID,it.result!!.nUserId.toString())
                             prefs.putString(PrefKey.CURRENCY, it.result!!.nDefaultCurrency)
+                            prefs.putString(PrefKey.ROLE_TYPE, it.result!!.cRoleType)
+                            prefs.putString(PrefKey.EMP_ID, it.result!!.nEmpId)
                            // prefs.putString(PrefKey.BRANCH_ID, it.result!!.branchId)
                            //isShowReady.set(it.result!!.show_ready_section)
 

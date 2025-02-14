@@ -14,6 +14,7 @@ import android.view.Window
 import android.view.WindowManager
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.widget.AppCompatButton
@@ -98,6 +99,15 @@ class ProductMenuActivity :  BaseActivity<ActivityProductMenuBinding, VMProductM
                 viewModel.emailCustomer.set(customerItem?.cEmail)
                 viewModel.customerName.set(customerItem?.cCustomerName)
                 viewModel.cMobileNo.set(customerItem?.cContactNo)
+                if(customerItem?.isAligibleForPointRedemption == true) {
+                    viewModel.isUsingRedeemptionPoints.set("1")
+                    viewModel.fRedeemPoint.set(customerItem?.fTotalWalletPoints.toString())
+                    viewModel.fRedeemAmount.set(customerItem?.fTotalWalletAmount.toString())
+                }else{
+                    viewModel.isUsingRedeemptionPoints.set("0")
+                    viewModel.fRedeemPoint.set("0")
+                    viewModel.fRedeemAmount.set("0")
+                }
                 //finish()
             }
         }
@@ -132,6 +142,7 @@ binding.llCharge.setOnClickListener{
         binding.vm = viewModel
         viewModel.nTableId.set(intent.getStringExtra("nTableId").toString())
         viewModel.nSectionId.set(intent.getStringExtra("nSectionId").toString())
+        viewModel.nEmployeeId.set(intent.getStringExtra("employeId").toString())
 
         try {
             val pInfo: PackageInfo = packageManager.getPackageInfo(packageName,0)
@@ -540,15 +551,20 @@ binding.llCharge.setOnClickListener{
         //     val linStartDate = dialogRenameDoc.findViewById<LinearLayoutCompat>(R.id.linStartDate)
         //   val linEndDate = dialogRenameDoc.findViewById<LinearLayoutCompat>(R.id.linEndDate)
         val cvSubmit = dialogRenameDoc.findViewById<AppCompatButton>(R.id.btnSubmit)
+        val linOrderAmount = dialogRenameDoc.findViewById<LinearLayout>(R.id.linOrderAmount)
 
         val etName = dialogRenameDoc.findViewById<AppCompatEditText>(R.id.etName)
         val etPhoneNumber = dialogRenameDoc.findViewById<AppCompatEditText>(R.id.etPhoneNumber)
         val etEmail = dialogRenameDoc.findViewById<AppCompatEditText>(R.id.etEmail)
+        val etBirthdate = dialogRenameDoc.findViewById<AppCompatEditText>(R.id.etBirthDate)
+        val etAnnivarsaryDate = dialogRenameDoc.findViewById<AppCompatEditText>(R.id.etAnnivarsaryDate)
          etName.setText(viewModel.customerName.get().toString())
         etPhoneNumber.setText(viewModel.cMobileNo.get().toString())
         etEmail.setText(viewModel.emailCustomer.get().toString())
+        etBirthdate.setText(viewModel.birthDate.get().toString())
+        etAnnivarsaryDate.setText(viewModel.annivarsaryDate.get().toString())
         val ivCancel = dialogRenameDoc.findViewById<ImageView>(R.id.ivBack)
-
+        linOrderAmount.visibility = View.GONE
         ivCancel!!.setOnClickListener {
             dialogRenameDoc.dismiss()
 
@@ -557,10 +573,10 @@ binding.llCharge.setOnClickListener{
         cvSubmit!!.setOnClickListener {
             lifecycleScope.launch {
 
-                if(etName.text.toString().length == 0){
+             /*   if(etName.text.toString().length == 0){
                     viewModel.showToast("Please enter Name.")
                     return@launch
-                }
+                }*/
 
                 if(etName.text.toString().length == 0){
                     viewModel.showToast("Please enter Name.")
@@ -583,6 +599,8 @@ binding.llCharge.setOnClickListener{
                 viewModel.customerName.set(etName.text.toString())
                 viewModel.emailCustomer.set(etEmail.text.toString())
                 viewModel.cMobileNo.set(etPhoneNumber.text.toString())
+                viewModel.birthDate.set(etBirthdate.text.toString())
+                viewModel.annivarsaryDate.set(etAnnivarsaryDate.text.toString())
                 // viewModel.cMobileNo.set(etPhoneNumber.text.toString())
                 viewModel.addCustomerApiCall()
                 //BASE_URL = etBaseUrl.text.toString()
@@ -633,6 +651,19 @@ binding.llCharge.setOnClickListener{
                     viewModel.customerName.set(bannerModel?.cCustomerName)
                     viewModel.cMobileNo.set(bannerModel?.cContactNo)
                     viewModel.emailCustomer.set(bannerModel?.cEmail)
+                    viewModel.birthDate.set("")
+                    viewModel.annivarsaryDate.set("")
+                    if(customerItem?.isAligibleForPointRedemption == true) {
+                        viewModel.isUsingRedeemptionPoints.set("1")
+                        viewModel.fRedeemPoint.set(customerItem?.fTotalWalletPoints.toString())
+                        viewModel.fRedeemAmount.set(customerItem?.fTotalWalletAmount.toString())
+                    }else{
+                        viewModel.isUsingRedeemptionPoints.set("0")
+                        viewModel.fRedeemPoint.set("0")
+                        viewModel.fRedeemAmount.set("0")
+                    }
+                    customerItem = bannerModel
+                    binding.etCustomer.setText(customerItem?.cCustomerName)
                     //   viewModel.pack.set(bannerModel?.name)
                     //    viewModel.statesListApiCall()
                     dialogRenameDoc.dismiss()

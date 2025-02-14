@@ -25,7 +25,7 @@ class ScanQrActivity : BaseActivity<ActivityScanqrBinding, VMScanQr>(),FirebaseE
         binding.vm = viewModel
 
 
-
+        startQrScanner()
        binding.scanButton.setOnClickListener {
            startQrScanner()
        }
@@ -89,6 +89,7 @@ class ScanQrActivity : BaseActivity<ActivityScanqrBinding, VMScanQr>(),FirebaseE
                 val intent = Intent(this, ScanQrDetailActivity::class.java)
                 intent.putExtra("QR_CODE_DATA", result.contents)
                 startActivity(intent)
+                finish()
             } else {
                 // Handle scan cancellation
             }

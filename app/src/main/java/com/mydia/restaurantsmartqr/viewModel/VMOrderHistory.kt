@@ -53,9 +53,9 @@ class VMOrderHistory @javax.inject.Inject constructor(private val prefs: Prefere
             prefs.clearData()
         }
     }
-    fun orderListUsingFilter(status:String,tableId:Int,sectionId:Int,startDate:String,endDate:String){
+    fun orderListUsingFilter(status:String,tableId:String,sectionId:String,startDate:String,endDate:String){
         viewModelScope.launch {
-            val orderListRequest = OrderListRequest(nUserId = prefs.getString(PrefKey.USER_ID), nCustomerId = "12", nFromId = "0", nToId = "1000", cSectionId = sectionId.toInt(), cTableId =tableId.toInt() , FromDate = startDate, ToDate = endDate, nStatus = status)
+            val orderListRequest = OrderListRequest(nUserId = prefs.getString(PrefKey.USER_ID), nCustomerId = "0", nFromId = "0", nToId = "1000", cSectionId = sectionId.toString(), cTableId =tableId.toString() , FromDate = startDate, ToDate = endDate, nStatus = status)
             completedOrderListApi(orderListRequest)
         }
 

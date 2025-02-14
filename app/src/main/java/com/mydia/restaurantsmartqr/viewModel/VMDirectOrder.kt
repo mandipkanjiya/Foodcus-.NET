@@ -27,6 +27,8 @@ class VMDirectOrder @javax.inject.Inject constructor(private val prefs: Preferen
     var jsonString = ObservableField("")
     var nCustomerId = ObservableField("")
     var customerName = ObservableField("Aadil Mansuri")
+    var birthDate = ObservableField("")
+    var annivarsaryDate = ObservableField("")
     var cMobileNo = ObservableField("+918141849244")
     var cAlterMobileNo = ObservableField("+918141849244")
     var emailCustomer = ObservableField("+918141849244")
@@ -34,6 +36,10 @@ class VMDirectOrder @javax.inject.Inject constructor(private val prefs: Preferen
     var versionName = ObservableField("")
     var nTableId = ObservableField("")
     var nSectionId = ObservableField("")
+    var isUsingRedeemptionPoints = ObservableField("0")
+    var fRedeemPoint = ObservableField("0")
+    var fRedeemAmount = ObservableField("0")
+
     private val _placeorder = MutableLiveData<CreateOrderModel>()
     val placeorder: LiveData<CreateOrderModel> = _placeorder
     private val _addCustomer = MutableLiveData<CustomerResponse>()
@@ -60,7 +66,7 @@ class VMDirectOrder @javax.inject.Inject constructor(private val prefs: Preferen
     fun placeOrderApiCall(){
         viewModelScope.launch {
             //passing parameter
-            val map = HashMap<String, String>()
+            val map = HashMap<String, Any>()
             map["nUserId"] = nUserId.get().toString()
             map["cToken"] = ""
             map["nLanguageId"] ="0"
@@ -106,14 +112,18 @@ class VMDirectOrder @javax.inject.Inject constructor(private val prefs: Preferen
             map["nDeliveryTimeType"] = "0"
             map["nTableId"] = "0"
             map["nSectionId"] ="0"
-            map["nEmployeeId"] = "1"
+            map["nEmployeeId"] = "0"
+            map["IsUsingRedeemptionPoints"] = isUsingRedeemptionPoints.get().toString()
+            map["fRedeemPoint"] = fRedeemPoint.get().toString()
+            map["fRedeemAmount"] = fRedeemAmount.get().toString()
+            //map["nEmployeeId"] = "1"
 
             Log.e("CreateOrderParam", map.toString())
             placeOrderApi(map)
         }
 
     }
-    fun placeOrderApi(orderListRequest: HashMap<String,String>)=viewModelScope.launch{
+    fun placeOrderApi(orderListRequest: HashMap<String,Any>)=viewModelScope.launch{
         triggerLoadingDetection(true)
         isLoading.set(true)
         loginRepository.placeOrderApi(
@@ -152,8 +162,8 @@ class VMDirectOrder @javax.inject.Inject constructor(private val prefs: Preferen
             map["cCustomerLastName"] =" "
             map["cCustomerContactNo"] = cMobileNo.get().toString()
             map["cCustomerEmailId"] = emailCustomer.get().toString()
-            map["dtAnniversary"] = Utils.getCurrentDate()
-            map["dtBirthDay"] = Utils.getCurrentDate()
+            map["dtAnniversary"] =annivarsaryDate.get().toString()
+            map["dtBirthDay"] = birthDate.get().toString()
 
 
             Log.e("CreateOrderParam", map.toString())

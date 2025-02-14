@@ -44,7 +44,7 @@
                 android:textSize="@dimen/_9sdp"
                 android:textColor="@color/color2e71f9"
                 android:fontFamily="@font/poppins_regular"
-                android:visibility="visible"
+                android:visibility="gone"
                 android:text="Sharan: 2 Guests"/>
 
         </LinearLayout>

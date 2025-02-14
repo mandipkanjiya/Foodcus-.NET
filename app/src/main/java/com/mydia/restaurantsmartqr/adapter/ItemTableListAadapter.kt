@@ -74,22 +74,22 @@ class ItemTableListAadapter(context: Context,private var incomingOrderList:List<
         holder.itemView.layoutParams = layoutParams*/
         val incomingData = incomingOrderList[position]
         val positioncount= position+1
-        holder.binding.tvTableName.text = "T-"+positioncount
+        holder.binding.tvTableName.text = incomingData.cTableName
 
-        if(position %2 == 0){
+       /* if(position %2 == 0){*/
             //dininF6F6F6
             holder.binding.llMain.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#F6FAFF"))
             holder.binding.tvTableName.backgroundTintList = ColorStateList.valueOf(context.getColor(R.color.color2e71f9))
             holder.binding.tvGuestcount.setTextColor(context.getColor(R.color.color2e71f9))
           //  holder.binding.llMain.background=context.getDrawable(R.drawable.section_selected_bg)
 
-        }else{
+        /*}else{
             //pickup
             holder.binding.llMain.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#F6F6F6"))
             holder.binding.tvTableName.backgroundTintList = ColorStateList.valueOf(context.getColor(R.color.white))
             holder.binding.tvGuestcount.setTextColor(context.getColor(R.color.gray))
            // holder.binding.llMain.background=context.getDrawable(R.drawable.section_unselected_bg)
-        }
+        }*/
 
 
         holder.binding.llMain.setOnClickListener {

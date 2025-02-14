@@ -109,10 +109,18 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, VMLogin>() {
 
                 when (event) {
                     1 -> {
-                        openNextActivity()
+                        /*if(prefs.getString(PrefKey.ROLE_TYPE).equals("Kitchen")) {
+                            openNextActivity()
+                        }*/
                     }
                     2 -> {
-                        openNextActivity()
+                        if(prefs.getString(PrefKey.ROLE_TYPE).equals("Admin")) {
+                            openNextActivity()
+                        }else if(prefs.getString(PrefKey.ROLE_TYPE).equals("Kitchen")) {
+                            openNextActivity()
+                        }else if(prefs.getString(PrefKey.ROLE_TYPE).equals("Guest Services")) {
+                            openTableOrderActivity()
+                        }
                     }
 
                 }

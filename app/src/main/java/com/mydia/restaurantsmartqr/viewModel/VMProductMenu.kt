@@ -40,9 +40,12 @@ class VMProductMenu @javax.inject.Inject constructor(private val prefs: Preferen
     var versionName = ObservableField("")
     var nTableId = ObservableField("")
     var nSectionId = ObservableField("")
+    var nEmployeeId = ObservableField("")
     var nCustomerId = ObservableField("")
     var currency = ObservableField("")
     var emailCustomer = ObservableField("")
+    var birthDate = ObservableField("")
+    var annivarsaryDate = ObservableField("")
     var isNoDataSection = ObservableBoolean(false)
     var isNoDataTable = ObservableBoolean(false)
     var isNoDataReady = ObservableBoolean(false)
@@ -51,6 +54,10 @@ class VMProductMenu @javax.inject.Inject constructor(private val prefs: Preferen
 
     private val _customerList = MutableLiveData<CustomerResponse>()
     val customerList: LiveData<CustomerResponse> = _customerList
+
+    var isUsingRedeemptionPoints = ObservableField("0")
+    var fRedeemPoint = ObservableField("0")
+    var fRedeemAmount = ObservableField("0")
     fun getUserData(){
         viewModelScope.launch {
             val user = prefs.get(PrefKey.SAVE_LOGIN, NewLoginModel::class.java)
@@ -96,7 +103,7 @@ class VMProductMenu @javax.inject.Inject constructor(private val prefs: Preferen
         viewModelScope.launch {
 
             //passing parameter
-            val map = HashMap<String, String>()
+            val map = HashMap<String, Any>()
             map["nUserId"] = nUserId.get().toString()
             map["cToken"] = ""
             map["nLanguageId"] ="0"
@@ -142,8 +149,10 @@ class VMProductMenu @javax.inject.Inject constructor(private val prefs: Preferen
             map["nDeliveryTimeType"] = "0"
             map["nTableId"] = nTableId.get().toString()
             map["nSectionId"] = nSectionId.get().toString()
-            map["nEmployeeId"] = "1"
-
+            map["nEmployeeId"] = nEmployeeId.get().toString()
+            map["IsUsingRedeemptionPoints"] = isUsingRedeemptionPoints.get().toString()
+            map["fRedeemPoint"] = fRedeemPoint.get().toString()
+            map["fRedeemAmount"] = fRedeemAmount.get().toString()
             Log.e("CreateOrderParam", map.toString())
             placeOrderApi(map)
         }
@@ -207,7 +216,7 @@ class VMProductMenu @javax.inject.Inject constructor(private val prefs: Preferen
         )
     }
 
-    fun placeOrderApi(orderListRequest: HashMap<String,String>)=viewModelScope.launch{
+    fun placeOrderApi(orderListRequest: HashMap<String,Any>)=viewModelScope.launch{
         triggerLoadingDetection(true)
         isLoading.set(true)
         loginRepository.placeOrderApi(
@@ -245,8 +254,8 @@ class VMProductMenu @javax.inject.Inject constructor(private val prefs: Preferen
             map["cCustomerLastName"] =" "
             map["cCustomerContactNo"] = cMobileNo.get().toString()
             map["cCustomerEmailId"] = emailCustomer.get().toString()
-            map["dtAnniversary"] = Utils.getCurrentDate()
-            map["dtBirthDay"] = Utils.getCurrentDate()
+            map["dtAnniversary"] =annivarsaryDate.get().toString()
+            map["dtBirthDay"] = birthDate.get().toString()
 
 
             Log.e("CreateOrderParam", map.toString())

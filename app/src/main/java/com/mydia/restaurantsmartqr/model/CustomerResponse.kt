@@ -47,5 +47,17 @@ data class CustomerItem(
 	val cCustomerType: String? = null,
 
 	@field:SerializedName("cCustomerImage")
-	val cCustomerImage: String? = null
+	val cCustomerImage: String? = null,
+
+	@field:SerializedName("IsAligibleForPointRedemption")
+	val isAligibleForPointRedemption: Boolean= false,
+
+	@field:SerializedName("fTotalWalletPoints")
+	val fTotalWalletPoints: Double? = null,
+
+	@field:SerializedName("fTotalWalletAmount")
+	val fTotalWalletAmount: Double? = null,
+
+	@field:SerializedName("nMinimumPointRequired")
+	val nMinimumPointRequired: Int? = null
 )

@@ -12,6 +12,8 @@ object PrefKey {
     const val SAVE_FCM_TOKEN = "SAVE_FCM_TOKEN"
     const val IS_LOGIN = "IS_LOGIN"
     const val CURRENCY = "CURRENCY"
+    const val ROLE_TYPE = "ROLE_TYPE"
+    const val EMP_ID = "EMP_ID"
     const val BRANCH_ID = "BRANCH_ID"
     const val USER_ID = "USER_ID"
     const val IS_SHOW_READY = "IS_SHOW_READY"

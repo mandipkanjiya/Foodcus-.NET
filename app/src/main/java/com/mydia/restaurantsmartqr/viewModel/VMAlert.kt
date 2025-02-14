@@ -88,7 +88,7 @@ class VMAlert @javax.inject.Inject constructor(private val prefs: PreferencesSer
     fun allApiCall(){
         viewModelScope.launch {
             val offset = incomingOrderPage
-            val alertListRequest  = AlertListRequest(nTableId = "0", nUserId =prefs.getString(PrefKey.USER_ID))
+            val alertListRequest  = AlertListRequest(nRestaurantLogId = "0",nTableId = "0", nUserId =prefs.getString(PrefKey.USER_ID))
             alertListApi(alertListRequest)
         }
     }

@@ -15,9 +15,9 @@ data class OrderListRequest(  @SerializedName("nUserId")
                          @SerializedName("nToId")
                          val nToId : String = "",
                          @SerializedName("cTableId")
-                         val cTableId : Int = 0,
+                         val cTableId : String = "",
                           @SerializedName("cSectionId")
-                         val cSectionId : Int =0,
+                         val cSectionId : String ="",
                         @SerializedName("nStatus")
                          val nStatus : String ="",
                         @SerializedName("FromDate")

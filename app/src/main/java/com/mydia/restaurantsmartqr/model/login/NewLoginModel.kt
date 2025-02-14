@@ -32,5 +32,14 @@ data class NewLoginModel(
 	val cLogo: String? = null,
 
 	@field:SerializedName("dtRegistrationDate")
-	val dtRegistrationDate: String? = null
+	val dtRegistrationDate: String? = null,
+
+	@field:SerializedName("cRoleType")
+	val cRoleType: String? = null,
+
+	@field:SerializedName("nEmpId")
+	val nEmpId: String? = null,
+
+	@field:SerializedName("cEmpName")
+	val cEmpName: String? = null
 )

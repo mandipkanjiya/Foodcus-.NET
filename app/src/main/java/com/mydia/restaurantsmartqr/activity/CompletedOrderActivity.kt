@@ -60,13 +60,13 @@ class CompletedOrderActivity : BaseActivity<ActivityCompletedOrderBinding, VMCom
                 lifecycleScope.launch {
                     if(position == 0){
                         spnSelectedOrder = "1"
-                        val orderListRequest = OrderListRequest(nUserId = prefs.getString(PrefKey.USER_ID), nCustomerId = "19", nFromId = "0", nToId = "1000", cSectionId = 0, cTableId = 0, nOrderType = "3")
+                        val orderListRequest = OrderListRequest(nUserId = prefs.getString(PrefKey.USER_ID), nCustomerId = "19", nFromId = "0", nToId = "1000", cSectionId = "", cTableId = "", nOrderType = "3")
                         viewModel.completedOrderListApi(orderListRequest)
 
                         // setTodayFilter()
                     }else{
                         spnSelectedOrder = "0"
-                        val orderListRequest = OrderListRequest(nUserId = prefs.getString(PrefKey.USER_ID), nCustomerId = "19", nFromId = "0", nToId = "1000", cSectionId = 0, cTableId = 0, nOrderType = "3")
+                        val orderListRequest = OrderListRequest(nUserId = prefs.getString(PrefKey.USER_ID), nCustomerId = "19", nFromId = "0", nToId = "1000", cSectionId = "", cTableId = "", nOrderType = "3")
                         viewModel.completedOrderListApi(orderListRequest)
 
                         // setAdapter()
@@ -82,7 +82,7 @@ class CompletedOrderActivity : BaseActivity<ActivityCompletedOrderBinding, VMCom
 
             Log.e(TAG,prefs.getString(PrefKey.BRANCH_ID))
 
-            val orderListRequest = OrderListRequest(nUserId = prefs.getString(PrefKey.USER_ID), nCustomerId = "19", nFromId = "0", nToId = "1000", cSectionId =0, cTableId = 0, nOrderType = "3")
+            val orderListRequest = OrderListRequest(nUserId = prefs.getString(PrefKey.USER_ID), nCustomerId = "19", nFromId = "0", nToId = "1000", cSectionId ="", cTableId = "", nOrderType = "3")
             viewModel.completedOrderListApi(orderListRequest)
 
             val tableLIstRequest = TableListRequest(nUserId = prefs.getString(PrefKey.BRANCH_ID))
@@ -139,7 +139,7 @@ class CompletedOrderActivity : BaseActivity<ActivityCompletedOrderBinding, VMCom
                           }
                       }
 
-                        val orderListRequest = OrderListRequest(nUserId = prefs.getString(PrefKey.USER_ID), nCustomerId = "19", nFromId = "0", nToId = "1000", cSectionId = 0, cTableId = 0, nOrderType = "")
+                        val orderListRequest = OrderListRequest(nUserId = prefs.getString(PrefKey.USER_ID), nCustomerId = "19", nFromId = "0", nToId = "1000", cSectionId = "", cTableId = "", nOrderType = "")
                         viewModel.completedOrderListApi(orderListRequest)
                     }
                 }
@@ -278,7 +278,7 @@ class CompletedOrderActivity : BaseActivity<ActivityCompletedOrderBinding, VMCom
     }
     fun apiCallForDateFilter(startDate:String,endDate:String){
         lifecycleScope.launch{
-            val orderListRequest = OrderListRequest(nUserId = "21", nCustomerId = "19", nFromId = "0", nToId = "1000", cSectionId =0, cTableId = 0, nOrderType = "")
+            val orderListRequest = OrderListRequest(nUserId = "21", nCustomerId = "19", nFromId = "0", nToId = "1000", cSectionId ="", cTableId = "", nOrderType = "")
             viewModel.completedOrderListApi(orderListRequest)
         }
     }

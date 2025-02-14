@@ -40,7 +40,13 @@ class SplashActivity: BaseActivity<ActivitySplashBinding, VMSplash>()  {
                             FirebaseDataManager.firebaseDataReference
                             Handler(Looper.getMainLooper()).postDelayed({
                                 lifecycleScope.launch {
-                                    openNextActivity()
+                                    if(prefs.getString(PrefKey.ROLE_TYPE).equals("Admin")) {
+                                        openNextActivity()
+                                    }else if(prefs.getString(PrefKey.ROLE_TYPE).equals("Kitchen")) {
+                                        openNextActivity()
+                                    }else if(prefs.getString(PrefKey.ROLE_TYPE).equals("Guest Services")) {
+                                        openTableOrdertActivity()
+                                    }
                                 }
                             },5000)
 

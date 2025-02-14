@@ -8,16 +8,25 @@
             name="vm"
             type="com.mydia.restaurantsmartqr.viewModel.VMScanQrDetail" />
     </data>
-    <LinearLayout
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/backgroundColor"
         android:orientation="vertical"
-        android:padding="16dp">
+        >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_25sdp"
+        android:orientation="horizontal"
+        >
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.2"
             android:layout_marginBottom="@dimen/_5sdp">
 
             <androidx.appcompat.widget.AppCompatImageView
@@ -25,7 +34,7 @@
                 android:layout_width="@dimen/_15sdp"
                 android:layout_height="@dimen/_15sdp"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginStart="@dimen/_5sdp"
                 app:tint="@color/textColor"
                 android:backgroundTint="@color/white"
                 android:src="@drawable/ic_back_arrow" />
@@ -36,11 +45,11 @@
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@id/imgBack"
                 android:fontFamily="@font/poppins_bold"
-                android:text="Rewards"
+                android:text="Loyalty Points"
                 android:layout_marginStart="@dimen/_10sdp"
                 android:layout_centerVertical="true"
                 android:textColor="@color/textColor"
-                android:textSize="@dimen/_7sdp" />
+                android:textSize="@dimen/_10sdp" />
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvSection"
                 android:layout_width="wrap_content"
@@ -56,76 +65,249 @@
                 android:textSize="@dimen/_6sdp" />
 
         </RelativeLayout>
-
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
+            android:layout_height="match_parent"
+            android:layout_weight="0.3"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_bold"
+                android:text="Loyalty Points Histoty"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:textColor="@color/textColor"
+                android:textSize="@dimen/_10sdp" />
+        </LinearLayout>
+    </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="@dimen/_5sdp"
+            android:orientation="horizontal">
             <LinearLayout
-                android:id="@+id/llRedeemcoin"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_50sdp"
                 android:orientation="vertical"
-                android:gravity="center"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:layout_marginHorizontal="@dimen/_50sdp"
-                android:background="@drawable/bg_dinein_order">
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tvRedeem"
+                android:layout_weight="0.2"
+                android:layout_height="match_parent">
+                <LinearLayout
+                    android:id="@+id/llRedeemcoin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_bold"
-                    android:text="Points to redeem"
+                    android:orientation="horizontal"
                     android:gravity="center"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_10sdp" />
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_3sdp"
-                    android:layout_gravity="center"
+                    android:padding="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:background="@drawable/bg_dinein_order">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        >
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvcontactNo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_bold"
+                            android:text="-"
+                            android:textColor="@color/gray"
+                            android:textSize="@dimen/_10sdp" />
 
-                    android:gravity="center">
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/ivCoin"
-                        android:layout_width="@dimen/_10sdp"
-                        android:layout_height="@dimen/_10sdp"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/ic_coin"/>
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tvRedeemPoint"
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvProfileEmail"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_bold"
+                            android:text="-"
+                            android:textColor="@color/gray"
+
+                            android:textSize="@dimen/_10sdp" />
+                    </LinearLayout>
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/poppins_regular"
-                        android:text="740"
-                        android:textColor="@color/gray"
-                        android:layout_centerVertical="true"
-                        android:layout_marginStart="@dimen/_5sdp"
-                        android:layout_toRightOf="@id/ivCoin"
-                        android:textSize="@dimen/_10sdp" />
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        >
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_person"/>
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvCustomerName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_bold"
+                            android:text="Aisha"
+                            android:textColor="@color/gray"
 
-                </RelativeLayout>
+                            android:textSize="@dimen/_10sdp" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        >
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvRedeem"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_bold"
+                        android:text="Available Points"
+                        android:gravity="center"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_10sdp" />
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_3sdp">
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/ivCoin"
+                            android:layout_width="@dimen/_10sdp"
+                            android:layout_height="@dimen/_10sdp"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/ic_coin"/>
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvAvailablePoint"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:text="-"
+                            android:textColor="@color/gray"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:layout_toRightOf="@id/ivCoin"
+                            android:textSize="@dimen/_10sdp" />
+
+                    </RelativeLayout>
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:layout_marginVertical="@dimen/_5sdp"
+                    android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginHorizontal="@dimen/_20sdp"
+                    android:background="@drawable/bg_rounded_white_curve_dialog"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:id="@+id/action_bar"
+                        android:layout_width="match_parent"
+                        android:layout_marginHorizontal="@dimen/_10sdp"
+                        android:layout_height="@dimen/_30sdp">
+
+                        <ImageView
+                            android:id="@+id/ivBack"
+                            android:layout_width="@dimen/_25sdp"
+                            android:layout_height="@dimen/_25sdp"
+                            android:visibility="gone"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/ic_cross"
+                            android:padding="@dimen/_5sdp" />
+
+                        <TextView
+                            android:id="@+id/tvTitle"
+                            style="@style/darkTextBold"
+                            android:layout_centerInParent="true"
+                            android:gravity="center"
+                            android:text="Redeem Points"
+                            android:textColor="@color/textColor"
+                            android:textSize="@dimen/_10sdp" />
+                    </RelativeLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_45sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginHorizontal="@dimen/_10sdp"
+                        android:background="@drawable/rounded_edit_text"
+                        android:orientation="vertical"
+                        android:padding="@dimen/_3sdp">
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_semibold"
+                            android:text="Order Amount"
+                            android:textColor="@color/textColor"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:layout_marginEnd="@dimen/_5sdp"
+                            android:layout_marginTop="@dimen/_2sdp"
+                            android:textSize="@dimen/_9sdp" />
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/etAmount"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_vertical"
+                            android:background="@null"
+                            android:fontFamily="@font/poppins_regular"
+                            android:hint="Enter Amount"
+                            android:imeOptions="actionGo"
+                            android:inputType="number"
+                            android:layout_marginStart="@dimen/_5sdp"
+                            android:layout_marginEnd="@dimen/_5sdp"
+                            android:singleLine="true"
+                            android:textColor="@color/textColor"
+                            android:textColorHint="@color/gray"
+                            android:textCursorDrawable="@null"
+                            android:textSize="@dimen/_10sdp" />
+
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/bg_bottom_corner"
+                        android:backgroundTint="@color/main_blue"
+                        android:layout_marginTop="@dimen/_20sdp">
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/btnCreateOrder"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/rounded_button"
+                            android:fontFamily="@font/poppins_bold"
+                            android:text="Redeem"
+                            android:textAllCaps="false"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_10sdp" />
+
+                    </RelativeLayout>
+                </LinearLayout>
+                </LinearLayout>
             </LinearLayout>
+
+
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@id/llRedeemcoin"
-                android:layout_margin="@dimen/_10sdp">
+                android:layout_weight="0.3">
                 <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvRedeemPoint"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     tools:listitem="@layout/item_redeem_point"
                     tools:itemCount="5"
-                    app:spanCount="3"
-                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     android:orientation="vertical">
 
                 </androidx.recyclerview.widget.RecyclerView>
 
             </RelativeLayout>
 
-        </RelativeLayout>
+        </LinearLayout>
 
     </LinearLayout>
+    </RelativeLayout>
 </layout>

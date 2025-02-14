@@ -3,9 +3,9 @@ package com.mydia.restaurantsmartqr.model.tableLIst
 import com.google.gson.annotations.SerializedName
 
 data class TableList(
-    @SerializedName("nRestaurantTableId") var nRestaurantTableId: Int? = null,
+    @SerializedName("nRestaurantTableId") var nRestaurantTableId: String? = "",
     @SerializedName("nUserId") var nUserId: Int? = null,
-    @SerializedName("nSectionId") var nSectionId: Int? = null,
+    @SerializedName("nSectionId") var nSectionId: String? = "",
     @SerializedName("cTableName") var cTableName: String? = null,
     @SerializedName("cQrCode") var cQrCode: String? = null,
     @SerializedName("SectionName") var sectionName: String? = null,

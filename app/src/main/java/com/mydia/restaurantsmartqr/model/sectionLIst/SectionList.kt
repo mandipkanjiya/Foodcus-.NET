@@ -3,7 +3,7 @@ package com.mydia.restaurantsmartqr.model.sectionLIst
 import com.google.gson.annotations.SerializedName
 
 data class SectionList(
-    @SerializedName("nSectionId") var nSectionId: Int? = null,
+    @SerializedName("nSectionId") var nSectionId: String? = "",
     @SerializedName("cName") var cName: String? = null,
 
     @SerializedName("nStoreId") var nStoreId: Int? = null,

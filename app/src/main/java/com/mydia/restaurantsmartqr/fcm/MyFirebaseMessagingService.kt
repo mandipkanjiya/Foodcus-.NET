@@ -83,12 +83,14 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             Log.e(TAG, "Notification title " + remoteMessage.notification!!.title)
 
             var maindata_object = JSONObject(remoteMessage.data as Map<String, String>)
-            var notificationId = maindata_object.getString("order_id")
+            var pageid = maindata_object.getString("pageid")
+            var notificationId = maindata_object.getString("id")
             Log.e(TAG, "Notification id " + notificationId)
-            notiTextClick(notificationId)
+            notiTextClick(pageid,notificationId)
             val iMsg = Intent(this, LiveOrderActivity::class.java)
 
             iMsg.putExtra("orderId",notificationId)
+            iMsg.putExtra("pageid",notificationId)
             iMsg.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
             pendingIntent = PendingIntent.getActivity(this, 0, iMsg, PendingIntent.FLAG_IMMUTABLE)
             notificationBuilder.setContentIntent(pendingIntent)
@@ -214,10 +216,11 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             manager.notify(notificationId, builder.build())
         }*/
 
-    fun notiTextClick(orderId: String?) {
+    fun notiTextClick(pageid: String?,orderId: String?) {
 
         val intent = Intent("NOTIFICATION_DATA")
         intent.putExtra("orderId", orderId)
+        intent.putExtra("pageid", pageid)
 
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
 

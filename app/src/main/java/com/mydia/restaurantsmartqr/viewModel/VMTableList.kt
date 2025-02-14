@@ -7,6 +7,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.mydia.restaurantsmartqr.base.BaseViewModel
+import com.mydia.restaurantsmartqr.model.EmployeItem
+import com.mydia.restaurantsmartqr.model.EmployeListResponse
 import com.mydia.restaurantsmartqr.model.login.NewLoginModel
 import com.mydia.restaurantsmartqr.model.sectionLIst.SectionListResponse
 import com.mydia.restaurantsmartqr.model.tableLIst.TableListResponse
@@ -14,6 +16,7 @@ import com.mydia.restaurantsmartqr.prefrences.PrefKey
 import com.mydia.restaurantsmartqr.prefrences.PreferencesServices
 import com.mydia.restaurantsmartqr.repository.LoginRepository
 import com.mydia.restaurantsmartqr.repository.TableListRequest
+import com.mydia.restaurantsmartqr.util.Constants.EMPLOYE_LIST
 import com.mydia.restaurantsmartqr.util.Constants.SECTION_LIST
 import com.mydia.restaurantsmartqr.util.Constants.TABLE_LIST
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -26,8 +29,12 @@ class VMTableList @javax.inject.Inject constructor(private val prefs: Preference
 
     private val _sectionList = MutableLiveData<SectionListResponse>()
     val sectionList: LiveData<SectionListResponse> = _sectionList
+
+    private val _employeList = MutableLiveData<EmployeListResponse>()
+    val employeList: LiveData<EmployeListResponse> = _employeList
     var nUserId = ObservableField("")
     var isNoDataSection = ObservableBoolean(false)
+    var isNoDataEmp = ObservableBoolean(false)
     var isNoDataTable = ObservableBoolean(false)
     var isNoDataReady = ObservableBoolean(false)
     fun getUserData(){
@@ -55,6 +62,41 @@ class VMTableList @javax.inject.Inject constructor(private val prefs: Preference
             sectionListApi(orderListRequest)
         }
     }
+    fun employeListApiCall(){
+        viewModelScope.launch {
+            val orderListRequest = TableListRequest(nUserId = nUserId.get().toString())
+            employeListApi(orderListRequest)
+        }
+    }
+    fun employeListApi(orderListRequest: TableListRequest)=viewModelScope.launch{
+        triggerLoadingDetection(true)
+        isLoading.set(true)
+        loginRepository.employeList(
+            scope = viewModelScope,
+            onSuccess = {
+                triggerLoadingDetection(false)
+                isLoading.set(false)
+                if(it!!.success == 1){
+                    viewModelScope.launch {
+                        _employeList.postValue(it)
+                        isNoDataEmp.set(false)
+                    }
+
+
+                }else{
+                    isNoDataEmp.set(true)
+                }
+
+            }, onErrorAction = {
+                triggerLoadingDetection(false)
+                isLoading.set(false)
+                isNoDataEmp.set(true)
+                triggerShowMessage(it)
+                Log.e("error",it.toString())
+            }, orderListRequest.toFieldMap(),prefs.getBaseUrl(PrefKey.BASE_URL).toString()+ EMPLOYE_LIST
+        )
+    }
+
     fun sectionListApi(orderListRequest: TableListRequest)=viewModelScope.launch{
         triggerLoadingDetection(true)
         isLoading.set(true)
